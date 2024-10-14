@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="d-flex flex-row justify-content-center vh-100 align-items-center">
-                <div class="col-3">
+                <div class="col-10 col-lg-3 col-md-6 col-sm-8">
                     <form action="{{ route('login.submit') }}" method="POST"
                         class="form-control border border-0 shadow rounded-4 p-5">
                         @csrf

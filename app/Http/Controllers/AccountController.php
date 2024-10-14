@@ -23,8 +23,7 @@ class AccountController extends Controller
         $user = Account::where('email', $creds['email'])->first();
 
         if (!$user || !Hash::check($creds['password'], $user->password)){
-            session()->flash('loginFailed', 'Unable to Login, Invalid Credentials !');
-            return redirect()->back()->withInput();
+            return redirect()->back()->withInput()->with('alertMessage', ['Login Failed','Unable to Login, Invalid Credentials !', 'error']);
         }
 
         Auth::guard('mgt_guard')->login($user);

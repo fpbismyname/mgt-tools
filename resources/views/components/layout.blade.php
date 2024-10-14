@@ -20,7 +20,7 @@
     <script src="{{ asset('js/script.js') }}"></script>
     @if (session('alertMessage'))
         <script>
-            alertWeb("{{ session('alertMessage')['title'] }}", "{{ session('alertMessage')['desc'] }}", "{{ session('alertMessage')['type'] }}");
+            alertWeb("{{ session('alertMessage')[0] }}", "{{ session('alertMessage')[1] }}", "{{ session('alertMessage')[2] }}");
         </script>
     @endif
 </body>

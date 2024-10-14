@@ -43,6 +43,6 @@ class DashboardController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        return redirect()->route("dashboard")->with('alertMessage', ['title'=>'Add Project Success', 'desc'=>"New request apps successfully added ! ", 'type'=>"success"]);
+        return redirect()->route("dashboard")->with('alertMessage', ['Add Project Success', "New request apps successfully added ! ", "success"]);
     }
 }

@@ -34,14 +34,14 @@ class ProjectController extends Controller
             !$request->filled('project_name') && !$request->filled('project_desc') &&
             !$request->file('business_process_model') && !$request->file('problem_root_cause')
         ) {
-            return redirect()->back()->with('alertMessage', ['title' => 'Edit Project Failed', 'desc' => "Please fill in at least one of all the fields ", 'type' => "error"]);
+            return redirect()->back()->with('alertMessage', ['Edit Project Failed',"Please fill in at least one of all the fields ", "error"]);
         }
 
         if ($validator->fails()) {
             $errors = $validator->errors();
 
             if ($errors->has('business_process_model') || $errors->has('business_process_model')) {
-                return redirect()->back()->with('alertMessage', ['title' => 'Edit Project Failed', 'desc' => "The image must be one of the following types: png, jpg, jpeg, gif, webp.", 'type' => "error"]);
+                return redirect()->back()->with('alertMessage', ['Edit Project Failed',"The image must be one of the following types: png, jpg, jpeg, gif, webp.","error"]);
             }
         }
 
@@ -63,7 +63,7 @@ class ProjectController extends Controller
 
         foreach ($ImagePrevPath as $prevImage) {
             if ($prevImage != null) {
-                Storage::delete($prevImage);
+                Storage::delete("images/".$prevImage);
             }
         }
 
@@ -77,7 +77,7 @@ class ProjectController extends Controller
         $proj = Projects::findOrFail($id);
         $proj->update($updateProject);
 
-        return redirect()->back()->with('alertMessage', ['title' => 'Edit Project Success', 'desc' => "Project apps successfully edited ! ", 'type' => "success"]);
+        return redirect()->back()->with('alertMessage', ['Edit Project Success', "Project apps successfully edited ! ", "success"]);
     }
     public function delete($id)
     {
@@ -85,12 +85,12 @@ class ProjectController extends Controller
         $project = Projects::findOrFail($id);
         //Process Delete on database
         if (!$project->delete()) {
-            return redirect()->back()->with('alertMessage', ['title' => 'Delete Project Failed', 'desc' => "Project apps failed to delete !", 'type' => "error"]);
+            return redirect()->back()->with('alertMessage', ['Delete Project Failed', "Project apps failed to delete !", "error"]);
         }
         //Delete Image on Storage
         Storage::delete($project->business_process_model);
         Storage::delete($project->problem_root_cause);
         //Delete Project on Database
-        return redirect()->route('dashboard')->with('alertMessage', ['title' => 'Delete Project Success', 'desc' => "Project apps deleted !", 'type' => "success"]);
+        return redirect()->route('dashboard')->with('alertMessage', ['Delete Project Success',"Project apps deleted !","success"]);
     }
 }
