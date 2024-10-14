@@ -7,10 +7,12 @@
                         <h5 class="fs-4 badge text-bg-secondary">Project Description</h5>
                     </div>
                 </div>
-                <div class="col text-end">
-                    <div class="d-flex flex-column justify-content-center align-items-end h-100">
+                <div class="col ">
+                    <div class="d-flex flex-row justify-content-end align-items-center gap-2 h-100">
                         <button class="btn btn-warning" data-bs-target="#editProject" data-bs-toggle="modal"><i
-                                class="bi bi-pencil-fill me-2"></i>Edit</button>
+                                class="bi bi-pencil-fill me-2"></i>Edit Project</button>
+                        <button class="btn btn-danger" data-bs-target="#deleteProject" data-bs-toggle="modal"><i
+                                class="bi bi-trash-fill me-2"></i>Delete Project</button>
                     </div>
                 </div>
             </div>
@@ -43,7 +45,7 @@
                         <div class="col">
                             <p for="business_process_model" class="fs-5 mb-1">Business Process Model</p>
                             <div class="ratio ratio-1x1 w-100">
-                                <img src="{{ asset('storage/' . $bpmImage) }}" id="bpm_preview"
+                                <img src="{{ route("images", $bpmImage) }}" id="bpm_preview"
                                     class="img-thumbnail object-fit-cover" data-bs-toggle="modal"
                                     data-bs-target="#bpmPreview" style="cursor: pointer;">
                             </div>
@@ -51,7 +53,7 @@
                         <div class="col">
                             <p for="problem_root_cause" class="fs-5 mb-1">Problem Root Cause</p>
                             <div class="ratio ratio-1x1 w-100">
-                                <img src="{{ asset('storage/' . $prcImage) }}" id="prc_preview" style="cursor: pointer;"
+                                <img src="{{ route("images", $prcImage) }}" id="prc_preview" style="cursor: pointer;"
                                     class="img-thumbnail object-fit-cover" data-bs-toggle="modal"
                                     data-bs-target="#prcPreview">
                             </div>
@@ -59,43 +61,13 @@
                     </div>
                 </div>
 
-                {{-- Modal Image Preview
-                <div class="modal fade" id="bpmPreview" tabindex="-1">
-                    <div class="modal-dialog modal-lg modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5">Preview Image</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <img src="{{ asset('storage/' . $bpmImage) }}" id="prc_preview">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade" id="prcPreview" tabindex="-1">
-                    <div class="modal-dialog modal-lg modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5">Preview Image</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div> --}}
-
-                {{-- Modal Preview PRC Image --}}
+                {{-- Modal Preview BPM Image --}}
                 <x-modal-popup title="Preview Image" modalName="bpmPreview"
                     customClass="modal-lg">
                     <x-slot name="modalIcon"></x-slot>
                     <div class="modal-body">
                         <div class="row">
-                            <img src="{{ asset('storage/' . $bpmImage) }}">
+                            <img src="{{ route("images", $bpmImage) }}">
                         </div>
                     </div>
                 </x-modal-popup>
@@ -106,7 +78,7 @@
                     <x-slot name="modalIcon"></x-slot>
                     <div class="modal-body">
                         <div class="row">
-                            <img src="{{ asset('storage/' . $prcImage) }}">
+                            <img src="{{ route("images", $prcImage) }}">
                         </div>
                     </div>
                 </x-modal-popup>
@@ -148,10 +120,26 @@
                         </div>
                         <div class="row py-4 text-center">
                             <div class="col">
-                                <input type="submit" value="Edit Project" class="btn btn-outline-primary me-4">
+                                <button type="submit" class="btn btn-warning"><i class="bi bi-pencil-fill me-2"></i>Edit Project</button>
                             </div>
                         </div>
                     </form>
+                </x-modal-popup>
+
+                {{-- Modal Delete Project Description --}}
+                <x-modal-popup title="Delete Project Apps" modalName="deleteProject">
+                    <x-slot name="modalIcon"><i class="bi bi-trash-fill me-2"></i></x-slot>
+                    <div class="modal-body">
+                        <div class="row text-center">
+                            <div class="col">
+                                <div class="p-5">
+                                    <p>Are you sure you want to delete this project?</p>
+                                    <a href="" class="btn btn-danger" type="submit" >Yes. I'm sure.</a>
+                                    <button class="btn btn-primary" type="submit" data-bs-dismiss="modal">No. I'm not sure.</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </x-modal-popup>
             </div>
         </div>

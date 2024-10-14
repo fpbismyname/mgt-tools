@@ -32,14 +32,14 @@ class DashboardController extends Controller
         $bpmImage = $request->file("business_process_model");
         $prcImage = $request->file("problem_root_cause");
         //Store Req File to Storage
-        $bpmPath = $bpmImage->store('images');
-        $prcPath = $prcImage->store('images');
+        $bpmPath = $bpmImage->store("images");
+        $prcPath = $prcImage->store("images");
         //Store Req File to Database
         Projects::create([
             'project_name' => $request->project_name,
             'project_desc' => $request->project_desc,
-            'business_process_model' => $bpmPath,
-            'problem_root_cause' => $prcPath,
+            'business_process_model' => basename($bpmPath),
+            'problem_root_cause' => basename($prcPath),
             'created_at' => now(),
             'updated_at' => now(),
         ]);

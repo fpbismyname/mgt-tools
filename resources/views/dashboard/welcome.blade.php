@@ -32,7 +32,7 @@
                                 <a href="{{ route('project.show', $project->id_project) }}"
                                     class="link-underline link-underline-opacity-0 text-dark">
                                     <div class="ratio ratio-1x1">
-                                        <img src="{{ asset('storage/' . $project->business_process_model) }}"
+                                        <img src="{{ route("images", $project->business_process_model) }}"
                                             class="card-img-top object-fit-cover rounded-top-4" />
                                     </div>
                                     <div class="card-body">

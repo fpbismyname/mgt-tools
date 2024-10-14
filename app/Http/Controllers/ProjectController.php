@@ -6,6 +6,7 @@ use App\Models\Projects;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
 {
@@ -22,13 +23,31 @@ class ProjectController extends Controller
     }
     public function edit(Request $request, $id)
     {
-        if (
-            !$request->file('business_process_model') &&
-            !$request->file('problem_root_cause') &&
-            !$request->filled('project_name') &&
-            !$request->filled('project_desc')
-        ) {
-            return redirect()->back()->with('alertMessage', ['title' => 'Edit Project Failed', 'desc' => "Project apps failed to edit ! ", 'type' => "error"]);
+        $rules = [
+            'project_name' => '',
+            'project_desc' => '',
+            'business_process_model' => 'image|mimes:png,jpg,jpeg,gif,webp',
+            'problem_root_cause' => 'image|mimes:png,jpg,jpeg,gif,webp',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+
+            switch ($errors) {
+                case $errors->has('project_name') || $errors->has('project_desc'):
+                    return redirect()->back()->with('alertMessage', ['title' => 'Edit Project Failed', 'desc' => "Please fill in at least one of all the fields ", 'type' => "error"]);
+
+                case $errors->has('business_process_model') || $errors->has('problem_root_cause'):
+                    return redirect()->back()->with('alertMessage', ['title' => 'Edit Project Failed', 'desc' => "The image must be one of the following types: png, jpg, jpeg, gif, webp.", 'type' => "error"]);
+            }
+            // if ($errors->has('project_name') || $errors->has('project_desc')) {
+            // }
+            // if ($errors->has('business_process_model') || $errors->has('business_process_model')) {
+            //     return redirect()->back()->with('alertMessage', ['title' => 'Edit Project Failed', 'desc' => "The image must be one of the following types: png, jpg, jpeg, gif, webp.", 'type' => "error"]);
+            // }
+           
         }
 
         //GetFile
@@ -56,8 +75,8 @@ class ProjectController extends Controller
         $updateProject = [
             'project_name' => $request->project_name ?: Projects::findOrFail($id)->project_name,
             'project_desc' => $request->project_desc ?: Projects::findOrFail($id)->project_desc,
-            'business_process_model' => $ImagePath['bpmImage'],
-            'problem_root_cause' => $ImagePath['prcImage']
+            'business_process_model' => basename($ImagePath['bpmImage']),
+            'problem_root_cause' => basename($ImagePath['prcImage'])
         ];
 
         $proj = Projects::findOrFail($id);

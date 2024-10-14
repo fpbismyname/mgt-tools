@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [AccountController::class, 'index'])->name('login');
 Route::post('/login', [AccountController::class, "auth"])->name('login.submit');
 
+//Image Resource
+Route::get('/images/{url}', function ($url) {
+    $urlImage = $url;
+    $file = Storage::get("images/$urlImage");
+
+    if (!$file) {
+        return abort(404);
+    }
+    $mimeFiles = Storage::mimeType("images/$urlImage");
+    return response($file, 200)->header('Content-type', $mimeFiles);
+})->name('images');
+
+//Logged in Area
 Route::middleware('mgt_middleware')->group(function () {
     Route::post('/logout', [AccountController::class, 'endauth'])->name('logout');
     //Dashboard
