@@ -41,5 +41,5 @@ Route::middleware('mgt_middleware')->group(function () {
     Route::post('/dashboard/project/add', [DashboardController::class, 'addProject'])->name('newProject.submit');
     //Project
     Route::get('/dashboard/project/{id}', [ProjectController::class, 'show'])->name('project.show');
-    Route::put('/dashboard/project/{id}edit', [ProjectController::class, 'edit'])->name('project.edit');
+    Route::put('/dashboard/project/{id}/edit', [ProjectController::class, 'edit'])->name('project.edit');
 });

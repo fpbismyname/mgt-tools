@@ -24,30 +24,25 @@ class ProjectController extends Controller
     public function edit(Request $request, $id)
     {
         $rules = [
-            'project_name' => '',
-            'project_desc' => '',
             'business_process_model' => 'image|mimes:png,jpg,jpeg,gif,webp',
             'problem_root_cause' => 'image|mimes:png,jpg,jpeg,gif,webp',
         ];
 
         $validator = Validator::make($request->all(), $rules);
 
+        if (
+            !$request->filled('project_name') && !$request->filled('project_desc') &&
+            !$request->file('business_process_model') && !$request->file('problem_root_cause')
+        ) {
+            return redirect()->back()->with('alertMessage', ['title' => 'Edit Project Failed', 'desc' => "Please fill in at least one of all the fields ", 'type' => "error"]);
+        }
+
         if ($validator->fails()) {
             $errors = $validator->errors();
 
-            switch ($errors) {
-                case $errors->has('project_name') || $errors->has('project_desc'):
-                    return redirect()->back()->with('alertMessage', ['title' => 'Edit Project Failed', 'desc' => "Please fill in at least one of all the fields ", 'type' => "error"]);
-
-                case $errors->has('business_process_model') || $errors->has('problem_root_cause'):
-                    return redirect()->back()->with('alertMessage', ['title' => 'Edit Project Failed', 'desc' => "The image must be one of the following types: png, jpg, jpeg, gif, webp.", 'type' => "error"]);
+            if ($errors->has('business_process_model') || $errors->has('business_process_model')) {
+                return redirect()->back()->with('alertMessage', ['title' => 'Edit Project Failed', 'desc' => "The image must be one of the following types: png, jpg, jpeg, gif, webp.", 'type' => "error"]);
             }
-            // if ($errors->has('project_name') || $errors->has('project_desc')) {
-            // }
-            // if ($errors->has('business_process_model') || $errors->has('business_process_model')) {
-            //     return redirect()->back()->with('alertMessage', ['title' => 'Edit Project Failed', 'desc' => "The image must be one of the following types: png, jpg, jpeg, gif, webp.", 'type' => "error"]);
-            // }
-           
         }
 
         //GetFile
