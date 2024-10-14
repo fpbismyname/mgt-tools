@@ -79,4 +79,18 @@ class ProjectController extends Controller
 
         return redirect()->back()->with('alertMessage', ['title' => 'Edit Project Success', 'desc' => "Project apps successfully edited ! ", 'type' => "success"]);
     }
+    public function delete($id)
+    {
+        //Find Project
+        $project = Projects::findOrFail($id);
+        //Process Delete on database
+        if (!$project->delete()) {
+            return redirect()->back()->with('alertMessage', ['title' => 'Delete Project Failed', 'desc' => "Project apps failed to delete !", 'type' => "error"]);
+        }
+        //Delete Image on Storage
+        Storage::delete($project->business_process_model);
+        Storage::delete($project->problem_root_cause);
+        //Delete Project on Database
+        return redirect()->route('dashboard')->with('alertMessage', ['title' => 'Delete Project Success', 'desc' => "Project apps deleted !", 'type' => "success"]);
+    }
 }

@@ -46,7 +46,7 @@
                         </div>
                         <div class="row text-center">
                             <div class="col">
-                                <input type="submit" value="Login" class="btn btn-outline-primary">
+                                <input type="submit" value="Login" class="btn btn-primary">
                             </div>
                         </div>
                     </form>

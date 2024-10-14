@@ -129,17 +129,17 @@
                 {{-- Modal Delete Project Description --}}
                 <x-modal-popup title="Delete Project Apps" modalName="deleteProject">
                     <x-slot name="modalIcon"><i class="bi bi-trash-fill me-2"></i></x-slot>
-                    <div class="modal-body">
-                        <div class="row text-center">
-                            <div class="col">
-                                <div class="p-5">
-                                    <p>Are you sure you want to delete this project?</p>
-                                    <a href="" class="btn btn-danger" type="submit" >Yes. I'm sure.</a>
-                                    <button class="btn btn-primary" type="submit" data-bs-dismiss="modal">No. I'm not sure.</button>
-                                </div>
+                    <form class="row text-center" action="{{ route("project.delete", $idProject) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <div class="col">
+                            <div class="p-5">
+                                <p>Are you sure you want to delete this project?</p>
+                                <button type="submit" class="btn btn-danger" type="submit" >Yes. I'm sure.</button>
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No. I'm not sure.</button>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </x-modal-popup>
             </div>
         </div>

@@ -96,7 +96,7 @@
                 </div>
                 <div class="row py-4 text-center">
                     <div class="col">
-                        <input type="submit" value="Create Project" class="btn btn-outline-primary me-4">
+                        <input type="submit" value="Create Project" class="btn btn-primary me-4">
                     </div>
                 </div>
             </form>

@@ -42,4 +42,5 @@ Route::middleware('mgt_middleware')->group(function () {
     //Project
     Route::get('/dashboard/project/{id}', [ProjectController::class, 'show'])->name('project.show');
     Route::put('/dashboard/project/{id}/edit', [ProjectController::class, 'edit'])->name('project.edit');
+    Route::delete('/dashboard/project/{id}/delete', [ProjectController::class, 'delete'])->name('project.delete');
 });
