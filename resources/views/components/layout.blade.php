@@ -17,7 +17,7 @@
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
     </script>
     <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/layouts.js') }}"></script>
     @if (session('alertMessage'))
         <script>
             alertWeb("{{ session('alertMessage')[0] }}", "{{ session('alertMessage')[1] }}", "{{ session('alertMessage')[2] }}");
