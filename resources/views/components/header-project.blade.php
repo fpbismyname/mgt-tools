@@ -14,8 +14,8 @@
             <div class="col-12 col-sm-5">
                 <div class="row">
                     <div class="col">
-                        <select class="form-select"
-                            onchange="changeTabs(event, 'projectMenuTitle', {{ $projectMenu }})">
+                        <select class="form-select" 
+                            onchange="changeTabs(event, 'projectMenuTitle')">
                             @foreach ($projectMenu as $menu)
                                 <option value="{{ $menu->id_menu }}">{{ $menu->menu }}</option>
                             @endforeach

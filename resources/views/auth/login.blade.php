@@ -3,12 +3,11 @@
         <div class="container">
             <div class="row vh-100 align-items-center justify-content-center">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5">
-                    <div class="card text-center shadow">
+                    <div class="card text-center shadow rounded-4">
                         <div class="card-header p-3">
                             <div class="row text-center">
                                 <div class="col-12">
-                                    <h1 class="fs-5 fs-1-sm"><i
-                                            class="bi bi-collection-fill text-primary fs-1 me-3"></i>MGT Tools</h1>
+                                    <h1 class="fs-5 fs-1-sm"><i class="bi bi-collection-fill text-primary fs-1 me-3 align-middle"></i>MGT Tools</h1>
                                 </div>
                             </div>
                         </div>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProjectController;
+use App\Livewire\ShowProject;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 

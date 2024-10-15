@@ -18,7 +18,6 @@ class ProjectController extends Controller
         if (!$project) {
             return abort(404);
         }
-
         return view('components.show-project', compact('project', 'projectMenu'));
     }
     public function edit(Request $request, $id)

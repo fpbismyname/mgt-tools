@@ -13,9 +13,13 @@ function alertWeb(title, message, type) {
     })
 }
 
-function changeTabs(event, id = "", data = []) {
-    const selectValue = event.target.value - 1;
-    const elementEffected = document.getElementById(id);
-    const menuSelected = data[selectValue].menu;
-    elementEffected.innerText = menuSelected;
+function changeTabs(event, id = "") {
+    const selectElement= event.target;
+    const selectedIndex= selectElement.selectedIndex;
+    const menuSelected = selectElement.options[selectedIndex].text;
+    
+    const params = new URLSearchParams(window.location.search)
+    params.set('menu', menuSelected)    
+
+    window.history.pushState(null, null, `${window.location.pathname}?${params}`)
 }
