@@ -106,7 +106,8 @@
                         </div>
                         <div class="row">
                             <div class="col-12 my-4 text-center">
-                                <button class="col-auto btn btn-warning fs-6" type="submit"><i class="bi bi-pencil-fill me-2"></i>Edit Project</button>
+                                <button class="col-auto btn btn-warning fs-6" type="submit"><i
+                                        class="bi bi-pencil-fill me-2"></i>Edit Project</button>
                             </div>
                         </div>
                     </div>
@@ -118,16 +119,26 @@
     {{-- Modal Delete Project Description --}}
     <x-modal-popup title="Delete Project Apps" modalName="deleteProject">
         <x-slot name="modalIcon"><i class="bi bi-trash-fill me-2"></i></x-slot>
-        <form class="row text-center" action="{{ route('project.delete', $idProject) }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <div class="col">
-                <div class="p-5">
-                    <p>Are you sure you want to delete this project?</p>
-                    <button type="submit" class="btn btn-danger" type="submit">Yes. I'm sure.</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No. I'm not sure.</button>
-                </div>
+        <div class="container py-5">
+            <div class="container">
+                <form class="row text-center justify-content-center" action="{{ route('project.delete', $idProject) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <div class="row text-center">
+                        <div class="col-12">
+                            <p>Are you sure you want to delete this project?</p>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center text-center gap-3">
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-danger" type="submit">Yes. I'm sure.</button>
+                        </div>
+                        <div class="col-auto">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No. I'm not
+                                sure.</button>
+                        </div>
+                </form>
             </div>
-        </form>
+        </div>
     </x-modal-popup>
 </div>
