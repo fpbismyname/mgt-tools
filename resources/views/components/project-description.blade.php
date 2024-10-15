@@ -79,10 +79,10 @@
     <x-modal-popup title="Preview Image" modalName="editProject">
         <x-slot name="modalIcon"><i class="bi bi-pencil-fill me-2"></i></x-slot>
         <form action="{{ route('project.edit', $idProject) }}" method="POST"
-            class="form-control border border-0 shadow p-5 rounded-4" enctype="multipart/form-data">
+            class="form-control border border-0 shadow rounded-4" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            <div class="container">
+            <div class="container p-3">
                 <div class="row justify-content-center">
                     <div class="container">
                         <div class="col-12 mb-3">
