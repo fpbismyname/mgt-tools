@@ -25,7 +25,7 @@ class DashboardController extends Controller
             !$request->hasFile("business_process_model") ||
             !$request->hasFile("problem_root_cause")
         ) {
-            return back()->withInput()->with('alertMessage', ['title'=>'Add Project Failed', 'desc'=>"Please fill all fields !", 'type'=>"error"]);
+            return back()->withInput()->with('alertMessage', ['Add Project Failed', "Please fill all fields !", "error"]);
         }
 
         //Get Req File
