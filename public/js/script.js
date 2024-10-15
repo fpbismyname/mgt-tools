@@ -13,7 +13,9 @@ function alertWeb(title, message, type) {
     })
 }
 
-function changeTabs(event) {
-    const tab = event.target;
-    console.log(tab.value);
+function changeTabs(event, id = "", data = []) {
+    const selectValue = event.target.value - 1;
+    const elementEffected = document.getElementById(id);
+    const menuSelected = data[selectValue].menu;
+    elementEffected.innerText = menuSelected;
 }

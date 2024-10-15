@@ -11,9 +11,13 @@ class HeaderProject extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+
+     public $projectMenu;
+     public $projectApp;
+    public function __construct($projectApp, $projectMenu)
     {
-        //
+        $this->projectApp = $projectApp;
+        $this->projectMenu = $projectMenu;
     }
 
     /**

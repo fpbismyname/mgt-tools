@@ -19,7 +19,7 @@ class ProjectController extends Controller
             return abort(404);
         }
 
-        return view('projects.show', compact('project', 'projectMenu'));
+        return view('components.show-project', compact('project', 'projectMenu'));
     }
     public function edit(Request $request, $id)
     {
@@ -63,7 +63,7 @@ class ProjectController extends Controller
 
         foreach ($ImagePrevPath as $prevImage) {
             if ($prevImage != null) {
-                Storage::delete("images/".$prevImage);
+                Storage::delete("images/$prevImage");
             }
         }
 
@@ -88,8 +88,8 @@ class ProjectController extends Controller
             return redirect()->back()->with('alertMessage', ['Delete Project Failed', "Project apps failed to delete !", "error"]);
         }
         //Delete Image on Storage
-        Storage::delete($project->business_process_model);
-        Storage::delete($project->problem_root_cause);
+        Storage::delete("images/$project->business_process_model");
+        Storage::delete("images/$project->problem_root_cause");
         //Delete Project on Database
         return redirect()->route('dashboard')->with('alertMessage', ['Delete Project Success',"Project apps deleted !","success"]);
     }

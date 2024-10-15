@@ -1,13 +1,8 @@
 <x-layout title="{{ $project->project_name }}">
     <x-navbar />
-    <x-header-project>
-        <x-slot name="projectName">{{ Str::words($project->project_name, '25', '...') }}</x-slot>
-        <x-slot name="projectDesc">{{ Str::words($project->project_desc, '25', '...') }}</x-slot>
-        <x-slot name="projectMenu">
-            @foreach ($projectMenu as $menu)
-                <option value="{{ $menu->id_menu }}">{{ $menu->menu }}</option>
-            @endforeach
-        </x-slot>
+    <x-header-project :projectMenu="$projectMenu" :projectApp="$project">
+        <x-slot name="projectName">{{ $project->project_name }}</x-slot>
+        <x-slot name="projectDesc">{{ $project->project_desc }}</x-slot>
     </x-header-project>
     <x-project-description>
         <x-slot name="projectCreatedDate">{{ $project->created_at->format(" d M Y, H:i A") }}</x-slot>

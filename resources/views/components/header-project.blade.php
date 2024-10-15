@@ -1,26 +1,24 @@
-<div class="container-fluid p-5">
-    <div class="row px-3">
-        <div class="col-1">
-            <div class="d-flex flex-column justify-content-center align-items-start w-100 h-100">
-                <a href="{{ route('dashboard') }}"
-                    class="fs-1 d-flex flex-column justify-content-center
-                    align-items-center link-underline link-underline-opacity-0">
-                    <i class="bi bi-arrow-left-circle"></i>
-                    <p class="fs-6 text-dark">Back</p>
+<div class="container-fluid">
+    <div class="container border-bottom py-5">
+        <div class="row justify-content-center align-items-center gap-3">
+            <div class="col-auto">
+                <a href="{{ route('dashboard') }}" class="fs-1 text-dark link-underline link-underline-opacity-0">
+                    <i class="bi bi-arrow-left-circle-fill"></i>
                 </a>
             </div>
-        </div>
-        <div class="col">
-            <h5 class="fs-1 fw-bolder">{{ $projectName }}</h5>
-            <p class="fs-6">{{ $projectDesc }}</p>
-        </div>
-        <div class="col">
-            <div class="d-flex justify-content-end align-items-center h-100 flex-wrap gap-4">
-                <div class="row w-50">
+            <div class="col">
+                <h1 class="fs-3 d-none d-sm-block">{{ $projectApp->project_name }}</h1>
+                <h1 class="fs-6 d-block d-sm-none">{{ $projectApp->project_name }}</h1>
+                <p class="fs-6 d-none d-md-block">{{ Str::words($projectApp->project_desc, 10, '...') }}</p>
+            </div>
+            <div class="col-12 col-sm-5">
+                <div class="row">
                     <div class="col">
-                        <h5 class="fs-6 fw-bolder">Project menu</h5>
-                        <select class="form-select" onchange="changeTabs(event)">
-                            {{ $projectMenu }}
+                        <select class="form-select"
+                            onchange="changeTabs(event, 'projectMenuTitle', {{ $projectMenu }})">
+                            @foreach ($projectMenu as $menu)
+                                <option value="{{ $menu->id_menu }}">{{ $menu->menu }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
