@@ -13,7 +13,7 @@ class Project extends Component
      * Create a new component instance.
      */
     public $project;
-    protected $menu;
+    public $menu;
     public function __construct($project, $menu)
     {
         $this->project = $project;
@@ -25,8 +25,6 @@ class Project extends Component
      */
     public function render(): View|Closure|string
     {
-        $project = $this->project;
-        $menu = $this->menu;
-        return view("components.projects.project", compact('project', 'menu'));
+        return view("components.projects.project");
     }
 }
