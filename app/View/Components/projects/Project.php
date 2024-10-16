@@ -19,12 +19,13 @@ class Project extends Component
         $this->project = $project;
         $this->menu = $menu;
     }
-
+    
     /**
      * Get the view / contents that represent the component.
      */
     public function render(): View|Closure|string
     {
-        return view("components.projects.project");
+        $project = $this->project;
+        return view("components.projects.project", compact('project'));
     }
 }

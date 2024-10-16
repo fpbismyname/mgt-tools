@@ -12,9 +12,9 @@ class projectDescription extends Component
      * Create a new component instance.
      */
     public $project;    
-    public function __construct($projectData)
+    public function __construct($project)
     {
-        $this->project = $projectData;
+        $this->project = $project;
     }
 
     /**

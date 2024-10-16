@@ -1,6 +1,6 @@
 @switch($menu)
     @case('Project Description')
-        <x-projects.project-description :projectData="$project" />
+        <x-projects.project-description :project="$project" />
     @break
     @case('Problem Domain')
         <x-projects.problem-domain/>
@@ -10,5 +10,5 @@
     @break
 
     @default
-        <x-projects.project-description :projectData="$project" />
+        <x-projects.project-description :project="$project" />
 @endswitch
