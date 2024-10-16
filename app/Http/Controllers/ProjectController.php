@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProblemDomain;
 use App\Models\ProjectMenu;
 use App\Models\Projects;
 use Illuminate\Http\Request;
@@ -10,19 +11,26 @@ use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
 {
+    /* 
+     * Project Description
+    */
     public function index($id)
     {
+        //Project
         $project = Projects::where("id_project", $id)->first();
         $projectMenu = ProjectMenu::all();
-
         $selectedMenu = request()->query('menu');
+
+        //Problem Domain
+        $problemDomain = ProblemDomain::all();
 
         if (!$project) {
             return abort(404);
         }
-        return view('components.projects.show-project', compact('project', 'projectMenu', 'selectedMenu'));
+
+        return view('components.projects.show-project', compact('project', 'projectMenu', 'selectedMenu', 'problemDomain'));
     }
-    public function edit(Request $request, $id)
+    public function editProject(Request $request, $id)
     {
         $rules = [
             'business_process_model' => 'image|mimes:png,jpg,jpeg,gif,webp',
@@ -35,14 +43,14 @@ class ProjectController extends Controller
             !$request->filled('project_name') && !$request->filled('project_desc') &&
             !$request->file('business_process_model') && !$request->file('problem_root_cause')
         ) {
-            return redirect()->back()->with('alertMessage', ['Edit Project Failed',"Please fill in at least one of all the fields ", "error"]);
+            return redirect()->back()->with('alertMessage', ['Edit Project Failed', "Please fill in at least one of all the fields ", "error"]);
         }
 
         if ($validator->fails()) {
             $errors = $validator->errors();
 
             if ($errors->has('business_process_model') || $errors->has('business_process_model')) {
-                return redirect()->back()->with('alertMessage', ['Edit Project Failed',"The image must be one of the following types: png, jpg, jpeg, gif, webp.","error"]);
+                return redirect()->back()->with('alertMessage', ['Edit Project Failed', "The image must be one of the following types: png, jpg, jpeg, gif, webp.", "error"]);
             }
         }
 
@@ -80,7 +88,7 @@ class ProjectController extends Controller
 
         return redirect()->back()->with('alertMessage', ['Edit Project Success', "Project apps successfully edited ! ", "success"]);
     }
-    public function delete($id)
+    public function deleteProject($id)
     {
         //Find Project
         $project = Projects::findOrFail($id);
@@ -92,6 +100,39 @@ class ProjectController extends Controller
         Storage::delete("images/$project->business_process_model");
         Storage::delete("images/$project->problem_root_cause");
         //Delete Project on Database
-        return redirect()->route('dashboard')->with('alertMessage', ['Delete Project Success',"Project apps deleted !","success"]);
+        return redirect()->route('dashboard')->with('alertMessage', ['Delete Project Success', "Project apps deleted !", "success"]);
+    }
+    
+    /*
+    * Problem Domain
+    */
+    public function addProblemDomain(Request $request, $id)
+    {
+        
+        //Rules Input
+        $rules = [
+            'request_desc' => 'required',
+        ];
+        
+        //Check Input
+        $checkInput = Validator::make($request->all(), $rules);
+        
+        if ($checkInput->errors()) {
+            if ($checkInput->errors()->has('problem_domain')) {
+                return redirect()->back()->withInput()->with('alertMessage', ["Add Request Failed", "Please fill the field !", "error"]);
+            }
+        }
+        //Get Project
+        $projects = Projects::findOrFail($id);
+        
+        //AddProblemDomain
+        $problemDomain = new ProblemDomain([
+            'problem_name'=> $request->request_desc,
+        ]);
+
+        //Set Foreignkey
+        $projects->Projects_ProblemDomain()->save($problemDomain);
+        
+        return redirect()->back()->with('alertMessage', ["Add Request Success", "Add request description successfully !", "success"]);
     }
 }

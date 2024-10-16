@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid mb-5">
     <div class="container gap">
         <div class="row gap-5">
             {{-- Header --}}
@@ -22,31 +22,46 @@
             <div class="container border rounded-4 p-3 p-sm-4 shadow">
                 <div class="row">
                     <div class="col">
-                        <table class="table">
+                        <div class="table-responsive">
+                        <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
                                     <th scope="col">Request Description</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col" class="text-end">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if($problemDomain->count() > 0)
-                                    @foreach ($problemDomain as $pd)
-                                    <tr>
-                                        <th scope="row">{{ $pd->id_problem }}</th>
-                                        <th>{{ $pd->problem_name }}</th>
-                                        <th>ACsdj</th>
-                                    </tr>
+                                @if ($problemDomain->count() > 0)
+                                    @foreach ($problemDomain as $problemDomain)
+                                        @php
+                                            $problemDomain = $problemDomain->all()->where('project_id', $projectId);
+                                            $i = 1;
+                                        @endphp
                                     @endforeach
-                            @else
-                            <tr>
+                                    @foreach ($problemDomain as $pd)
+                                        <tr class=" text-wrap">
+                                            <td scope="row" class="align-middle">{{ $i++ }}</td>
+                                            <td class="align-middle text-break">{{ $pd->problem_name }}</td>
+                                            <td class="align-middle text-end">
+                                                <button class="btn btn-warning m-1">
+                                                    <i class="bi bi-pencil-fill me-lg-2"></i><span
+                                                        class="d-none d-lg-inline-block">Edit</span></button>
+                                                <button class="btn btn-danger m-1">
+                                                    <i class="bi bi-trash me-lg-2"></i><span
+                                                        class="d-none d-lg-inline-block">Delete</span></button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
 
-                                <td colspan="3" class="text-center">- No request data. -</td>
-                            </tr>
-                            @endif
+                                        <td colspan="3" class="text-center">- No request data. -</td>
+                                    </tr>
+                                @endif
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </div>
             </div>

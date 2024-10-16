@@ -12,12 +12,13 @@ class Project extends Component
     /**
      * Create a new component instance.
      */
-    public $project;
-    public $menu;
-    public function __construct($project, $menu)
+    public function __construct(
+        public $project,
+        public $menu,
+        public $problemDomain,
+        )
     {
-        $this->project = $project;
-        $this->menu = $menu;
+
     }
     
     /**

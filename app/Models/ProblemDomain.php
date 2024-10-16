@@ -10,4 +10,8 @@ class ProblemDomain extends Model
     use HasFactory;
     protected $table = "problem_domain";
     protected $primaryKey = "id_problem";
+    protected $fillable = ['problem_name','id_project'];
+    public function ProblemDomain_Projects(){
+        return $this->belongsTo(Projects::class, 'id_project');
+    }
 }

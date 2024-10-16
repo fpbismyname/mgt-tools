@@ -3,7 +3,7 @@
         <x-projects.project-description :project="$project" />
     @break
     @case('Problem Domain')
-        <x-projects.problem-domain />
+        <x-projects.problem-domain :problemDomain="$problemDomain" :projectId="$project->id_project"/>
     @break
     @case('Solution Domain')
         <x-projects.solution-domain/>

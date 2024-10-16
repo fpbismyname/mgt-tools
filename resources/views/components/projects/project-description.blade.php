@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid mb-5">
     <div class="container">
         <div class="row gap-5">
             <div class="container border rounded-4 p-3 p-sm-4 shadow">
@@ -10,9 +10,9 @@
                         <div class="container">
                             <div class="row justify-content-center justify-content-sm-end gap-2">
                                 <button class="col-auto btn btn-warning fs-6" data-bs-target="#editProject"
-                                    data-bs-toggle="modal"><i class="bi bi-pencil-fill me-2"></i>Edit Project</button>
+                                    data-bs-toggle="modal"><i class="bi bi-pencil-fill me-md-2"></i><span class="d-none d-md-inline-block">Edit Project</span></button>
                                 <button class="col-auto btn btn-danger fs-6" data-bs-target="#deleteProject"
-                                    data-bs-toggle="modal"><i class="bi bi-trash me-2"></i>Delete Project</button>
+                                    data-bs-toggle="modal"><i class="bi bi-trash me-md-2"></i><span class="d-none d-md-inline-block">Delete Project</span></button>
                             </div>
                         </div>
                     </div>

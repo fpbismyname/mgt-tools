@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('problem_domain', function (Blueprint $table) {
             $table->id("id_problem");
             $table->string("problem_name");
-            $table->unsignedBigInteger("id_project");
+            $table->unsignedBigInteger("project_id");
             $table->timestamps();
-            $table->foreign('id_problem')->references('id_project')->on('projects')->onDelete('cascade');
+            $table->foreign('project_id')->references('id_project')->on('projects')->onDelete('cascade');
         });
     }
 

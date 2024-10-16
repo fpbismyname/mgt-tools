@@ -14,38 +14,9 @@ class problemDomain extends Component
     /**
      * Create a new component instance.
      */
-    public $problemDomain;
-    public $projectId;
 
-    public function __construct()
+    public function __construct(public $problemDomain, public $projectId)
     {
-        $this->problemDomain = PD::all();
-        $this->projectId = 1;
-    }
-    public function store(Request $request, $id){
-
-        dd("Success", $id);
-        // $rules = [
-        //     'request_desc' => 'required',
-        // ];
-
-        // $checkInput = Validator::make($request->all(), $rules);
-
-        // if ($checkInput->errors()){
-        //     return redirect()->back()->withInput()->with('alertMessage', ['Add Request Failed','Please fill the fields !', 'error']);
-        // }
-
-        // PD::create([
-        //     'problem_name' => $request->request_desc,
-        //     'project_id' => $this->projectId
-        // ]);
-
-        // return redirect()->back()->with('alertMessage', ['Add Request Success', 'Add request description successfully !','success']);
-    }
-    public function edit(){
-
-    }
-    public function destroy(){
 
     }
 
@@ -54,7 +25,6 @@ class problemDomain extends Component
      */
     public function render(): View|Closure|string
     {
-        $problemDomain = $this->problemDomain;
-        return view('components.projects.problem-domain', compact('problemDomain'));
+        return view('components.projects.problem-domain');
     }
 }

@@ -49,9 +49,9 @@ Route::middleware('mgt_middleware')->group(function () {
     //Project
     Route::get('/dashboard/project/{id}', [ProjectController::class, 'index'])->name('project');
     Route::post('/dashboard/project/add', [DashboardController::class, 'addProject'])->name('project.add');
-    Route::put('/dashboard/project/{id}/edit', [ProjectController::class, 'edit'])->name('project.edit');
-    Route::delete('/dashboard/project/{id}/delete', [ProjectController::class, 'delete'])->name('project.delete');
+    Route::put('/dashboard/project/{id}/edit', [ProjectController::class, 'editProject'])->name('project.edit');
+    Route::delete('/dashboard/project/{id}/delete', [ProjectController::class, 'deleteProject'])->name('project.delete');
     
     //ProblemDomain
-    Route::post('/dashboard/project/{id}/problem_domain/add', [problemDomain::class, 'store'])->name("problem_domain.store");
+    Route::post('/dashboard/project/{id}', [ProjectController::class, 'addProblemDomain'])->name("problem_domain.store");
 });
