@@ -26,9 +26,10 @@ class Project extends Component
     public function render(): View|Closure|string
     {
         $project = $this->project;
-        if (view()->exists("components.projects.$this->view")) {
-            return view("components.projects.$this->view", compact('project'));
-        }
-        abort(404);
+        // if (view()->exists("components.projects.$this->view")) {
+        //     return view("components.projects.$this->view", compact('project'));
+        // }
+        // abort(404);
+        return view("components.projects.project-description", compact('project'));
     }
 }
