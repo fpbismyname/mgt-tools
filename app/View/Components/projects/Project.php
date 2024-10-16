@@ -27,7 +27,7 @@ class Project extends Component
     {
         $project = $this->project;
         if (view()->exists("components.projects.$this->view")){
-            return view("components.projects.$this->view", compact('project'));
+            return view("components.projects.project-description", compact('project'));
         }
         abort(404);
     }
