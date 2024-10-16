@@ -49,7 +49,4 @@ Route::middleware('mgt_middleware')->group(function () {
     Route::get('/dashboard/project/{id}', [ProjectController::class, 'index'])->name('project');
     Route::put('/dashboard/project/{id}/edit', [ProjectController::class, 'edit'])->name('project.edit');
     Route::delete('/dashboard/project/{id}/delete', [ProjectController::class, 'delete'])->name('project.delete');
-    
-    //Project.problem_domain
-    Route::get('/dashboard/project/{id}', [ProjectController::class, 'index'])->name('project');
 });
