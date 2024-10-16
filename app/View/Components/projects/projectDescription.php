@@ -12,7 +12,7 @@ class projectDescription extends Component
      * Create a new component instance.
      */
     public $project;
-    public function __construct($project)
+    public function __construct($project, $menu)
     {
         $this->project = $project;
     }
