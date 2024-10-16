@@ -3,7 +3,7 @@
         <div class="row justify-content-center align-items-center gap-3">
             <div class="col-auto">
                 <a href="{{ route('dashboard') }}" class="fs-1 text-dark link-underline link-underline-opacity-0">
-                    <i class="bi bi-arrow-left-circle-fill"></i>
+                    <i class="bi bi-arrow-left-circle-fill text-primary"></i>
                 </a>
             </div>
             <div class="col">
