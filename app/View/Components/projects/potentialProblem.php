@@ -1,19 +1,19 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\projects;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class showProject extends Component
+class potentialProblem extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct($projectMenu)
+    public function __construct()
     {
-
+        //
     }
 
     /**
@@ -21,6 +21,6 @@ class showProject extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.show-project');
+        return view('components.projects.potential-problem');
     }
 }

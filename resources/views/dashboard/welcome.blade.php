@@ -45,7 +45,7 @@
                                 <div class="row justify-content-center gap-4">
                                     @foreach ($allProjects as $project)
                                         <div class="card rounded-4 shadow col-8 col-sm-6 col-md-4 col-lg-4 col-xl-3">
-                                            <a href="{{ route('project.show', $project->id_project) }}"
+                                            <a href="{{ route('project', $project->id_project) }}"
                                                 class="link-underline link-underline-opacity-0 text-dark">
                                                 <div class="row">
                                                     <div class="ratio ratio-1x1">

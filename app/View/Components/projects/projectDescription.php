@@ -1,18 +1,20 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\projects;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class ProjectDescription extends Component
+class projectDescription extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public $project;
+    public function __construct($project)
     {
+        $this->project = $project;
     }
 
     /**
@@ -20,6 +22,6 @@ class ProjectDescription extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.project-description');
+        return view('components.projects.project-description');
     }
 }

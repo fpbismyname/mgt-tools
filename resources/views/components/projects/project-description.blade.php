@@ -23,21 +23,21 @@
                     <div class="col-12">
                         <div class="form-group">
                             <label for="project_name" class="fs-5 mb-2">Project Name</label>
-                            <input type="text" name="project_name" id="project_name" value="{{ $projectName }}"
-                                class="form-control fs-6" disabled>
+                            <input type="text" name="project_name" id="project_name"
+                                value="{{ $project->project_name }}" class="form-control fs-6" disabled>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-group">
                             <label for="project_desc" class="fs-5 mb-2">Project Description</label>
                             <textarea name="project_desc" maxlength="720" style="max-height: 15rem; min-height: 15rem;"
-                                class="form-control h-100 fs-6" disabled>{{ $projectDesc }}</textarea>
+                                class="form-control h-100 fs-6" disabled>{{ $project->project_desc }}</textarea>
                         </div>
                     </div>
                     <div class="col-12 col-sm">
                         <p for="business_process_model" class="fs-5 mb-1">Business Process Model</p>
                         <div class="ratio ratio-1x1 w-100">
-                            <img src="{{ route('images', $bpmImage) }}" id="bpm_preview"
+                            <img src="{{ route('images', $project->business_process_model) }}" id="bpm_preview"
                                 class="img-thumbnail object-fit-cover" data-bs-toggle="modal"
                                 data-bs-target="#bpmPreview" style="cursor: pointer;">
                         </div>
@@ -45,8 +45,8 @@
                     <div class="col-12 col-sm">
                         <p for="problem_root_cause" class="fs-5 mb-1">Problem Root Cause</p>
                         <div class="ratio ratio-1x1 w-100">
-                            <img src="{{ route('images', $prcImage) }}" id="prc_preview" style="cursor: pointer;"
-                                class="img-thumbnail object-fit-cover" data-bs-toggle="modal"
+                            <img src="{{ route('images', $project->problem_root_cause) }}" id="prc_preview"
+                                style="cursor: pointer;" class="img-thumbnail object-fit-cover" data-bs-toggle="modal"
                                 data-bs-target="#prcPreview">
                         </div>
                     </div>
@@ -60,17 +60,17 @@
         <x-slot name="modalIcon"></x-slot>
         <div class="modal-body">
             <div class="row">
-                <img src="{{ route('images', $bpmImage) }}">
+                <img src="{{ route('images', $project->business_process_model) }}">
             </div>
         </div>
     </x-modal-popup>
 
     {{-- Modal Preview PRC Image --}}
-    <x-modal-popup title="Preview Image" modalName="prcPreview" customClass="modal-lg   ">
+    <x-modal-popup title="Preview Image" modalName="prcPreview" customClass="modal-lg">
         <x-slot name="modalIcon"></x-slot>
         <div class="modal-body">
             <div class="row">
-                <img src="{{ route('images', $prcImage) }}">
+                <img src="{{ route('images', $project->problem_root_cause) }}">
             </div>
         </div>
     </x-modal-popup>
@@ -78,7 +78,7 @@
     {{-- Modal Edit Project Description --}}
     <x-modal-popup title="Preview Image" modalName="editProject">
         <x-slot name="modalIcon"><i class="bi bi-pencil-fill me-2"></i></x-slot>
-        <form action="{{ route('project.edit', $idProject) }}" method="POST"
+        <form action="{{ route('project.edit', $project->id_project) }}" method="POST"
             class="form-control border border-0 shadow rounded-4" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -121,7 +121,8 @@
         <x-slot name="modalIcon"><i class="bi bi-trash-fill me-2"></i></x-slot>
         <div class="container py-5">
             <div class="container">
-                <form class="row text-center justify-content-center" action="{{ route('project.delete', $idProject) }}" method="POST">
+                <form class="row text-center justify-content-center"
+                    action="{{ route('project.delete', $project->id_project) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <div class="row text-center">

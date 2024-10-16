@@ -2,23 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProjectMenu;
 use App\Models\Projects;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
 {
-    public function show($id)
+    public function index($id)
     {
         $project = Projects::where("id_project", $id)->first();
-        $projectMenu = DB::table('project_menus')->get();
+        $projectMenu = ProjectMenu::all();
+
+        $selectedMenu = request()->query('menu');
 
         if (!$project) {
             return abort(404);
         }
-        return view('components.show-project', compact('project', 'projectMenu'));
+        return view('components.projects.show-project', compact('project', 'projectMenu', 'selectedMenu'));
     }
     public function edit(Request $request, $id)
     {

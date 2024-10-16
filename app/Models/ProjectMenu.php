@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ProjectMenu extends Model
 {
     use HasFactory;
-
     protected $primaryKey = "id_menu";
-    protected $fillable = "menu";
+    public $timestamps = false;
 }

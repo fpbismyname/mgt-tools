@@ -3,6 +3,8 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectsController;
+use App\Http\Resources\Project;
 use App\Livewire\ShowProject;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -36,12 +38,18 @@ Route::get('/images/{url}', function ($url) {
 
 //Logged in Area
 Route::middleware('mgt_middleware')->group(function () {
+    //logout
     Route::post('/logout', [AccountController::class, 'endauth'])->name('logout');
+
     //Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');;
     Route::post('/dashboard/project/add', [DashboardController::class, 'addProject'])->name('newProject.submit');
+
     //Project
-    Route::get('/dashboard/project/{id}', [ProjectController::class, 'show'])->name('project.show');
+    Route::get('/dashboard/project/{id}', [ProjectController::class, 'index'])->name('project');
     Route::put('/dashboard/project/{id}/edit', [ProjectController::class, 'edit'])->name('project.edit');
     Route::delete('/dashboard/project/{id}/delete', [ProjectController::class, 'delete'])->name('project.delete');
+    
+    //Project.problem_domain
+    Route::get('/dashboard/project/{id}', [ProjectController::class, 'index'])->name('project');
 });

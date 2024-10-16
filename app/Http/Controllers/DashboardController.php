@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProjectMenu;
 use App\Models\Projects;
 use Illuminate\Http\Request;
 
@@ -12,13 +13,8 @@ class DashboardController extends Controller
         $allProjects = Projects::all();
         return view('dashboard.welcome', compact("allProjects"));
     }
-    public function newProject()
-    {
-        return view('dashboard.newProject');
-    }
     public function addProject(Request $request)
     {
-
         if (
             !$request->filled("project_name") ||
             !$request->filled("project_desc") ||
