@@ -55,6 +55,6 @@ class problemDomain extends Component
     public function render(): View|Closure|string
     {
         $problemDomain = $this->problemDomain;
-        return view('components.projects.problem-domain');
+        return view('components.projects.problem-domain', compact('problemDomain'));
     }
 }
