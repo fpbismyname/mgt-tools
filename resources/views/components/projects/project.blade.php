@@ -17,6 +17,9 @@
     @case('Need vs Feat')
         <x-projects.need-vs-feat/>
     @break
+    @case('Priority Clasification')
+        <x-projects.priority-clasification/>
+    @break
     @case('Feasibility')
         <x-projects.feasibility/>
     @break
