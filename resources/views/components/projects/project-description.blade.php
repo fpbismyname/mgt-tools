@@ -1,10 +1,10 @@
 <div class="container-fluid">
-    <div class="container py-5">
+    <div class="container">
         <div class="row gap-5">
-            <div class="container">
-                <div class="row align-items-center gap-2">
-                    <div class="col-12 col-sm text-center text-sm-start">
-                        <h1 class="fw-bolder fs-2" id="projectMenuTitle">Project Description</h1>
+            <div class="container border rounded-4 p-3 p-sm-4 shadow">
+                <div class="row align-items-center gap-1">
+                    <div class="col-12 col-sm-auto text-center text-sm-start">
+                        <h1 class="fw-bolder text-primary fs-2" id="projectMenuTitle">Project Description</h1>
                     </div>
                     <div class="col-12 col-sm text-center text-sm-end">
                         <div class="container">
@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </div>
-            <div class="container">
+            <div class="container border p-4 p-sm-5 shadow rounded-4">
                 <div class="row gap-4">
                     <div class="col-12">
                         <div class="form-group">

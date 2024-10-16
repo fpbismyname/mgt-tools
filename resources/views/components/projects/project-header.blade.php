@@ -1,5 +1,5 @@
-<div class="container-fluid">
-    <div class="container border-bottom py-5">
+<div class="container">
+    <div class="container py-5">
         <div class="row justify-content-center align-items-center gap-3">
             <div class="col-auto">
                 <a href="{{ route('dashboard') }}" class="fs-1 text-dark link-underline link-underline-opacity-0">
