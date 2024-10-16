@@ -12,7 +12,7 @@
                                 <button class="col-auto btn btn-warning fs-6" data-bs-target="#editProject"
                                     data-bs-toggle="modal"><i class="bi bi-pencil-fill me-2"></i>Edit Project</button>
                                 <button class="col-auto btn btn-danger fs-6" data-bs-target="#deleteProject"
-                                    data-bs-toggle="modal"><i class="bi bi-trash-fill me-2"></i>Edit Project</button>
+                                    data-bs-toggle="modal"><i class="bi bi-trash me-2"></i>Delete Project</button>
                             </div>
                         </div>
                     </div>
@@ -76,7 +76,7 @@
     </x-modal-popup>
 
     {{-- Modal Edit Project Description --}}
-    <x-modal-popup title="Preview Image" modalName="editProject">
+    <x-modal-popup title="Edit Project" modalName="editProject">
         <x-slot name="modalIcon"><i class="bi bi-pencil-fill me-2"></i></x-slot>
         <form action="{{ route('project.edit', $project->id_project) }}" method="POST"
             class="form-control border border-0 shadow rounded-4" enctype="multipart/form-data">

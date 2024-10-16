@@ -6,6 +6,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectsController;
 use App\Http\Resources\Project;
 use App\Livewire\ShowProject;
+use App\View\Components\projects\problemDomain;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
@@ -24,29 +25,33 @@ use Illuminate\Support\Facades\Storage;
 Route::get('/', [AccountController::class, 'index'])->name('login');
 Route::post('/login', [AccountController::class, "auth"])->name('login.submit');
 
-//Image Resource
-Route::get('/images/{url}', function ($url) {
-    $urlImage = $url;
-    $file = Storage::get("images/$urlImage");
-
-    if (!$file) {
-        return abort(404);
-    }
-    $mimeFiles = Storage::mimeType("images/$urlImage");
-    return response($file, 200)->header('Content-type', $mimeFiles);
-})->name('images');
 
 //Logged in Area
 Route::middleware('mgt_middleware')->group(function () {
+    //Image Resource
+    Route::get('/images/{url}', function ($url) {
+        $urlImage = $url;
+        $file = Storage::get("images/$urlImage");
+    
+        if (!$file) {
+            return abort(404);
+        }
+        $mimeFiles = Storage::mimeType("images/$urlImage");
+        return response($file, 200)->header('Content-type', $mimeFiles);
+    })->name('images');
+
     //logout
     Route::post('/logout', [AccountController::class, 'endauth'])->name('logout');
 
     //Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');;
-    Route::post('/dashboard/project/add', [DashboardController::class, 'addProject'])->name('newProject.submit');
-
+    
     //Project
     Route::get('/dashboard/project/{id}', [ProjectController::class, 'index'])->name('project');
+    Route::post('/dashboard/project/add', [DashboardController::class, 'addProject'])->name('project.add');
     Route::put('/dashboard/project/{id}/edit', [ProjectController::class, 'edit'])->name('project.edit');
     Route::delete('/dashboard/project/{id}/delete', [ProjectController::class, 'delete'])->name('project.delete');
+    
+    //ProblemDomain
+    Route::post('/dashboard/project/{id}/problem_domain/add', [problemDomain::class, 'store'])->name("problem_domain.store");
 });

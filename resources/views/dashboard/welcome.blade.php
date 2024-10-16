@@ -44,7 +44,7 @@
                             <div class="container">
                                 <div class="row justify-content-center gap-4">
                                     @foreach ($allProjects as $project)
-                                        <div class="card rounded-4 shadow col-8 col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                                        <div class="card rounded-4 shadow col-8 col-sm-6 col-md-4 col-lg-4 col-xl-3 h-100">
                                             <a href="{{ route('project', $project->id_project) }}"
                                                 class="link-underline link-underline-opacity-0 text-dark">
                                                 <div class="row">
@@ -53,7 +53,7 @@
                                                             alt="{{ $project->project_name }}"
                                                             class="card-img-top object-fit-cover rounded-top-4">
                                                     </div>
-                                                    <div class="card-header">
+                                                    <div class="card-header border-0">
                                                         <h5 class="card-title fs-6">{{ $project->project_name }}</h5>
                                                     </div>
                                                     <div class="card-body">
@@ -61,9 +61,9 @@
                                                             {{ Str::words($project->project_desc, 10, '...') }}
                                                         </p>
                                                     </div>
-                                                    <div class="card-footer">
+                                                    <div class="card-footer border-0">
                                                         <div class="row text-center text-sm-start">
-                                                            <p class="fs-6 text-body-secondary">Last update : {{ $project->updated_at->diffForHumans() }}</p>
+                                                            <p class="fs-6 text-body-secondary">Last update : <span class="badge text-bg-primary">{{ $project->updated_at->diffForHumans() }}</span></p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -86,7 +86,7 @@
             {{-- Modal Add New Project --}}
             <x-modal-popup title="Add Request App" modalName="addProject">
                 <x-slot name="modalIcon"><i class="bi bi-plus-circle me-2"></i></x-slot>
-                <form action="{{ route('newProject.submit') }}" class="form-control border border-0 shadow rounded-4"
+                <form action="{{ route('project.add') }}" class="form-control border border-0 shadow rounded-4"
                     method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row justify-content-center p-3">
