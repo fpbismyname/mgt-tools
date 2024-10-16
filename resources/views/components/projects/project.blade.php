@@ -1,4 +1,4 @@
-@switch($selectedMenu)
+@switch($menu)
     @case('Project Description')
         <x-projects.project-description :project="$project" />
     @break
@@ -12,5 +12,5 @@
     @break
 
     @default
-        <x-projects.project-description :project="$project"></x-project-description>
-    @endswitch
+        <x-projects.project-description :project="$project"/>
+@endswitch
