@@ -26,6 +26,6 @@ class Project extends Component
     public function render(): View|Closure|string
     {
         $project = $this->project;
-        return view("components.projects.project-description", compact('project'));
+        return view("components.projects.project", compact('project'));
     }
 }
