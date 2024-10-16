@@ -18,8 +18,7 @@ class Project extends Component
     public function __construct($project, $menu)
     {
         $this->project = $project;
-        $this->menu = $menu;
-        $this->view = $menu ? Str::lower(Str::slug($menu)) : $this->view;
+        $this->view = Str::lower(Str::slug($menu));
     }
 
     /**
@@ -28,9 +27,8 @@ class Project extends Component
     public function render(): View|Closure|string
     {
         $project = $this->project;
-        $menu = $this->menu;
-        if (view()->exists("components.projects.$this->view")){
-            return view("components.projects.$this->view", compact('project', 'menu'));
+        if (view()->exists("components.projects.$this->view")) {
+            return view("components.projects.$this->view", compact('project'));
         }
         abort(404);
     }
