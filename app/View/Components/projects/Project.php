@@ -12,12 +12,12 @@ class Project extends Component
     /**
      * Create a new component instance.
      */
-     protected $view;
-     public $project;
+    protected $view = "project-description";
+    public $project;
     public function __construct($project, $menu)
     {
         $this->project = $project;
-        $this->view = Str::lower(Str::slug($menu));
+        $this->view = $menu ? Str::lower(Str::slug($menu)) : $this->view;
     }
 
     /**
@@ -25,7 +25,7 @@ class Project extends Component
      */
     public function render(): View|Closure|string
     {
-        $project = $this->project;  
+        $project = $this->project;
         return view("components.projects.$this->view", compact('project'));
     }
 }

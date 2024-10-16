@@ -88,11 +88,11 @@
                         <div class="col-12 mb-3">
                             <label for="project_name" class="form-label mb-1">Project Name</label>
                             <input type="text" name="project_name" class="form-control"
-                                value="{{ old('project_name') }}">
+                                value="{{ old('project_name') ?:$project->project_name }}">
                         </div>
                         <div class="col-12 mb-3">
                             <label for="project_desc" class="form-label mb-1">Project Description</label>
-                            <textarea name="project_desc" maxlength="720" style="max-height: 15rem" class="form-control">{{ old('project_desc') }}</textarea>
+                            <textarea name="project_desc" maxlength="720" style="max-height: 15rem" class="form-control">{{ old('project_desc') ?:$project->project_desc }}</textarea>
                         </div>
                         <div class="col-12 mb-3">
                             <label for="business_process_model" class="form-label mb-1">Business Process
