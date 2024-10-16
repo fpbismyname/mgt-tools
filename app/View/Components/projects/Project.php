@@ -14,10 +14,10 @@ class Project extends Component
      */
     public $view;
     public $menu;
-    public $project;
-    public function __construct($project, $menu)
+    public $projectApp;
+    public function __construct($projectApp, $menu)
     {
-        $this->project = $project;
+        $this->projectApp = $projectApp;
         $this->view = Str::lower(Str::slug($menu));
     }
 
@@ -26,8 +26,10 @@ class Project extends Component
      */
     public function render(): View|Closure|string
     {
-        $project = $this->project;
+        $project = $this->projectApp;
         $view = "components.projects.$this->view";
+
+        dd($view);
         if (view()->exists($view)) {
             return view($view, compact('project'));
         }
