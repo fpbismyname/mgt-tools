@@ -7,8 +7,8 @@
                 </a>
             </div>
             <div class="col">
-                <h1 class="fs-3 d-none d-sm-block">{{ $projectApp->project_name }}</h1>
-                <h1 class="fs-6 d-block d-sm-none">{{ $projectApp->project_name }}</h1>
+                <h1 class="fs-3 d-none d-sm-block fw-bolder">{{ $projectApp->project_name }}</h1>
+                <h1 class="fs-6 d-block d-sm-none fw-bolder">{{ $projectApp->project_name }}</h1>
                 <p class="fs-6 d-none d-md-block">{{ Str::words($projectApp->project_desc, 10, '...') }}</p>
             </div>
             <div class="col-12 col-sm-5">

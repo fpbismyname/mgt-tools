@@ -61,6 +61,11 @@
                                                             {{ Str::words($project->project_desc, 10, '...') }}
                                                         </p>
                                                     </div>
+                                                    <div class="card-footer">
+                                                        <div class="row text-center text-sm-start">
+                                                            <p class="fs-6 text-dark">Last update : {{ $project->updated_at->diffForHumans() }}</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </a>
                                         </div>
