@@ -30,6 +30,6 @@ class Project extends Component
         //     return view("components.projects.$this->view", compact('project'));
         // }
         // abort(404);
-        return view("components.projects.project-description", compact('project'));
+        return view("components.projects.$this->view", compact('project'));
     }
 }
