@@ -8,7 +8,7 @@
                     <div class="row align-items-center">
                         <div class="col-12 col-sm text-center text-sm-start">
                             <h1 class="fs-1 fw-bolder">Dashboard</h1>
-                            <p class="fs-6">Welcome to dashboard Mgt Tools.</p>
+                            <p class="fs-6 text-body-secondary">Welcome to dashboard Mgt Tools.</p>
                         </div>
                         <div class="col-12 col-sm text-center text-sm-end">
                             <a class="btn btn-primary fs-6" data-bs-target="#addProject" data-bs-toggle="modal">
@@ -63,7 +63,7 @@
                                                     </div>
                                                     <div class="card-footer">
                                                         <div class="row text-center text-sm-start">
-                                                            <p class="fs-6 text-dark">Last update : {{ $project->updated_at->diffForHumans() }}</p>
+                                                            <p class="fs-6 text-body-secondary">Last update : {{ $project->updated_at->diffForHumans() }}</p>
                                                         </div>
                                                     </div>
                                                 </div>

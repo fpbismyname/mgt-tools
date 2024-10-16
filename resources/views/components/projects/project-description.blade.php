@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="row align-items-center gap-2">
                     <div class="col-12 col-sm text-center text-sm-start">
-                        <h1 class="badge text-bg-primary fs-2" id="projectMenuTitle">Project Description</h1>
+                        <h1 class="fw-bolder fs-2" id="projectMenuTitle">Project Description</h1>
                     </div>
                     <div class="col-12 col-sm text-center text-sm-end">
                         <div class="container">
