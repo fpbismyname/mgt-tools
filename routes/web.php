@@ -2,11 +2,12 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProblemDomain;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectsController;
 use App\Http\Resources\Project;
 use App\Livewire\ShowProject;
-use App\View\Components\projects\problemDomain;
+use App\View\Components\projects\showProject as ProjectsShowProject;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
@@ -47,11 +48,9 @@ Route::middleware('mgt_middleware')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');;
     
     //Project
-    Route::get('/dashboard/project/{id}', [ProjectController::class, 'index'])->name('project');
+    Route::get('/dashboard/project/{id}', [ProjectsShowProject::class, 'index'])->name('project');
     Route::post('/dashboard/project/add', [DashboardController::class, 'addProject'])->name('project.add');
-    Route::put('/dashboard/project/{id}/edit', [ProjectController::class, 'editProject'])->name('project.edit');
-    Route::delete('/dashboard/project/{id}/delete', [ProjectController::class, 'deleteProject'])->name('project.delete');
+    Route::put('/dashboard/project/{id}/edit', [ProjectsShowProject::class, 'editProject'])->name('project.edit');
+    Route::delete('/dashboard/project/{id}/delete', [ProjectsShowProject::class, 'deleteProject'])->name('project.delete');
     
-    //ProblemDomain
-    Route::post('/dashboard/project/{id}', [ProjectController::class, 'addProblemDomain'])->name("problem_domain.store");
 });
