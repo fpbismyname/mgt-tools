@@ -25,15 +25,6 @@
             "{{ session('alertMessage')[2] }}");
         </script>
     @endif
-    <script type="module">
-        $(document).ready(function() {
-            $('#inputForm').on('submit', function(event) {
-                var $btnSubmit = $('#btnSubmitForm');
-                $btnSubmit.prop('disabled', true);
-                $btnSubmit.text('On Progress...');
-            })
-        })
-    </script>
 </body>
 
 </html>
