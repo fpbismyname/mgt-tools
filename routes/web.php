@@ -53,4 +53,8 @@ Route::middleware('mgt_middleware')->group(function () {
     Route::put('/dashboard/project/{id}/edit', [ProjectsShowProject::class, 'editProject'])->name('project.edit');
     Route::delete('/dashboard/project/{id}/delete', [ProjectsShowProject::class, 'deleteProject'])->name('project.delete');
     
+    //Problem Domain
+    Route::post('/dashboard/project/problem-domain/{id}/add', [ProjectsShowProject::class, 'addProblemDomain'])->name('problem-domain.add');
+    Route::put('/dashboard/project/problem-domain/{id}/edit', [ProjectsShowProject::class, 'editProblemDomain'])->name('problem-domain.edit');
+    Route::delete('/dashboard/project/problem-domain/{id}/delete', [ProjectsShowProject::class, 'deleteProblemDomain'])->name('problem-domain.delete');
 });

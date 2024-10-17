@@ -112,21 +112,21 @@ class showProject extends Component
         //Delete Project on Database
         return redirect()->route('dashboard')->with('alertMessage', ['Delete Project Success', "Project apps deleted !", "success"]);
     }
-    
+
     /*
     * Problem Domain
     */
     public function addProblemDomain(Request $request, $id)
     {
-        
+
         //Rules Input
         $rules = [
             'request_desc' => 'required',
         ];
-        
+
         //Check Input
         $checkInput = Validator::make($request->all(), $rules);
-        
+
         if ($checkInput->errors()) {
             if ($checkInput->errors()->has('problem_domain')) {
                 return redirect()->back()->withInput()->with('alertMessage', ["Add Request Failed", "Please fill the field !", "error"]);
@@ -134,40 +134,48 @@ class showProject extends Component
         }
         //Get Project
         $projects = Projects::findOrFail($id);
-        
+
         //AddProblemDomain
         $problemDomain = new ProblemDomain([
-            'problem_name'=> $request->request_desc,
+            'problem_name' => $request->request_desc,
         ]);
 
         //Set Foreignkey
         $projects->Projects_ProblemDomain()->save($problemDomain);
-        
+
         return redirect()->back()->with('alertMessage', ["Add Request Success", "Add request description successfully !", "success"]);
     }
     public function editProblemDomain(Request $request, $id)
     {
-        
         //Rules Input
         $rules = [
-            'request_desc' => 'required',
+            'problem_name' => 'required',
         ];
-        
         //Check Input
         $checkInput = Validator::make($request->all(), $rules);
         
         if ($checkInput->fails()) {
-            if ($checkInput->errors()->has('problem_domain')) {
+            if ($checkInput->errors()->has('problem_name')) {
                 return redirect()->back()->withInput()->with('alertMessage', ["Add Request Failed", "Please fill the field !", "error"]);
             }
         }
         //Get Project
-        $projects = Projects::findOrFail($id);
+        $problemDomain = ProblemDomain::findOrFail($id);
         
         //editProblemDomain
-        $projects->update($request->all());
-        
+        $problemUpdate = $problemDomain->update($request->all());
+        // dd($problemUpdate);
         return redirect()->back()->with('alertMessage', ["Add Request Success", "Add request description successfully !", "success"]);
+    }
+    public function deleteProblemDomain($id)
+    {
+        //Get Project
+        $problemDomain = ProblemDomain::findOrFail($id);
+        // dd($problemDomain->id_problem);
+
+        if (!$problemDomain->delete()) return redirect()->back()->with('alertMessage', ["Delete Request Failed", "There is something wrong with !", "error"]);
+
+        return redirect()->back()->with('alertMessage', ["Delete Request Success", "Delete request successfully !", "success"]);
     }
 
     /**

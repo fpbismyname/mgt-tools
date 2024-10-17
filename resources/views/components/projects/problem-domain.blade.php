@@ -32,34 +32,95 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                        $problemDomain = $problemDomain->where('project_id', '=', $projectId);
+                                        $i = 1;
+                                    @endphp
                                     @if ($problemDomain->count() > 0)
-                                        @foreach ($problemDomain as $problemDomain)
-                                            @php
-                                                $problemDomain = $problemDomain->all()->where('project_id', $projectId);
-                                                $i = 1;
-                                            @endphp
-                                        @endforeach
                                         @foreach ($problemDomain as $pd)
-                                            <tr class=" text-wrap" id="problem-{{ $pd->id_problem }}">
+                                            <tr class=" text-wrap" id="{{ $pd->id_problem }}">
                                                 <td scope="row" class="align-middle">{{ $i++ }}</td>
                                                 <td class="align-middle text-break">
                                                     {{ $pd->problem_name }}</td>
                                                 <td class="align-middle text-end">
                                                     {{-- Edit.problem & Delete.problem --}}
-                                                    <button class="btn btn-warning m-1" data-bs-target="#editRequest"
+                                                    <button class="btn btn-warning m-1"
+                                                        data-bs-target="#editRequest-{{ $pd->id_problem }}"
                                                         data-bs-toggle="modal">
                                                         <i class="bi bi-pencil-fill me-lg-2"></i><span
                                                             class="d-none d-lg-inline-block">Edit</span></button>
-                                                    <button class="btn btn-danger m-1" data-bs-target="#deleteRequest"
+                                                    <button class="btn btn-danger m-1"
+                                                        data-bs-target="#deleteRequest-{{ $pd->id_problem }}"
                                                         data-bs-toggle="modal">
                                                         <i class="bi bi-trash me-lg-2"></i><span
                                                             class="d-none d-lg-inline-block">Delete</span></button>
                                                 </td>
                                             </tr>
+                                            {{-- Modal edit problem domain --}}
+                                            <x-modal-popup title="Edit Request"
+                                                modalName="editRequest-{{ $pd->id_problem }}">
+                                                <x-slot name="modalIcon"><i class="bi bi-pencil-fill me-2"></i></x-slot>
+                                                <form action="{{ route('problem-domain.edit', $pd->id_problem) }}"
+                                                    method="POST" class="form-control border border-0 rounded-4"
+                                                    enctype="multipart/form-data">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="container p-3">
+                                                        <div class="row justify-content-center">
+                                                            <div class="container">
+                                                                <div class="col-12 mb-3">
+                                                                    <label for="request_desc"
+                                                                        class="form-label mb-1">New Request
+                                                                        Description</label>
+                                                                    <textarea name="problem_name" maxlength="720" style="max-height: 15rem" class="form-control">{{ $pd->problem_name }}</textarea>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12 my-4 text-center">
+                                                                        <button class="col-auto btn btn-warning fs-6"
+                                                                            type="submit"><i
+                                                                                class="bi bi-pencil-fill me-2"></i>Edit
+                                                                            Request</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </x-modal-popup>
+                                            {{-- Modal Delete Project Description --}}
+                                            <x-modal-popup title="Delete Request"
+                                                modalName="deleteRequest-{{ $pd->id_problem }}">
+                                                <x-slot name="modalIcon"><i class="bi bi-trash-fill me-2"></i></x-slot>
+                                                <div class="container py-5">
+                                                    <div class="container">
+                                                        <form class="row text-center justify-content-center"
+                                                            action="{{ route('problem-domain.delete', $pd->id_problem) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <div class="row text-center">
+                                                                <div class="col-12">
+                                                                    <p>Are you sure you want to delete this request ?
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row justify-content-center text-center gap-3">
+                                                                <div class="col-auto">
+                                                                    <button type="submit" class="btn btn-danger"
+                                                                        type="submit">Yes. I'm sure.</button>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <button type="button" class="btn btn-primary"
+                                                                        data-bs-dismiss="modal">No. I'm not
+                                                                        sure.</button>
+                                                                </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </x-modal-popup>
                                         @endforeach
                                     @else
                                         <tr>
-
                                             <td colspan="3" class="text-center">- No request data. -</td>
                                         </tr>
                                     @endif
@@ -76,7 +137,7 @@
 {{-- Modal add problem domain --}}
 <x-modal-popup title="Add Request" modalName="addRequest">
     <x-slot name="modalIcon"><i class="bi bi-plus-circle-fill me-2"></i></x-slot>
-    <form action="" method="POST"
+    <form action="{{ route('problem-domain.add', $projectId) }}" method="POST"
         class="form-control border border-0 shadow rounded-4" enctype="multipart/form-data">
         @csrf
         <div class="container p-3">
@@ -96,58 +157,4 @@
             </div>
         </div>
     </form>
-</x-modal-popup>
-
-
-{{-- Modal edit problem domain --}}
-<x-modal-popup title="Edit Request" modalName="editRequest">
-    <x-slot name="modalIcon"><i class="bi bi-pencil-fill me-2"></i></x-slot>
-    <form action="" method="POST"
-        class="form-control border border-0 shadow rounded-4" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
-        <div class="container p-3">
-            <div class="row justify-content-center">
-                <div class="container">
-                    <div class="col-12 mb-3">
-                        <label for="request_desc" class="form-label mb-1">New Request Description</label>
-                        <input type="text" name="request_desc" class="form-control" value="">
-                    </div>
-                    <div class="row">
-                        <div class="col-12 my-4 text-center">
-                            <button class="col-auto btn btn-warning fs-6" type="submit"><i
-                                    class="bi bi-pencil-fill me-2"></i>Edit Request</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-</x-modal-popup>
-
-{{-- Modal Delete Project Description --}}
-<x-modal-popup title="Delete Project Apps" modalName="deleteRequest">
-    <x-slot name="modalIcon"><i class="bi bi-trash-fill me-2"></i></x-slot>
-    <div class="container py-5">
-        <div class="container">
-            <form class="row text-center justify-content-center"
-                action="" method="POST">
-                @csrf
-                @method('DELETE')
-                <div class="row text-center">
-                    <div class="col-12">
-                        <p>Are you sure you want to delete this project?</p>
-                    </div>
-                </div>
-                <div class="row justify-content-center text-center gap-3">
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-danger" type="submit">Yes. I'm sure.</button>
-                    </div>
-                    <div class="col-auto">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No. I'm not
-                            sure.</button>
-                    </div>
-            </form>
-        </div>
-    </div>
 </x-modal-popup>
