@@ -1,23 +1,28 @@
 <div class="container-fluid mb-5">
     <div class="container">
         <div class="row gap-5">
+            {{-- Header --}}
             <div class="container border rounded-4 p-3 p-sm-4 shadow">
                 <div class="row align-items-center gap-1">
                     <div class="col-12 col-sm-auto text-center text-sm-start">
                         <h1 class="fw-bolder text-primary fs-2" id="projectMenuTitle">Project Description</h1>
+                        <p class="fs-6">Information of project app.</p>
                     </div>
                     <div class="col-12 col-sm text-center text-sm-end">
                         <div class="container">
                             <div class="row justify-content-center justify-content-sm-end gap-2">
                                 <button class="col-auto btn btn-warning fs-6" data-bs-target="#editProject"
-                                    data-bs-toggle="modal"><i class="bi bi-pencil-fill me-md-2"></i><span class="d-none d-md-inline-block">Edit Project</span></button>
+                                    data-bs-toggle="modal"><i class="bi bi-pencil-fill me-md-2"></i><span
+                                        class="d-none d-md-inline-block">Edit Project</span></button>
                                 <button class="col-auto btn btn-danger fs-6" data-bs-target="#deleteProject"
-                                    data-bs-toggle="modal"><i class="bi bi-trash me-md-2"></i><span class="d-none d-md-inline-block">Delete Project</span></button>
+                                    data-bs-toggle="modal"><i class="bi bi-trash me-md-2"></i><span
+                                        class="d-none d-md-inline-block">Delete Project</span></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            {{-- Content --}}
             <div class="container border p-4 p-sm-5 shadow rounded-4">
                 <div class="row gap-4">
                     <div class="col-12">
@@ -32,6 +37,14 @@
                             <label for="project_desc" class="fs-5 mb-2">Project Description</label>
                             <textarea name="project_desc" maxlength="720" style="max-height: 15rem; min-height: 15rem;"
                                 class="form-control h-100 fs-6" disabled>{{ $project->project_desc }}</textarea>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="dateCreated" class="fs-5 mb-2">Date Created</label>
+                            <input type="text" name="dateCreated" id="dateCreated"
+                                value="{{ $project->created_at->format('l, d M Y') }}" class="form-control fs-6"
+                                disabled>
                         </div>
                     </div>
                     <div class="col-12 col-sm">
@@ -54,7 +67,6 @@
             </div>
         </div>
     </div>
-
     {{-- Modal Preview BPM Image --}}
     <x-modal-popup title="Preview Image" modalName="bpmPreview" customClass="modal-lg">
         <x-slot name="modalIcon"></x-slot>
@@ -79,7 +91,7 @@
     <x-modal-popup title="Edit Project" modalName="editProject">
         <x-slot name="modalIcon"><i class="bi bi-pencil-fill me-2"></i></x-slot>
         <form action="{{ route('project.edit', $project->id_project) }}" method="POST"
-            class="form-control border border-0 shadow rounded-4" enctype="multipart/form-data">
+            class="form-control border border-0 shadow rounded-4" enctype="multipart/form-data" id="inputForm">
             @csrf
             @method('PUT')
             <div class="container p-3">
@@ -88,11 +100,11 @@
                         <div class="col-12 mb-3">
                             <label for="project_name" class="form-label mb-1">Project Name</label>
                             <input type="text" name="project_name" class="form-control"
-                                value="{{ old('project_name') ?:$project->project_name }}">
+                                value="{{ old('project_name') ?: $project->project_name }}">
                         </div>
                         <div class="col-12 mb-3">
                             <label for="project_desc" class="form-label mb-1">Project Description</label>
-                            <textarea name="project_desc" maxlength="720" style="max-height: 15rem" class="form-control">{{ old('project_desc') ?:$project->project_desc }}</textarea>
+                            <textarea name="project_desc" maxlength="720" style="max-height: 15rem" class="form-control">{{ old('project_desc') ?: $project->project_desc }}</textarea>
                         </div>
                         <div class="col-12 mb-3">
                             <label for="business_process_model" class="form-label mb-1">Business Process
@@ -106,7 +118,7 @@
                         </div>
                         <div class="row">
                             <div class="col-12 my-4 text-center">
-                                <button class="col-auto btn btn-warning fs-6" type="submit"><i
+                                <button class="col-auto btn btn-warning fs-6" type="submit" id="btnSubmitForm"><i
                                         class="bi bi-pencil-fill me-2"></i>Edit Project</button>
                             </div>
                         </div>
@@ -115,28 +127,28 @@
             </div>
         </form>
     </x-modal-popup>
-
     {{-- Modal Delete Project Description --}}
     <x-modal-popup title="Delete Project Apps" modalName="deleteProject">
         <x-slot name="modalIcon"><i class="bi bi-trash-fill me-2"></i></x-slot>
         <div class="container py-5">
             <div class="container">
-                <form class="row text-center justify-content-center"
-                    action="{{ route('project.delete', $project->id_project) }}" method="POST">
+                <form class="form-control border-0 text-center justify-content-center"
+                    action="{{ route('project.delete', $project->id_project) }}" method="POST" id="inputForm">
                     @csrf
                     @method('DELETE')
-                    <div class="row text-center">
+                    <div class="row text-center gap-3">
                         <div class="col-12">
                             <p>Are you sure you want to delete this project?</p>
                         </div>
-                    </div>
-                    <div class="row justify-content-center text-center gap-3">
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-danger" type="submit">Yes. I'm sure.</button>
-                        </div>
-                        <div class="col-auto">
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No. I'm not
-                                sure.</button>
+                        <div class="row justify-content-center text-center gap-3">
+                            <div class="col-auto">
+                                <button type="submit" id="btnSubmitForm" class="btn btn-danger">Yes. I'm
+                                    sure.</button>
+                            </div>
+                            <div class="col-auto">
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No. I'm not
+                                    sure.</button>
+                            </div>
                         </div>
                 </form>
             </div>

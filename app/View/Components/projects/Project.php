@@ -16,6 +16,7 @@ class Project extends Component
         public $project,
         public $menu,
         public $problemDomain,
+        public $solutionDomain
         )
     {
 

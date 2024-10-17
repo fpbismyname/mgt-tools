@@ -84,10 +84,10 @@
             </div>
 
             {{-- Modal Add New Project --}}
-            <x-modal-popup title="Add Request App" modalName="addProject">
+            <x-modal-popup title="Add Project App" modalName="addProject">
                 <x-slot name="modalIcon"><i class="bi bi-plus-circle me-2"></i></x-slot>
                 <form action="{{ route('project.add') }}" class="form-control border border-0 shadow rounded-4"
-                    method="POST" enctype="multipart/form-data">
+                    method="POST" enctype="multipart/form-data" id="inputForm">
                     @csrf
                     <div class="row justify-content-center p-3">
                         <div class="container">
@@ -112,7 +112,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-12 my-4 text-center">
-                                    <input type="submit" value="Create Project" class="btn btn-primary">
+                                    <button class="btn btn-primary" type="submit" id="btnSubmitForm"><i class="bi bi-plus-circle-fill me-2"></i>Add Project</button>
                                 </div>
                             </div>
                         </div>

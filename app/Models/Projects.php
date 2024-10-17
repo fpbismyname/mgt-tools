@@ -11,7 +11,12 @@ class Projects extends Model
     protected $primaryKey = "id_project";
     protected $fillable = ['project_name', 'project_desc', 'business_process_model', 'problem_root_cause'];
 
-    public function Projects_ProblemDomain(){
+    //Project (id_project) -> ProblemDomain (project_id)
+    public function Projects_ProblemDomain_id(){
         return $this->hasMany(ProblemDomain::class, 'project_id');
+    }
+    //Project (id_project) -> SolutionDoman(project_id)
+    public function Projects_SolutionDomain_id(){
+        return $this->hasMany(SolutionDomains::class, 'project_id');
     }
 }

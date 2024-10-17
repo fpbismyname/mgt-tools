@@ -8,6 +8,7 @@ use Illuminate\View\Component;
 use App\Models\ProblemDomain;
 use App\Models\ProjectMenu;
 use App\Models\Projects;
+use App\Models\SolutionDomains;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -30,15 +31,17 @@ class showProject extends Component
         $project = Projects::where("id_project", $id)->first();
         $projectMenu = ProjectMenu::all();
         $selectedMenu = request()->query('menu');
-
+        
         //Problem Domain
         $problemDomain = ProblemDomain::all();
+        //Solution Domain
+        $solutionDomain = SolutionDomains::all();
 
         if (!$project) {
             return abort(404);
         }
 
-        return view('components.projects.show-project', compact('project', 'projectMenu', 'selectedMenu', 'problemDomain'));
+        return view('components.projects.show-project', compact('project', 'projectMenu', 'selectedMenu', 'problemDomain', 'solutionDomain'));
     }
     public function editProject(Request $request, $id)
     {
@@ -141,7 +144,7 @@ class showProject extends Component
         ]);
 
         //Set Foreignkey
-        $projects->Projects_ProblemDomain()->save($problemDomain);
+        $projects->Projects_ProblemDomain_id()->save($problemDomain);
 
         return redirect()->back()->with('alertMessage', ["Add Request Success", "Add request description successfully !", "success"]);
     }
@@ -171,7 +174,6 @@ class showProject extends Component
     {
         //Get Project
         $problemDomain = ProblemDomain::findOrFail($id);
-        // dd($problemDomain->id_problem);
 
         if (!$problemDomain->delete()) return redirect()->back()->with('alertMessage', ["Delete Request Failed", "There is something wrong with !", "error"]);
 

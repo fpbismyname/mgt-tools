@@ -15,6 +15,7 @@ class DashboardController extends Controller
     }
     public function addProject(Request $request)
     {
+
         if (
             !$request->filled("project_name") ||
             !$request->filled("project_desc") ||
@@ -39,6 +40,7 @@ class DashboardController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
         return redirect()->route("dashboard")->with('alertMessage', ['Add Project Success', "New request apps successfully added ! ", "success"]);
     }
 }
