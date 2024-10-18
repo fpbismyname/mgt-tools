@@ -8,7 +8,7 @@
     @break
 
     @case('Solution Domain')
-        <x-projects.solution-domain :solutionDomain="$solutionDomain" :projectId="$project->id_project" />
+        <x-projects.solution-domain :solutionDomain="$solutionDomain" :projectId="$project->id_project" :solutionType="$solutionType"/>
     @break
 
     @case('Potential Problem')

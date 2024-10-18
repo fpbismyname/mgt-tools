@@ -1,7 +1,7 @@
 <div class="container-fluid mb-5">
     <div class="container gap">
         <div class="row gap-5">
-            {{-- Header --}}
+            {{-- //MARK:Header --}}
             <div class="container border rounded-4 p-3 p-sm-4 shadow">
                 <div class="row align-items-center gap-1">
                     <div class="col-12 col-sm text-center text-sm-start">
@@ -18,19 +18,21 @@
                     </div>
                 </div>
             </div>
-            {{-- Content --}}
+            {{-- //MARK:Content --}}
             <div class="container border rounded-4 p-3 p-sm-4 shadow">
                 <div class="row">
                     <div class="col">
                         <div class="table-responsive">
                             <table class="table table-hover">
+                                {{-- //MARK:header table --}}
                                 <thead>
                                     <tr>
-                                        <th scope="col" class="text-center">No</th>
+                                        <th scope="col" class="text-center">Need.ID</th>
                                         <th scope="col">Request Description</th>
                                         <th scope="col" class="text-end">Action</th>
                                     </tr>
                                 </thead>
+                                {{-- //MARK:body table --}}
                                 <tbody>
                                     @php
                                         $problemDomain = $problemDomain->where('project_id', '=', $projectId);
@@ -39,7 +41,7 @@
                                     @if ($problemDomain->count() > 0)
                                         @foreach ($problemDomain as $pd)
                                             <tr class="align-middle text-wrap" id="{{ $pd->id_problem }}">
-                                                <td scope="row" class="text-center">{{ $i++ }}</td>
+                                                <td scope="row" class="text-center">Need-{{ $i++}}</td>
                                                 <td class="text-break">
                                                     {{ $pd->problem_name }}</td>
                                                 <td class="text-end">
@@ -132,7 +134,7 @@
             </div>
         </div>
     </div>
-    {{-- Modal add problem domain --}}
+    {{-- //MARK:Modal add problem domain --}}
     <x-modal-popup title="Add Problem" modalName="addRequest">
         <x-slot name="modalIcon"><i class="bi bi-plus-circle-fill me-2"></i></x-slot>
         <form action="{{ route('problem-domain.add', $projectId) }}" method="POST" class="form-control border border-0 shadow rounded-4" enctype="multipart/form-data" id="inputForm">

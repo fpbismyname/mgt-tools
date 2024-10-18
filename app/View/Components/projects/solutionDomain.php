@@ -11,7 +11,7 @@ class solutionDomain extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public $solutionDomain, public $projectId)
+    public function __construct(public $solutionDomain, public $projectId, public $solutionType)
     {
         //
     }

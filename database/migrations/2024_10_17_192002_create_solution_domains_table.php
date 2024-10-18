@@ -16,14 +16,14 @@ return new class extends Migration
             $table->unsignedBigInteger("project_id");
             $table->string("solution_desc");
             $table->string("type_solution");
-            $table->string("potential_of_solution");
-            $table->string("solution_revision");
+            $table->string("potential_of_solution")->nullable();
+            $table->string("solution_revision")->nullable();
             $table->unsignedBigInteger("solution_need")->nullable();
-            $table->string("solution_clasification");
-            $table->string("solution_feasibility");
-            $table->string("solution_risk");
-            $table->string("solution_priority");
-            $table->string("eliminated_solution_rank");
+            $table->string("solution_clasification")->nullable();
+            $table->string("solution_feasibility")->nullable();
+            $table->string("solution_risk")->nullable();
+            $table->string("solution_priority")->nullable();
+            $table->string("eliminated_solution_rank")->nullable();
             $table->timestamps();
 
             $table->foreign('solution_need')->references('id_problem')->on('problem_domains')->onDelete('set null');

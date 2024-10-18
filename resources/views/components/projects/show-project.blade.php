@@ -5,5 +5,6 @@
     :menu="$selectedMenu" 
     :problemDomain="$problemDomain"
     :solutionDomain="$solutionDomain"
+    :solutionType="$solutionType"
     />
 </x-layout>
