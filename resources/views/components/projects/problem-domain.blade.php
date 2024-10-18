@@ -26,7 +26,7 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th scope="col">No</th>
+                                        <th scope="col" class="text-center">No</th>
                                         <th scope="col">Request Description</th>
                                         <th scope="col" class="text-end">Action</th>
                                     </tr>
@@ -38,11 +38,11 @@
                                     @endphp
                                     @if ($problemDomain->count() > 0)
                                         @foreach ($problemDomain as $pd)
-                                            <tr class=" text-wrap" id="{{ $pd->id_problem }}">
-                                                <td scope="row" class="align-middle">{{ $i++ }}</td>
-                                                <td class="align-middle text-break">
+                                            <tr class="align-middle text-wrap" id="{{ $pd->id_problem }}">
+                                                <td scope="row" class="text-center">{{ $i++ }}</td>
+                                                <td class="text-break">
                                                     {{ $pd->problem_name }}</td>
-                                                <td class="align-middle text-end">
+                                                <td class="text-end">
                                                     {{-- Edit.problem & Delete.problem --}}
                                                     <button class="btn btn-warning m-1"
                                                         data-bs-target="#editRequest-{{ $pd->id_problem }}"
@@ -52,7 +52,7 @@
                                                     <button class="btn btn-danger m-1"
                                                         data-bs-target="#deleteRequest-{{ $pd->id_problem }}"
                                                         data-bs-toggle="modal">
-                                                        <i class="bi bi-trash me-lg-2"></i><span
+                                                        <i class="bi bi-trash-fill me-lg-2"></i><span
                                                             class="d-none d-lg-inline-block">Delete</span></button>
                                                 </td>
                                             </tr>

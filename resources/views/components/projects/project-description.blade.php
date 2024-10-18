@@ -15,7 +15,7 @@
                                     data-bs-toggle="modal"><i class="bi bi-pencil-fill me-md-2"></i><span
                                         class="d-none d-md-inline-block">Edit Project</span></button>
                                 <button class="col-auto btn btn-danger fs-6" data-bs-target="#deleteProject"
-                                    data-bs-toggle="modal"><i class="bi bi-trash me-md-2"></i><span
+                                    data-bs-toggle="modal"><i class="bi bi-trash-fill me-md-2"></i><span
                                         class="d-none d-md-inline-block">Delete Project</span></button>
                             </div>
                         </div>

@@ -179,7 +179,14 @@ class showProject extends Component
 
         return redirect()->back()->with('alertMessage', ["Delete Request Success", "Delete request successfully !", "success"]);
     }
+    
 
+    /**
+     * Solution Domain
+     */
+    public function addSolutionDomain(){
+        
+    }
     /**
      * Get the view / contents that represent the component.
      */
