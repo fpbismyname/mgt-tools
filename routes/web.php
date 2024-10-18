@@ -54,7 +54,7 @@ Route::middleware('mgt_middleware')->group(function () {
     Route::delete('/dashboard/project/problem-domain/{id}/delete', [ProjectsShowProject::class, 'deleteProblemDomain'])->name('problem-domain.delete');
 
     // MARK:Solution Domain
-    Route::post('/dashboard/project/solution-domaini/{id}/add', [ProjectsShowProject::class, 'addSolutionDomain'])->name('solution-domain.add');
-    Route::put('/dashboard/project/solution-domaini/{id}/edit', [ProjectsShowProject::class, 'editSolutionDomain'])->name('solution-domain.edit');
-    Route::delete('/dashboard/project/solution-domaini/{id}/delete', [ProjectsShowProject::class, 'deleteSolutionDomain'])->name('solution-domain.delete');
+    Route::post('/dashboard/project/solution-domain/{id}/add', [ProjectsShowProject::class, 'addSolutionDomain'])->name('solution-domain.add');
+    Route::put('/dashboard/project/solution-domain/{id}/edit', [ProjectsShowProject::class, 'editSolutionDomain'])->name('solution-domain.edit');
+    Route::delete('/dashboard/project/solution-domain/{id}/delete', [ProjectsShowProject::class, 'deleteSolutionDomain'])->name('solution-domain.delete');
 });

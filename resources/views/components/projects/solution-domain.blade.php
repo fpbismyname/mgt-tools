@@ -39,7 +39,7 @@
                                     {{-- column title --}}
                                     <tbody class="table-group-divider">
                                         <tr class="align-middle">
-                                            <th scope="col" class="text-center">No</th>
+                                            <th scope="col" class="text-center">Req.ID</th>
                                             <th scope="col">Request Description</th>
                                             <th scope="col" class="text-end">Action</th>
                                         </tr>
@@ -54,20 +54,104 @@
                                         @if ($functionalSolution->count() > 0)
                                             @foreach ($functionalSolution as $sD)
                                                 <tr class="align-middle">
-                                                    <td class="text-center">{{ sprintf('REQ%03d',$sD->id_solution) }}</td>
+                                                    <td class="text-center">{{ sprintf('REQ%03d', $sD->id_solution) }}
+                                                    </td>
                                                     <td>{{ $sD->solution_desc }}</td>
                                                     <td class="text-end">
                                                         {{-- Edit.problem & Delete.problem --}}
                                                         <button class="btn btn-warning m-1"
-                                                            data-bs-target="#editSolution-" data-bs-toggle="modal">
+                                                            data-bs-target="#editSolution-{{ $sD->id_solution }}"
+                                                            data-bs-toggle="modal">
                                                             <i class="bi bi-pencil-fill me-lg-2"></i><span
                                                                 class="d-none d-lg-inline-block">Edit</span></button>
                                                         <button class="btn btn-danger m-1"
-                                                            data-bs-target="#deleteSolution-" data-bs-toggle="modal">
+                                                            data-bs-target="#deleteSolution-{{ $sD->id_solution }}"
+                                                            data-bs-toggle="modal">
                                                             <i class="bi bi-trash-fill me-lg-2"></i><span
                                                                 class="d-none d-lg-inline-block">Delete</span></button>
                                                     </td>
                                                 </tr>
+                                                {{-- //MARK: Edit Solution domain --}}
+                                                <x-modal-popup title="Edit Solution"
+                                                    modalName="editSolution-{{ $sD->id_solution }}">
+                                                    <x-slot name="modalIcon"><i
+                                                            class="bi bi-pencil-fill me-2"></i></x-slot>
+                                                    <form action="{{ route('solution-domain.edit', $sD->id_solution) }}"
+                                                        method="POST" class="form-control border border-0 rounded-4"
+                                                        enctype="multipart/form-data" id="inputForm">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="container p-3">
+                                                            <div class="row justify-content-center">
+                                                                <div class="container">
+                                                                    <div class="col-12 mb-3">
+                                                                        <label for="solution_desc"
+                                                                            class="form-label mb-1">Request
+                                                                            Description</label>
+                                                                        <input type="text" name="solution_desc"
+                                                                            class="form-control"
+                                                                            value="{{ $sD->solution_desc }}"></textarea>
+                                                                    </div>
+                                                                    <div class="col-12 mb-3">
+                                                                        <label for="type_solution"
+                                                                            class="form-label mb-1">Type
+                                                                            Solution</label>
+                                                                        <select name="type_solution"
+                                                                            class="form-select">
+                                                                            @foreach ($solutionType as $sT)
+                                                                                <option value="{{ $sT->type_name }}"
+                                                                                    {{ $sT->type_name == 'Functionality' ? 'selected' : '' }}>
+                                                                                    {{ $sT->type_name }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-12 my-4 text-center">
+                                                                            <button
+                                                                                class="col-auto btn btn-primary fs-6"
+                                                                                type="submit" id="btnSubmitForm"><i
+                                                                                    class="bi bi-plus-circle-fill me-2"></i>Add
+                                                                                Problem</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </x-modal-popup>
+                                                {{-- //MARK: Delete Solution Description --}}
+                                                <x-modal-popup title="Delete Solution" modalName="deleteSolution-{{ $sD->id_solution }}">
+                                                    <x-slot name="modalIcon"><i
+                                                            class="bi bi-trash-fill me-2"></i></x-slot>
+                                                    <div class="container py-5">
+                                                        <div class="container">
+                                                            <form class="row text-center justify-content-center"
+                                                                action="{{ route('solution-domain.delete', $sD->id_solution) }}"
+                                                                method="POST" id="inputForm">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <div class="row text-center">
+                                                                    <div class="col-12">
+                                                                        <p>Are you sure you want to delete this solution
+                                                                            ?
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                                <div
+                                                                    class="row justify-content-center text-center gap-3">
+                                                                    <div class="col-auto">
+                                                                        <button type="submit" class="btn btn-danger"
+                                                                            id="btnSubmitForm">Yes. I'm sure.</button>
+                                                                    </div>
+                                                                    <div class="col-auto">
+                                                                        <button type="button" class="btn btn-primary"
+                                                                            data-bs-dismiss="modal">No. I'm not
+                                                                            sure.</button>
+                                                                    </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </x-modal-popup>
                                             @endforeach
                                         @else
                                             <tr class="text-center">
@@ -91,7 +175,8 @@
                                     {{-- Table Title --}}
                                     <thead class="">
                                         <tr>
-                                            <th scope="col" class="p-3 fs-4 text-body-secondary " colspan="3">Non
+                                            <th scope="col" class="p-3 fs-4 text-body-secondary " colspan="3">
+                                                Non
                                                 Functional
                                                 Requirement
                                             </th>
@@ -100,7 +185,7 @@
                                     {{-- column title --}}
                                     <tbody class="table-group-divider">
                                         <tr class="align-middle">
-                                            <th scope="col" class="text-center">No</th>
+                                            <th scope="col" class="text-center">Req.ID</th>
                                             <th scope="col">Request Description</th>
                                             <th scope="col" class="text-end">Action</th>
                                         </tr>
@@ -125,20 +210,106 @@
                                         @if ($usabilitySolution->count() > 0)
                                             @foreach ($usabilitySolution as $sD)
                                                 <tr class="align-middle">
-                                                    <td class="text-center">{{ sprintf('REQ%03d',$sD->id_solution) }}</td>
+                                                    <td class="text-center">{{ sprintf('REQ%03d', $sD->id_solution) }}
+                                                    </td>
                                                     <td>{{ $sD->solution_desc }}</td>
                                                     <td class="text-end">
                                                         {{-- Edit.problem & Delete.problem --}}
                                                         <button class="btn btn-warning m-1"
-                                                            data-bs-target="#editSolution-" data-bs-toggle="modal">
+                                                            data-bs-target="#editSolution-{{ $sD->id_solution }}"
+                                                            data-bs-toggle="modal">
                                                             <i class="bi bi-pencil-fill me-lg-2"></i><span
                                                                 class="d-none d-lg-inline-block">Edit</span></button>
                                                         <button class="btn btn-danger m-1"
-                                                            data-bs-target="#deleteSolution-" data-bs-toggle="modal">
+                                                            data-bs-target="#deleteSolution-{{ $sD->id_solution }}"
+                                                            data-bs-toggle="modal">
                                                             <i class="bi bi-trash-fill me-lg-2"></i><span
                                                                 class="d-none d-lg-inline-block">Delete</span></button>
                                                     </td>
                                                 </tr>
+                                                {{-- //MARK: Edit Solution domain --}}
+                                                <x-modal-popup title="Edit Solution"
+                                                    modalName="editSolution-{{ $sD->id_solution }}">
+                                                    <x-slot name="modalIcon"><i
+                                                            class="bi bi-pencil-fill me-2"></i></x-slot>
+                                                    <form
+                                                        action="{{ route('solution-domain.edit', $sD->id_solution) }}"
+                                                        method="POST" class="form-control border border-0 rounded-4"
+                                                        enctype="multipart/form-data" id="inputForm">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="container p-3">
+                                                            <div class="row justify-content-center">
+                                                                <div class="container">
+                                                                    <div class="col-12 mb-3">
+                                                                        <label for="solution_desc"
+                                                                            class="form-label mb-1">Request
+                                                                            Description</label>
+                                                                        <input type="text" name="solution_desc"
+                                                                            class="form-control"
+                                                                            value="{{ $sD->solution_desc }}"></textarea>
+                                                                    </div>
+                                                                    <div class="col-12 mb-3">
+                                                                        <label for="type_solution"
+                                                                            class="form-label mb-1">Type
+                                                                            Solution</label>
+                                                                        <select name="type_solution"
+                                                                            class="form-select">
+                                                                            @foreach ($solutionType as $sT)
+                                                                                <option value="{{ $sT->type_name }}"
+                                                                                    {{ $sT->type_name == 'Usability' ? 'selected' : '' }}>
+                                                                                    {{ $sT->type_name }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-12 my-4 text-center">
+                                                                            <button
+                                                                                class="col-auto btn btn-primary fs-6"
+                                                                                type="submit" id="btnSubmitForm"><i
+                                                                                    class="bi bi-plus-circle-fill me-2"></i>Add
+                                                                                Problem</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </x-modal-popup>
+                                                {{-- //MARK: Delete Solution Description --}}
+                                                <x-modal-popup title="Delete Solution"
+                                                    modalName="deleteSolution-{{ $sD->id_solution }}">
+                                                    <x-slot name="modalIcon"><i
+                                                            class="bi bi-trash-fill me-2"></i></x-slot>
+                                                    <div class="container py-5">
+                                                        <div class="container">
+                                                            <form class="row text-center justify-content-center"
+                                                                action="{{ route('solution-domain.delete', $sD->id_solution) }}"
+                                                                method="POST" id="inputForm">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <div class="row text-center">
+                                                                    <div class="col-12">
+                                                                        <p>Are you sure you want to delete this solution
+                                                                            ?
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                                <div
+                                                                    class="row justify-content-center text-center gap-3">
+                                                                    <div class="col-auto">
+                                                                        <button type="submit" class="btn btn-danger"
+                                                                            id="btnSubmitForm">Yes. I'm sure.</button>
+                                                                    </div>
+                                                                    <div class="col-auto">
+                                                                        <button type="button" class="btn btn-primary"
+                                                                            data-bs-dismiss="modal">No. I'm not
+                                                                            sure.</button>
+                                                                    </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </x-modal-popup>
                                             @endforeach
                                         @else
                                             <tr class="text-center">
@@ -165,21 +336,105 @@
                                         @endphp
                                         @if ($reliabilitySolution->count() > 0)
                                             @foreach ($reliabilitySolution as $sD)
-                                                <tr class="align-middle">
-                                                    <td class="text-center">{{ sprintf('REQ%03d',$sD->id_solution) }}</td>
-                                                    <td>{{ $sD->solution_desc }}</td>
-                                                    <td class="text-end">
-                                                        {{-- Edit.problem & Delete.problem --}}
-                                                        <button class="btn btn-warning m-1"
-                                                            data-bs-target="#editSolution-" data-bs-toggle="modal">
-                                                            <i class="bi bi-pencil-fill me-lg-2"></i><span
-                                                                class="d-none d-lg-inline-block">Edit</span></button>
-                                                        <button class="btn btn-danger m-1"
-                                                            data-bs-target="#deleteSolution-" data-bs-toggle="modal">
-                                                            <i class="bi bi-trash-fill me-lg-2"></i><span
-                                                                class="d-none d-lg-inline-block">Delete</span></button>
-                                                    </td>
-                                                </tr>
+                                            <tr class="align-middle">
+                                                <td class="text-center">{{ sprintf('REQ%03d', $sD->id_solution) }}
+                                                </td>
+                                                <td>{{ $sD->solution_desc }}</td>
+                                                <td class="text-end">
+                                                    {{-- Edit.problem & Delete.problem --}}
+                                                    <button class="btn btn-warning m-1"
+                                                        data-bs-target="#editSolution-{{ $sD->id_solution }}"
+                                                        data-bs-toggle="modal">
+                                                        <i class="bi bi-pencil-fill me-lg-2"></i><span
+                                                            class="d-none d-lg-inline-block">Edit</span></button>
+                                                    <button class="btn btn-danger m-1"
+                                                        data-bs-target="#deleteSolution-{{ $sD->id_solution }}"
+                                                        data-bs-toggle="modal">
+                                                        <i class="bi bi-trash-fill me-lg-2"></i><span
+                                                            class="d-none d-lg-inline-block">Delete</span></button>
+                                                </td>
+                                            </tr>
+                                            {{-- //MARK: Edit Solution domain --}}
+                                            <x-modal-popup title="Edit Solution"
+                                                modalName="editSolution-{{ $sD->id_solution }}">
+                                                <x-slot name="modalIcon"><i
+                                                        class="bi bi-pencil-fill me-2"></i></x-slot>
+                                                <form action="{{ route('solution-domain.edit', $sD->id_solution) }}"
+                                                    method="POST" class="form-control border border-0 rounded-4"
+                                                    enctype="multipart/form-data" id="inputForm">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="container p-3">
+                                                        <div class="row justify-content-center">
+                                                            <div class="container">
+                                                                <div class="col-12 mb-3">
+                                                                    <label for="solution_desc"
+                                                                        class="form-label mb-1">Request
+                                                                        Description</label>
+                                                                    <input type="text" name="solution_desc"
+                                                                        class="form-control"
+                                                                        value="{{ $sD->solution_desc }}"></textarea>
+                                                                </div>
+                                                                <div class="col-12 mb-3">
+                                                                    <label for="type_solution"
+                                                                        class="form-label mb-1">Type
+                                                                        Solution</label>
+                                                                    <select name="type_solution"
+                                                                        class="form-select">
+                                                                        @foreach ($solutionType as $sT)
+                                                                            <option value="{{ $sT->type_name }}"
+                                                                                {{ $sT->type_name == 'Reliability' ? 'selected' : '' }}>
+                                                                                {{ $sT->type_name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12 my-4 text-center">
+                                                                        <button
+                                                                            class="col-auto btn btn-primary fs-6"
+                                                                            type="submit" id="btnSubmitForm"><i
+                                                                                class="bi bi-plus-circle-fill me-2"></i>Add
+                                                                            Problem</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </x-modal-popup>
+                                            {{-- //MARK: Delete Solution Description --}}
+                                            <x-modal-popup title="Delete Solution" modalName="deleteSolution-{{ $sD->id_solution }}">
+                                                <x-slot name="modalIcon"><i
+                                                        class="bi bi-trash-fill me-2"></i></x-slot>
+                                                <div class="container py-5">
+                                                    <div class="container">
+                                                        <form class="row text-center justify-content-center"
+                                                            action="{{ route('solution-domain.delete', $sD->id_solution) }}"
+                                                            method="POST" id="inputForm">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <div class="row text-center">
+                                                                <div class="col-12">
+                                                                    <p>Are you sure you want to delete this solution
+                                                                        ?
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="row justify-content-center text-center gap-3">
+                                                                <div class="col-auto">
+                                                                    <button type="submit" class="btn btn-danger"
+                                                                        id="btnSubmitForm">Yes. I'm sure.</button>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <button type="button" class="btn btn-primary"
+                                                                        data-bs-dismiss="modal">No. I'm not
+                                                                        sure.</button>
+                                                                </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </x-modal-popup>
                                             @endforeach
                                         @else
                                             <tr class="text-center">
@@ -206,21 +461,105 @@
                                         @endphp
                                         @if ($performanceSolution->count() > 0)
                                             @foreach ($performanceSolution as $sD)
-                                                <tr class="align-middle">
-                                                    <td class="text-center">{{ sprintf('REQ%03d',$sD->id_solution) }}</td>
-                                                    <td>{{ $sD->solution_desc }}</td>
-                                                    <td class="text-end">
-                                                        {{-- Edit.problem & Delete.problem --}}
-                                                        <button class="btn btn-warning m-1"
-                                                            data-bs-target="#editSolution-" data-bs-toggle="modal">
-                                                            <i class="bi bi-pencil-fill me-lg-2"></i><span
-                                                                class="d-none d-lg-inline-block">Edit</span></button>
-                                                        <button class="btn btn-danger m-1"
-                                                            data-bs-target="#deleteSolution-" data-bs-toggle="modal">
-                                                            <i class="bi bi-trash-fill me-lg-2"></i><span
-                                                                class="d-none d-lg-inline-block">Delete</span></button>
-                                                    </td>
-                                                </tr>
+                                            <tr class="align-middle">
+                                                <td class="text-center">{{ sprintf('REQ%03d', $sD->id_solution) }}
+                                                </td>
+                                                <td>{{ $sD->solution_desc }}</td>
+                                                <td class="text-end">
+                                                    {{-- Edit.problem & Delete.problem --}}
+                                                    <button class="btn btn-warning m-1"
+                                                        data-bs-target="#editSolution-{{ $sD->id_solution }}"
+                                                        data-bs-toggle="modal">
+                                                        <i class="bi bi-pencil-fill me-lg-2"></i><span
+                                                            class="d-none d-lg-inline-block">Edit</span></button>
+                                                    <button class="btn btn-danger m-1"
+                                                        data-bs-target="#deleteSolution-{{ $sD->id_solution }}"
+                                                        data-bs-toggle="modal">
+                                                        <i class="bi bi-trash-fill me-lg-2"></i><span
+                                                            class="d-none d-lg-inline-block">Delete</span></button>
+                                                </td>
+                                            </tr>
+                                            {{-- //MARK: Edit Solution domain --}}
+                                            <x-modal-popup title="Edit Solution"
+                                                modalName="editSolution-{{ $sD->id_solution }}">
+                                                <x-slot name="modalIcon"><i
+                                                        class="bi bi-pencil-fill me-2"></i></x-slot>
+                                                <form action="{{ route('solution-domain.edit', $sD->id_solution) }}"
+                                                    method="POST" class="form-control border border-0 rounded-4"
+                                                    enctype="multipart/form-data" id="inputForm">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="container p-3">
+                                                        <div class="row justify-content-center">
+                                                            <div class="container">
+                                                                <div class="col-12 mb-3">
+                                                                    <label for="solution_desc"
+                                                                        class="form-label mb-1">Request
+                                                                        Description</label>
+                                                                    <input type="text" name="solution_desc"
+                                                                        class="form-control"
+                                                                        value="{{ $sD->solution_desc }}"></textarea>
+                                                                </div>
+                                                                <div class="col-12 mb-3">
+                                                                    <label for="type_solution"
+                                                                        class="form-label mb-1">Type
+                                                                        Solution</label>
+                                                                    <select name="type_solution"
+                                                                        class="form-select">
+                                                                        @foreach ($solutionType as $sT)
+                                                                            <option value="{{ $sT->type_name }}"
+                                                                                {{ $sT->type_name == 'Performance' ? 'selected' : '' }}>
+                                                                                {{ $sT->type_name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12 my-4 text-center">
+                                                                        <button
+                                                                            class="col-auto btn btn-primary fs-6"
+                                                                            type="submit" id="btnSubmitForm"><i
+                                                                                class="bi bi-plus-circle-fill me-2"></i>Add
+                                                                            Problem</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </x-modal-popup>
+                                            {{-- //MARK: Delete Solution Description --}}
+                                            <x-modal-popup title="Delete Solution" modalName="deleteSolution-{{ $sD->id_solution }}">
+                                                <x-slot name="modalIcon"><i
+                                                        class="bi bi-trash-fill me-2"></i></x-slot>
+                                                <div class="container py-5">
+                                                    <div class="container">
+                                                        <form class="row text-center justify-content-center"
+                                                            action="{{ route('solution-domain.delete', $sD->id_solution) }}"
+                                                            method="POST" id="inputForm">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <div class="row text-center">
+                                                                <div class="col-12">
+                                                                    <p>Are you sure you want to delete this solution
+                                                                        ?
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="row justify-content-center text-center gap-3">
+                                                                <div class="col-auto">
+                                                                    <button type="submit" class="btn btn-danger"
+                                                                        id="btnSubmitForm">Yes. I'm sure.</button>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <button type="button" class="btn btn-primary"
+                                                                        data-bs-dismiss="modal">No. I'm not
+                                                                        sure.</button>
+                                                                </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </x-modal-popup>
                                             @endforeach
                                         @else
                                             <tr class="text-center">
@@ -247,21 +586,105 @@
                                         @endphp
                                         @if ($supportabilitySolution->count() > 0)
                                             @foreach ($supportabilitySolution as $sD)
-                                                <tr class="align-middle">
-                                                    <td class="text-center">{{ sprintf('REQ%03d',$sD->id_solution) }}</td>
-                                                    <td>{{ $sD->solution_desc }}</td>
-                                                    <td class="text-end">
-                                                        {{-- Edit.problem & Delete.problem --}}
-                                                        <button class="btn btn-warning m-1"
-                                                            data-bs-target="#editSolution-" data-bs-toggle="modal">
-                                                            <i class="bi bi-pencil-fill me-lg-2"></i><span
-                                                                class="d-none d-lg-inline-block">Edit</span></button>
-                                                        <button class="btn btn-danger m-1"
-                                                            data-bs-target="#deleteSolution-" data-bs-toggle="modal">
-                                                            <i class="bi bi-trash-fill me-lg-2"></i><span
-                                                                class="d-none d-lg-inline-block">Delete</span></button>
-                                                    </td>
-                                                </tr>
+                                            <tr class="align-middle">
+                                                <td class="text-center">{{ sprintf('REQ%03d', $sD->id_solution) }}
+                                                </td>
+                                                <td>{{ $sD->solution_desc }}</td>
+                                                <td class="text-end">
+                                                    {{-- Edit.problem & Delete.problem --}}
+                                                    <button class="btn btn-warning m-1"
+                                                        data-bs-target="#editSolution-{{ $sD->id_solution }}"
+                                                        data-bs-toggle="modal">
+                                                        <i class="bi bi-pencil-fill me-lg-2"></i><span
+                                                            class="d-none d-lg-inline-block">Edit</span></button>
+                                                    <button class="btn btn-danger m-1"
+                                                        data-bs-target="#deleteSolution-{{ $sD->id_solution }}"
+                                                        data-bs-toggle="modal">
+                                                        <i class="bi bi-trash-fill me-lg-2"></i><span
+                                                            class="d-none d-lg-inline-block">Delete</span></button>
+                                                </td>
+                                            </tr>
+                                            {{-- //MARK: Edit Solution domain --}}
+                                            <x-modal-popup title="Edit Solution"
+                                                modalName="editSolution-{{ $sD->id_solution }}">
+                                                <x-slot name="modalIcon"><i
+                                                        class="bi bi-pencil-fill me-2"></i></x-slot>
+                                                <form action="{{ route('solution-domain.edit', $sD->id_solution) }}"
+                                                    method="POST" class="form-control border border-0 rounded-4"
+                                                    enctype="multipart/form-data" id="inputForm">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="container p-3">
+                                                        <div class="row justify-content-center">
+                                                            <div class="container">
+                                                                <div class="col-12 mb-3">
+                                                                    <label for="solution_desc"
+                                                                        class="form-label mb-1">Request
+                                                                        Description</label>
+                                                                    <input type="text" name="solution_desc"
+                                                                        class="form-control"
+                                                                        value="{{ $sD->solution_desc }}"></textarea>
+                                                                </div>
+                                                                <div class="col-12 mb-3">
+                                                                    <label for="type_solution"
+                                                                        class="form-label mb-1">Type
+                                                                        Solution</label>
+                                                                    <select name="type_solution"
+                                                                        class="form-select">
+                                                                        @foreach ($solutionType as $sT)
+                                                                            <option value="{{ $sT->type_name }}"
+                                                                                {{ $sT->type_name == 'Supportability' ? 'selected' : '' }}>
+                                                                                {{ $sT->type_name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12 my-4 text-center">
+                                                                        <button
+                                                                            class="col-auto btn btn-primary fs-6"
+                                                                            type="submit" id="btnSubmitForm"><i
+                                                                                class="bi bi-plus-circle-fill me-2"></i>Add
+                                                                            Problem</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </x-modal-popup>
+                                            {{-- //MARK: Delete Solution Description --}}
+                                            <x-modal-popup title="Delete Solution" modalName="deleteSolution-{{ $sD->id_solution }}">
+                                                <x-slot name="modalIcon"><i
+                                                        class="bi bi-trash-fill me-2"></i></x-slot>
+                                                <div class="container py-5">
+                                                    <div class="container">
+                                                        <form class="row text-center justify-content-center"
+                                                            action="{{ route('solution-domain.delete', $sD->id_solution) }}"
+                                                            method="POST" id="inputForm">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <div class="row text-center">
+                                                                <div class="col-12">
+                                                                    <p>Are you sure you want to delete this solution
+                                                                        ?
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="row justify-content-center text-center gap-3">
+                                                                <div class="col-auto">
+                                                                    <button type="submit" class="btn btn-danger"
+                                                                        id="btnSubmitForm">Yes. I'm sure.</button>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <button type="button" class="btn btn-primary"
+                                                                        data-bs-dismiss="modal">No. I'm not
+                                                                        sure.</button>
+                                                                </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </x-modal-popup>
                                             @endforeach
                                         @else
                                             <tr class="text-center">
@@ -284,25 +707,109 @@
                                         @php
                                             $designSolution = $solutionDomain
                                                 ->where('project_id', $projectId)
-                                                ->where('type_solution', "Design & Implementation Constraint");
+                                                ->where('type_solution', 'Design & Implementation Constraint');
                                         @endphp
                                         @if ($designSolution->count() > 0)
                                             @foreach ($designSolution as $sD)
-                                                <tr class="align-middle">
-                                                    <td class="text-center">{{ sprintf('REQ%03d',$sD->id_solution) }}</td>
-                                                    <td>{{ $sD->solution_desc }}</td>
-                                                    <td class="text-end">
-                                                        {{-- Edit.problem & Delete.problem --}}
-                                                        <button class="btn btn-warning m-1"
-                                                            data-bs-target="#editSolution-" data-bs-toggle="modal">
-                                                            <i class="bi bi-pencil-fill me-lg-2"></i><span
-                                                                class="d-none d-lg-inline-block">Edit</span></button>
-                                                        <button class="btn btn-danger m-1"
-                                                            data-bs-target="#deleteSolution-" data-bs-toggle="modal">
-                                                            <i class="bi bi-trash-fill me-lg-2"></i><span
-                                                                class="d-none d-lg-inline-block">Delete</span></button>
-                                                    </td>
-                                                </tr>
+                                            <tr class="align-middle">
+                                                <td class="text-center">{{ sprintf('REQ%03d', $sD->id_solution) }}
+                                                </td>
+                                                <td>{{ $sD->solution_desc }}</td>
+                                                <td class="text-end">
+                                                    {{-- Edit.problem & Delete.problem --}}
+                                                    <button class="btn btn-warning m-1"
+                                                        data-bs-target="#editSolution-{{ $sD->id_solution }}"
+                                                        data-bs-toggle="modal">
+                                                        <i class="bi bi-pencil-fill me-lg-2"></i><span
+                                                            class="d-none d-lg-inline-block">Edit</span></button>
+                                                    <button class="btn btn-danger m-1"
+                                                        data-bs-target="#deleteSolution-{{ $sD->id_solution }}"
+                                                        data-bs-toggle="modal">
+                                                        <i class="bi bi-trash-fill me-lg-2"></i><span
+                                                            class="d-none d-lg-inline-block">Delete</span></button>
+                                                </td>
+                                            </tr>
+                                            {{-- //MARK: Edit Solution domain --}}
+                                            <x-modal-popup title="Edit Solution"
+                                                modalName="editSolution-{{ $sD->id_solution }}">
+                                                <x-slot name="modalIcon"><i
+                                                        class="bi bi-pencil-fill me-2"></i></x-slot>
+                                                <form action="{{ route('solution-domain.edit', $sD->id_solution) }}"
+                                                    method="POST" class="form-control border border-0 rounded-4"
+                                                    enctype="multipart/form-data" id="inputForm">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="container p-3">
+                                                        <div class="row justify-content-center">
+                                                            <div class="container">
+                                                                <div class="col-12 mb-3">
+                                                                    <label for="solution_desc"
+                                                                        class="form-label mb-1">Request
+                                                                        Description</label>
+                                                                    <input type="text" name="solution_desc"
+                                                                        class="form-control"
+                                                                        value="{{ $sD->solution_desc }}"></textarea>
+                                                                </div>
+                                                                <div class="col-12 mb-3">
+                                                                    <label for="type_solution"
+                                                                        class="form-label mb-1">Type
+                                                                        Solution</label>
+                                                                    <select name="type_solution"
+                                                                        class="form-select">
+                                                                        @foreach ($solutionType as $sT)
+                                                                            <option value="{{ $sT->type_name }}"
+                                                                                {{ $sT->type_name == 'Design & Implementation Constraint' ? 'selected' : '' }}>
+                                                                                {{ $sT->type_name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12 my-4 text-center">
+                                                                        <button
+                                                                            class="col-auto btn btn-primary fs-6"
+                                                                            type="submit" id="btnSubmitForm"><i
+                                                                                class="bi bi-plus-circle-fill me-2"></i>Add
+                                                                            Problem</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </x-modal-popup>
+                                            {{-- //MARK: Delete Solution Description --}}
+                                            <x-modal-popup title="Delete Solution" modalName="deleteSolution-{{ $sD->id_solution }}">
+                                                <x-slot name="modalIcon"><i
+                                                        class="bi bi-trash-fill me-2"></i></x-slot>
+                                                <div class="container py-5">
+                                                    <div class="container">
+                                                        <form class="row text-center justify-content-center"
+                                                            action="{{ route('solution-domain.delete', $sD->id_solution) }}"
+                                                            method="POST" id="inputForm">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <div class="row text-center">
+                                                                <div class="col-12">
+                                                                    <p>Are you sure you want to delete this solution
+                                                                        ?
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="row justify-content-center text-center gap-3">
+                                                                <div class="col-auto">
+                                                                    <button type="submit" class="btn btn-danger"
+                                                                        id="btnSubmitForm">Yes. I'm sure.</button>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <button type="button" class="btn btn-primary"
+                                                                        data-bs-dismiss="modal">No. I'm not
+                                                                        sure.</button>
+                                                                </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </x-modal-popup>
                                             @endforeach
                                         @else
                                             <tr class="text-center">
@@ -317,7 +824,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 {{-- //MARK: Add Solution --}}

@@ -202,6 +202,35 @@ class showProject extends Component
         //Return if Success
         return redirect()->back()->with('alertMessage', ["Add Solution Success", "Add solution description successfully !", "success"]);
     }
+    public function editSolutionDomain(Request $request, $id)
+    {
+        // dd("updated");
+        //Rules Input
+        $rules = [
+            'solution_desc' => 'required',
+        ];
+        //Check Input
+        $checkInput = Validator::make($request->all(), $rules);
+
+        if ($checkInput->fails()) return redirect()->back()->withInput()->with('alertMessage', ["Edit Solution Failed", "Please fill in all the fields !", "error"]);
+        //Get Project
+        $solutionDomain = SolutionDomains::findOrFail($id);
+
+        //editProblemDomain
+        $solutionDomain->update($request->all());
+        
+        return redirect()->back()->with('alertMessage', ["Edit Solution Success", "Edit solution successfully !", "success"]);
+    }
+    public function deleteSolutionDomain($id)
+    {
+        //Get Project
+        $solutionDomain = SolutionDomains::findOrFail($id);
+
+        if (!$solutionDomain->delete()) return redirect()->back()->with('alertMessage', ["Delete Request Failed", "There is something wrong with !", "error"]);
+
+        return redirect()->back()->with('alertMessage', ["Delete Request Success", "Delete request successfully !", "success"]);
+    }
+
     /**
      * Get the view / contents that represent the component.
      */
