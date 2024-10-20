@@ -50,11 +50,12 @@
                                             $functionalSolution = $solutionDomain
                                                 ->where('project_id', $projectId)
                                                 ->where('type_solution', 'Functionality');
+                                                $functional = 1;
                                         @endphp
                                         @if ($functionalSolution->count() > 0)
                                             @foreach ($functionalSolution as $sD)
                                                 <tr class="align-middle">
-                                                    <td class="text-center">{{ sprintf('REQ%03d', $sD->id_solution) }}
+                                                    <td class="text-center">{{ sprintf('REQ%03d', $functional++) }}
                                                     </td>
                                                     <td>{{ $sD->solution_desc }}</td>
                                                     <td class="text-end">
@@ -206,11 +207,12 @@
                                             $usabilitySolution = $solutionDomain
                                                 ->where('project_id', $projectId)
                                                 ->where('type_solution', 'Usability');
+                                                $usability = 1;
                                         @endphp
                                         @if ($usabilitySolution->count() > 0)
                                             @foreach ($usabilitySolution as $sD)
                                                 <tr class="align-middle">
-                                                    <td class="text-center">{{ sprintf('REQ%03d', $sD->id_solution) }}
+                                                    <td class="text-center">{{ sprintf('REQ%03d', $usability++) }}
                                                     </td>
                                                     <td>{{ $sD->solution_desc }}</td>
                                                     <td class="text-end">
@@ -333,11 +335,12 @@
                                             $reliabilitySolution = $solutionDomain
                                                 ->where('project_id', $projectId)
                                                 ->where('type_solution', 'Reliability');
+                                                $reliability = 1;
                                         @endphp
                                         @if ($reliabilitySolution->count() > 0)
                                             @foreach ($reliabilitySolution as $sD)
                                             <tr class="align-middle">
-                                                <td class="text-center">{{ sprintf('REQ%03d', $sD->id_solution) }}
+                                                <td class="text-center">{{ sprintf('REQ%03d', $reliability++) }}
                                                 </td>
                                                 <td>{{ $sD->solution_desc }}</td>
                                                 <td class="text-end">
@@ -458,11 +461,12 @@
                                             $performanceSolution = $solutionDomain
                                                 ->where('project_id', $projectId)
                                                 ->where('type_solution', 'Performance');
+                                                $performance = 1;
                                         @endphp
                                         @if ($performanceSolution->count() > 0)
                                             @foreach ($performanceSolution as $sD)
                                             <tr class="align-middle">
-                                                <td class="text-center">{{ sprintf('REQ%03d', $sD->id_solution) }}
+                                                <td class="text-center">{{ sprintf('REQ%03d', $performance++) }}
                                                 </td>
                                                 <td>{{ $sD->solution_desc }}</td>
                                                 <td class="text-end">
@@ -583,11 +587,12 @@
                                             $supportabilitySolution = $solutionDomain
                                                 ->where('project_id', $projectId)
                                                 ->where('type_solution', 'Supportability');
+                                                $supportability = 1;
                                         @endphp
                                         @if ($supportabilitySolution->count() > 0)
                                             @foreach ($supportabilitySolution as $sD)
                                             <tr class="align-middle">
-                                                <td class="text-center">{{ sprintf('REQ%03d', $sD->id_solution) }}
+                                                <td class="text-center">{{ sprintf('REQ%03d', $supportability++) }}
                                                 </td>
                                                 <td>{{ $sD->solution_desc }}</td>
                                                 <td class="text-end">
@@ -708,11 +713,12 @@
                                             $designSolution = $solutionDomain
                                                 ->where('project_id', $projectId)
                                                 ->where('type_solution', 'Design & Implementation Constraint');
+                                                $design = 1;
                                         @endphp
                                         @if ($designSolution->count() > 0)
                                             @foreach ($designSolution as $sD)
                                             <tr class="align-middle">
-                                                <td class="text-center">{{ sprintf('REQ%03d', $sD->id_solution) }}
+                                                <td class="text-center">{{ sprintf('REQ%03d', $design++) }}
                                                 </td>
                                                 <td>{{ $sD->solution_desc }}</td>
                                                 <td class="text-end">
