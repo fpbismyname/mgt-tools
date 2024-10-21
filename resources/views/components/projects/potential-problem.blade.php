@@ -91,56 +91,54 @@ switch ($pp->potential_name) {
                                                                 class="d-none d-lg-inline-block ms-2">Edit</span></button>
                                                     </td>
                                                     {{-- //MARK: Edit Solution domain --}}
-                                                    <x-modal-popup title="Edit Potential Problem"
-                                                        modalName="editPotential-{{ $sD->id_solution }}">
-                                                        <x-slot name="modalIcon"><i
-                                                                class="bi bi-pencil-fill me-2"></i></x-slot>
-                                                        <form
-                                                            action="{{ route('solution-domain.edit', $sD->id_solution) }}"
-                                                            method="POST"
-                                                            class="form-control border border-0 rounded-4"
-                                                            enctype="multipart/form-data" id="inputForm">
-                                                            @csrf
-                                                            @method('PUT')
-                                                            <div class="container p-3">
-                                                                <div class="row justify-content-center">
-                                                                    <div class="container">
-                                                                        <div class="row">
-                                                                            <div class="col-12 mb-3">
-                                                                                <label class="form-label mb-1">Solution
-                                                                                    Request Name</label>
-                                                                                <input type="text"
-                                                                                    class="form-control" disabled
-                                                                                    value="{{ $sD->solution_desc }}">
-                                                                            </div>
-                                                                            <div class="col-12 mb-3">
-                                                                                <label for="potential_of_solution"
-                                                                                    class="form-label mb-1">Potential
-                                                                                    Problem</label>
-                                                                                <select name="potential_of_solution"
-                                                                                    class="form-select">
-                                                                                    @foreach ($potentialProblem as $pp)
-                                                                                        <option
-                                                                                            value="{{ $pp->potential_name }}">
-                                                                                            {{ $pp->potential_name }}
-                                                                                        </option>
-                                                                                    @endforeach
-                                                                                </select>
-                                                                            </div>
-                                                                            <div class="col-12 my-4 text-center">
-                                                                                <button
-                                                                                    class="col-auto btn btn-warning fs-6"
-                                                                                    type="submit"
-                                                                                    id="btnSubmitForm"><i
-                                                                                        class="bi bi-plus-circle-fill me-2"></i>Edit
-                                                                                    Potential</button>
-                                                                            </div>
+                                                <x-modal-popup title="Edit Potential Problem" modalName="editPotential-{{ $sD->id_solution }}">
+                                                    <x-slot name="modalIcon"><i
+                                                            class="bi bi-pencil-fill me-2"></i></x-slot>
+                                                    <form
+                                                        action="{{ route('solution-domain.edit', $sD->id_solution) }}"
+                                                        method="POST"
+                                                        class="form-control border border-0 rounded-4"
+                                                        enctype="multipart/form-data" id="inputForm">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="container p-3">
+                                                            <div class="row justify-content-center">
+                                                                <div class="container">
+                                                                    <div class="row">
+                                                                        <div class="col-12 mb-3">
+                                                                            <label class="form-label mb-1">Request Description</label>
+                                                                            <input type="text"
+                                                                                class="form-control" disabled
+                                                                                value="{{ $sD->solution_desc }}">
+                                                                        </div>
+                                                                        <div class="col-12 mb-3">
+                                                                            <label for="potential_of_solution"
+                                                                                class="form-label mb-1">Potential
+                                                                                Problem</label>
+                                                                            <select name="potential_of_solution"
+                                                                                class="form-select">
+                                                                                @foreach ($potentialProblem as $pp)
+                                                                                    <option
+                                                                                        value="{{ $pp->potential_name }}">
+                                                                                        {{ $pp->potential_name }}
+                                                                                    </option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col-12 my-4 text-center">
+                                                                            <button
+                                                                                class="col-auto btn btn-warning fs-6"
+                                                                                type="submit"
+                                                                                id="btnSubmitForm"><i
+                                                                                    class="bi bi-plus-circle-fill me-2"></i>Edit
+                                                                                Potential</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </form>
-                                                    </x-modal-popup>
+                                                        </div>
+                                                    </form>
+                                                </x-modal-popup>
                                                 </tr>
                                             @endforeach
                                         @else
@@ -238,8 +236,7 @@ switch ($pp->potential_name) {
                                                                 class="d-none d-lg-inline-block ms-2">Edit</span></button>
                                                     </td>
                                                     {{-- //MARK: Edit Solution domain --}}
-                                                    <x-modal-popup title="Edit Potential Problem"
-                                                        modalName="editPotential-{{ $sD->id_solution }}">
+                                                    <x-modal-popup title="Edit Potential Problem" modalName="editPotential-{{ $sD->id_solution }}">
                                                         <x-slot name="modalIcon"><i
                                                                 class="bi bi-pencil-fill me-2"></i></x-slot>
                                                         <form
@@ -254,8 +251,7 @@ switch ($pp->potential_name) {
                                                                     <div class="container">
                                                                         <div class="row">
                                                                             <div class="col-12 mb-3">
-                                                                                <label class="form-label mb-1">Solution
-                                                                                    Request Name</label>
+                                                                                <label class="form-label mb-1">Request Description</label>
                                                                                 <input type="text"
                                                                                     class="form-control" disabled
                                                                                     value="{{ $sD->solution_desc }}">
@@ -353,8 +349,7 @@ switch ($pp->potential_name) {
                                                                 class="d-none d-lg-inline-block ms-2">Edit</span></button>
                                                     </td>
                                                     {{-- //MARK: Edit Solution domain --}}
-                                                    <x-modal-popup title="Edit Potential Problem"
-                                                        modalName="editPotential-{{ $sD->id_solution }}">
+                                                    <x-modal-popup title="Edit Potential Problem" modalName="editPotential-{{ $sD->id_solution }}">
                                                         <x-slot name="modalIcon"><i
                                                                 class="bi bi-pencil-fill me-2"></i></x-slot>
                                                         <form
@@ -369,8 +364,7 @@ switch ($pp->potential_name) {
                                                                     <div class="container">
                                                                         <div class="row">
                                                                             <div class="col-12 mb-3">
-                                                                                <label class="form-label mb-1">Solution
-                                                                                    Request Name</label>
+                                                                                <label class="form-label mb-1">Request Description</label>
                                                                                 <input type="text"
                                                                                     class="form-control" disabled
                                                                                     value="{{ $sD->solution_desc }}">
@@ -468,8 +462,7 @@ switch ($pp->potential_name) {
                                                                 class="d-none d-lg-inline-block ms-2">Edit</span></button>
                                                     </td>
                                                     {{-- //MARK: Edit Solution domain --}}
-                                                    <x-modal-popup title="Edit Potential Problem"
-                                                        modalName="editPotential-{{ $sD->id_solution }}">
+                                                    <x-modal-popup title="Edit Potential Problem" modalName="editPotential-{{ $sD->id_solution }}">
                                                         <x-slot name="modalIcon"><i
                                                                 class="bi bi-pencil-fill me-2"></i></x-slot>
                                                         <form
@@ -484,8 +477,7 @@ switch ($pp->potential_name) {
                                                                     <div class="container">
                                                                         <div class="row">
                                                                             <div class="col-12 mb-3">
-                                                                                <label class="form-label mb-1">Solution
-                                                                                    Request Name</label>
+                                                                                <label class="form-label mb-1">Request Description</label>
                                                                                 <input type="text"
                                                                                     class="form-control" disabled
                                                                                     value="{{ $sD->solution_desc }}">
@@ -584,8 +576,7 @@ switch ($pp->potential_name) {
                                                                 class="d-none d-lg-inline-block ms-2">Edit</span></button>
                                                     </td>
                                                     {{-- //MARK: Edit Solution domain --}}
-                                                    <x-modal-popup title="Edit Potential Problem"
-                                                        modalName="editPotential-{{ $sD->id_solution }}">
+                                                    <x-modal-popup title="Edit Potential Problem" modalName="editPotential-{{ $sD->id_solution }}">
                                                         <x-slot name="modalIcon"><i
                                                                 class="bi bi-pencil-fill me-2"></i></x-slot>
                                                         <form
@@ -600,8 +591,7 @@ switch ($pp->potential_name) {
                                                                     <div class="container">
                                                                         <div class="row">
                                                                             <div class="col-12 mb-3">
-                                                                                <label class="form-label mb-1">Solution
-                                                                                    Request Name</label>
+                                                                                <label class="form-label mb-1">Request Description</label>
                                                                                 <input type="text"
                                                                                     class="form-control" disabled
                                                                                     value="{{ $sD->solution_desc }}">
@@ -699,8 +689,7 @@ switch ($pp->potential_name) {
                                                                 class="d-none d-lg-inline-block ms-2">Edit</span></button>
                                                     </td>
                                                     {{-- //MARK: Edit Solution domain --}}
-                                                    <x-modal-popup title="Edit Potential Problem"
-                                                        modalName="editPotential-{{ $sD->id_solution }}">
+                                                    <x-modal-popup title="Edit Potential Problem" modalName="editPotential-{{ $sD->id_solution }}">
                                                         <x-slot name="modalIcon"><i
                                                                 class="bi bi-pencil-fill me-2"></i></x-slot>
                                                         <form
@@ -715,8 +704,7 @@ switch ($pp->potential_name) {
                                                                     <div class="container">
                                                                         <div class="row">
                                                                             <div class="col-12 mb-3">
-                                                                                <label class="form-label mb-1">Solution
-                                                                                    Request Name</label>
+                                                                                <label class="form-label mb-1">Request Description</label>
                                                                                 <input type="text"
                                                                                     class="form-control" disabled
                                                                                     value="{{ $sD->solution_desc }}">
