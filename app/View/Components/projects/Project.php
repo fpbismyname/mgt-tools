@@ -5,7 +5,6 @@ namespace App\View\Components\projects;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use Illuminate\Support\Str;
 
 class Project extends Component
 {
@@ -18,6 +17,7 @@ class Project extends Component
         public $problemDomain,
         public $solutionDomain,
         public $solutionType,
+        public $potentialProblem,
         )
     {
 
@@ -28,7 +28,7 @@ class Project extends Component
      */
     public function render(): View|Closure|string
     {
-        $project = $this->project;
-        return view("components.projects.project", compact('project'));
+        // $project = $this->project;
+        return view("components.projects.project");
     }
 }

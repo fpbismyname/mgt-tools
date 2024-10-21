@@ -6,12 +6,12 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class potentialProblem extends Component
+class PotentialProblems extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct(public $projectId, public $solutionDomain, public $potentialProblem, public $solutionType)
     {
         //
     }

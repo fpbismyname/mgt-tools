@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Account;
+use App\Models\PotentialProblem;
 use App\Models\ProjectMenu;
 use App\Models\SolutionDomains;
 use App\Models\TypeSolution;
@@ -72,6 +73,18 @@ class DatabaseSeeder extends Seeder
         ];
         foreach ($TypeSolution as $typeName) {
             TypeSolution::create($typeName);
+        }
+
+        /**
+         * MARK:Potential Problem
+         */
+        $potentialProblem = [
+            ['potential_name' => 'Ambiguity'],
+            ['potential_name' => 'Incomplete'],
+            ['potential_name' => 'Inconsisten'],
+        ];
+        foreach($potentialProblem as $potention){
+            PotentialProblem::create($potention);
         }
     }
 }

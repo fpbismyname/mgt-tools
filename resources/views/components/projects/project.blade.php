@@ -12,7 +12,7 @@
     @break
 
     @case('Potential Problem')
-        <x-projects.potential-problem />
+        <x-projects.potential-problem :projectId="$project->id_project" :solutionDomain="$solutionDomain" :potentialProblem="$potentialProblem" :solutionType="$solutionType"/>
     @break
 
     @case('Requirement Revision')

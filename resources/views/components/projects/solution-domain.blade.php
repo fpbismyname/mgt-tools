@@ -1,6 +1,6 @@
 <div class="container-fluid mb-5">
     <div class="container">
-        <div class="row gap-5">
+        <div class="row gap-3">
             <div class="col-12">
                 {{-- //MARK:Header --}}
                 <div class="container border rounded-4 p-3 p-sm-4 shadow">
@@ -29,7 +29,7 @@
                         <div class="col-12">
                             <div class="table-responsive">
                                 <table class="table table-hover">
-                                    <thead class="">
+                                    <thead>
                                         <tr>
                                             <th scope="col" class="p-3 fs-4 text-body-secondary" colspan="3">
                                                 Functional Requirement
@@ -39,7 +39,7 @@
                                     {{-- column title --}}
                                     <tbody class="table-group-divider">
                                         <tr class="align-middle">
-                                            <th scope="col" class="text-center">Req.ID</th>
+                                            <th scope="col" class="text-start">Req.ID</th>
                                             <th scope="col">Request Description</th>
                                             <th scope="col" class="text-end">Action</th>
                                         </tr>
@@ -55,7 +55,7 @@
                                         @if ($functionalSolution->count() > 0)
                                             @foreach ($functionalSolution as $sD)
                                                 <tr class="align-middle">
-                                                    <td class="text-center">{{ sprintf('REQ%03d', $functional++) }}
+                                                    <td class="text-start">{{ sprintf('REQ%03d', $functional++) }}
                                                     </td>
                                                     <td>{{ $sD->solution_desc }}</td>
                                                     <td class="text-end">
@@ -186,7 +186,7 @@
                                     {{-- column title --}}
                                     <tbody class="table-group-divider">
                                         <tr class="align-middle">
-                                            <th scope="col" class="text-center">Req.ID</th>
+                                            <th scope="col" class="text-start">Req.ID</th>
                                             <th scope="col">Request Description</th>
                                             <th scope="col" class="text-end">Action</th>
                                         </tr>
@@ -212,7 +212,7 @@
                                         @if ($usabilitySolution->count() > 0)
                                             @foreach ($usabilitySolution as $sD)
                                                 <tr class="align-middle">
-                                                    <td class="text-center">{{ sprintf('REQ%03d', $usability++) }}
+                                                    <td class="text-start">{{ sprintf('REQ%03d', $usability++) }}
                                                     </td>
                                                     <td>{{ $sD->solution_desc }}</td>
                                                     <td class="text-end">
@@ -340,7 +340,7 @@
                                         @if ($reliabilitySolution->count() > 0)
                                             @foreach ($reliabilitySolution as $sD)
                                             <tr class="align-middle">
-                                                <td class="text-center">{{ sprintf('REQ%03d', $reliability++) }}
+                                                <td class="text-start">{{ sprintf('REQ%03d', $reliability++) }}
                                                 </td>
                                                 <td>{{ $sD->solution_desc }}</td>
                                                 <td class="text-end">
@@ -466,7 +466,7 @@
                                         @if ($performanceSolution->count() > 0)
                                             @foreach ($performanceSolution as $sD)
                                             <tr class="align-middle">
-                                                <td class="text-center">{{ sprintf('REQ%03d', $performance++) }}
+                                                <td class="text-start">{{ sprintf('REQ%03d', $performance++) }}
                                                 </td>
                                                 <td>{{ $sD->solution_desc }}</td>
                                                 <td class="text-end">
@@ -592,7 +592,7 @@
                                         @if ($supportabilitySolution->count() > 0)
                                             @foreach ($supportabilitySolution as $sD)
                                             <tr class="align-middle">
-                                                <td class="text-center">{{ sprintf('REQ%03d', $supportability++) }}
+                                                <td class="text-start">{{ sprintf('REQ%03d', $supportability++) }}
                                                 </td>
                                                 <td>{{ $sD->solution_desc }}</td>
                                                 <td class="text-end">
@@ -718,7 +718,7 @@
                                         @if ($designSolution->count() > 0)
                                             @foreach ($designSolution as $sD)
                                             <tr class="align-middle">
-                                                <td class="text-center">{{ sprintf('REQ%03d', $design++) }}
+                                                <td class="text-start">{{ sprintf('REQ%03d', $design++) }}
                                                 </td>
                                                 <td>{{ $sD->solution_desc }}</td>
                                                 <td class="text-end">

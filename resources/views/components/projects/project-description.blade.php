@@ -1,6 +1,6 @@
 <div class="container-fluid mb-5">
     <div class="container">
-        <div class="row gap-5">
+        <div class="row gap-3">
             {{-- Header --}}
             <div class="container border rounded-4 p-3 p-sm-4 shadow">
                 <div class="row align-items-center gap-1">

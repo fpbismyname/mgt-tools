@@ -2,6 +2,7 @@
 
 namespace App\View\Components\projects;
 
+use App\Models\PotentialProblem;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -38,12 +39,14 @@ class showProject extends Component
         //Solution Domain
         $solutionDomain = SolutionDomains::all();
         $solutionType = TypeSolution::all();
+        //Potential Problem
+        $potentialProblem = PotentialProblem::all();
 
         if (!$project) {
             return abort(404);
         }
 
-        return view('components.projects.show-project', compact('project', 'projectMenu', 'selectedMenu', 'problemDomain', 'solutionDomain', 'solutionType'));
+        return view('components.projects.show-project', compact('project', 'projectMenu', 'selectedMenu', 'problemDomain', 'solutionDomain', 'solutionType', 'potentialProblem'));
     }
     public function editProject(Request $request, $id)
     {
@@ -184,9 +187,10 @@ class showProject extends Component
 
 
     /**
-     * Solution Domain
+     * //MARK:Solution Domain
      */
-    public function addSolutionDomain(Request $request, $id) {
+    public function addSolutionDomain(Request $request, $id)
+    {
         //Rules of input
         $rules = [
             'solution_desc' => 'required',
@@ -194,7 +198,7 @@ class showProject extends Component
         ];
         //Validation Input Value
         $checkInput = Validator::make($request->all(), $rules);
-        if($checkInput->fails()) return redirect()->back()->with('alertMessage', ["Add Solution Failed", "Please fill in all the fields !", "error"]);
+        if ($checkInput->fails()) return redirect()->back()->with('alertMessage', ["Add Solution Failed", "Please fill in all the fields !", "error"]);
         //Set Foregin Key & add data
         $projects = Projects::findOrFail($id);
         $solutionDomain = new SolutionDomains($request->all());
@@ -205,20 +209,15 @@ class showProject extends Component
     public function editSolutionDomain(Request $request, $id)
     {
         // dd("updated");
-        //Rules Input
-        $rules = [
-            'solution_desc' => 'required',
-        ];
-        //Check Input
-        $checkInput = Validator::make($request->all(), $rules);
-
-        if ($checkInput->fails()) return redirect()->back()->withInput()->with('alertMessage', ["Edit Solution Failed", "Please fill in all the fields !", "error"]);
+        if ($request->solution_desc && $request->solution_desc == ""){
+            return redirect()->back()->with('alertMessage', ["Edit Solution Failed", "Please fill in the field !", "error"]);
+        }
         //Get Project
         $solutionDomain = SolutionDomains::findOrFail($id);
 
         //editProblemDomain
         $solutionDomain->update($request->all());
-        
+
         return redirect()->back()->with('alertMessage', ["Edit Solution Success", "Edit solution successfully !", "success"]);
     }
     public function deleteSolutionDomain($id)
@@ -230,6 +229,19 @@ class showProject extends Component
 
         return redirect()->back()->with('alertMessage', ["Delete Request Success", "Delete request successfully !", "success"]);
     }
+
+    /**
+     * Potential problem
+     */
+    public function editPotentialProblem()
+    {
+        dd("edit");
+    }
+    public function deletePotentialProblem()
+    {
+        dd("delete");
+    }
+
 
     /**
      * Get the view / contents that represent the component.

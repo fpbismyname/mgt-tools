@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger("project_id");
             $table->string("solution_desc");
             $table->string("type_solution");
-            $table->string("potential_of_solution")->nullable();
+            $table->string("potential_of_solution")->nullable()->default("Incomplete");
             $table->string("solution_revision")->nullable();
             $table->unsignedBigInteger("solution_need")->nullable();
             $table->string("solution_clasification")->nullable();
