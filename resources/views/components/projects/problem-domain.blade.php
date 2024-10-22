@@ -27,7 +27,7 @@
                                 {{-- //MARK:header table --}}
                                 <thead>
                                     <tr>
-                                        <th scope="col" class="text-center">Need.ID</th>
+                                        <th scope="col" class="text-start">Need.ID</th>
                                         <th scope="col">Request Description</th>
                                         <th scope="col" class="text-end">Action</th>
                                     </tr>
@@ -41,10 +41,10 @@
                                     @if ($problemDomain->count() > 0)
                                         @foreach ($problemDomain as $pd)
                                             <tr class="align-middle text-wrap" id="{{ $pd->id_problem }}">
-                                                <td scope="row" class="text-center">Need-{{ $i++}}</td>
-                                                <td class="text-break">
+                                                <td class="text-start col-1">Need-{{ $i++}}</td>
+                                                <td class="text-break col-auto">
                                                     {{ $pd->problem_name }}</td>
-                                                <td class="text-end">
+                                                <td class="text-end col-4">
                                                     {{-- Edit.problem & Delete.problem --}}
                                                     <button class="btn btn-warning m-1"
                                                         data-bs-target="#editRequest-{{ $pd->id_problem }}"

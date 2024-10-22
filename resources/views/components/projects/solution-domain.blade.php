@@ -55,10 +55,10 @@
                                         @if ($functionalSolution->count() > 0)
                                             @foreach ($functionalSolution as $sD)
                                                 <tr class="align-middle">
-                                                    <td class="text-start">{{ sprintf('REQ%03d', $functional++) }}
+                                                    <td class="text-start col-1">{{ sprintf('REQ%03d', $functional++) }}
                                                     </td>
-                                                    <td>{{ $sD->solution_desc }}</td>
-                                                    <td class="text-end">
+                                                    <td class="col-auto">{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}</td>
+                                                    <td class="text-end col-4">
                                                         {{-- Edit.problem & Delete.problem --}}
                                                         <button class="btn btn-warning m-1"
                                                             data-bs-target="#editSolution-{{ $sD->id_solution }}"
@@ -91,7 +91,7 @@
                                                                             Description</label>
                                                                         <input type="text" name="solution_desc"
                                                                             class="form-control"
-                                                                            value="{{ $sD->solution_desc }}"></textarea>
+                                                                            value="{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}"></textarea>
                                                                     </div>
                                                                     <div class="col-12 mb-3">
                                                                         <label for="type_solution"
@@ -212,10 +212,10 @@
                                         @if ($usabilitySolution->count() > 0)
                                             @foreach ($usabilitySolution as $sD)
                                                 <tr class="align-middle">
-                                                    <td class="text-start">{{ sprintf('REQ%03d', $usability++) }}
+                                                    <td class="text-start col-1">{{ sprintf('REQ%03d', $usability++) }}
                                                     </td>
-                                                    <td>{{ $sD->solution_desc }}</td>
-                                                    <td class="text-end">
+                                                    <td class="col-auto">{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}</td>
+                                                    <td class="text-end col-4">
                                                         {{-- Edit.problem & Delete.problem --}}
                                                         <button class="btn btn-warning m-1"
                                                             data-bs-target="#editSolution-{{ $sD->id_solution }}"
@@ -249,7 +249,7 @@
                                                                             Description</label>
                                                                         <input type="text" name="solution_desc"
                                                                             class="form-control"
-                                                                            value="{{ $sD->solution_desc }}"></textarea>
+                                                                            value="{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}"></textarea>
                                                                     </div>
                                                                     <div class="col-12 mb-3">
                                                                         <label for="type_solution"
@@ -342,7 +342,7 @@
                                             <tr class="align-middle">
                                                 <td class="text-start">{{ sprintf('REQ%03d', $reliability++) }}
                                                 </td>
-                                                <td>{{ $sD->solution_desc }}</td>
+                                                <td>{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}</td>
                                                 <td class="text-end">
                                                     {{-- Edit.problem & Delete.problem --}}
                                                     <button class="btn btn-warning m-1"
@@ -376,7 +376,7 @@
                                                                         Description</label>
                                                                     <input type="text" name="solution_desc"
                                                                         class="form-control"
-                                                                        value="{{ $sD->solution_desc }}"></textarea>
+                                                                        value="{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}"></textarea>
                                                                 </div>
                                                                 <div class="col-12 mb-3">
                                                                     <label for="type_solution"
@@ -468,7 +468,7 @@
                                             <tr class="align-middle">
                                                 <td class="text-start">{{ sprintf('REQ%03d', $performance++) }}
                                                 </td>
-                                                <td>{{ $sD->solution_desc }}</td>
+                                                <td>{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}</td>
                                                 <td class="text-end">
                                                     {{-- Edit.problem & Delete.problem --}}
                                                     <button class="btn btn-warning m-1"
@@ -502,7 +502,7 @@
                                                                         Description</label>
                                                                     <input type="text" name="solution_desc"
                                                                         class="form-control"
-                                                                        value="{{ $sD->solution_desc }}"></textarea>
+                                                                        value="{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}"></textarea>
                                                                 </div>
                                                                 <div class="col-12 mb-3">
                                                                     <label for="type_solution"
@@ -594,7 +594,7 @@
                                             <tr class="align-middle">
                                                 <td class="text-start">{{ sprintf('REQ%03d', $supportability++) }}
                                                 </td>
-                                                <td>{{ $sD->solution_desc }}</td>
+                                                <td>{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}</td>
                                                 <td class="text-end">
                                                     {{-- Edit.problem & Delete.problem --}}
                                                     <button class="btn btn-warning m-1"
@@ -628,7 +628,7 @@
                                                                         Description</label>
                                                                     <input type="text" name="solution_desc"
                                                                         class="form-control"
-                                                                        value="{{ $sD->solution_desc }}"></textarea>
+                                                                        value="{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}"></textarea>
                                                                 </div>
                                                                 <div class="col-12 mb-3">
                                                                     <label for="type_solution"
@@ -720,7 +720,7 @@
                                             <tr class="align-middle">
                                                 <td class="text-start">{{ sprintf('REQ%03d', $design++) }}
                                                 </td>
-                                                <td>{{ $sD->solution_desc }}</td>
+                                                <td>{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}</td>
                                                 <td class="text-end">
                                                     {{-- Edit.problem & Delete.problem --}}
                                                     <button class="btn btn-warning m-1"
@@ -754,7 +754,7 @@
                                                                         Description</label>
                                                                     <input type="text" name="solution_desc"
                                                                         class="form-control"
-                                                                        value="{{ $sD->solution_desc }}"></textarea>
+                                                                        value="{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}"></textarea>
                                                                 </div>
                                                                 <div class="col-12 mb-3">
                                                                     <label for="type_solution"

@@ -16,7 +16,7 @@
     @break
 
     @case('Requirement Revision')
-        <x-projects.requirement-revision />
+        <x-projects.requirement-revision :solutionDomain="$solutionDomain" :projectId="$project->id_project" :solutionType="$solutionType"/>
     @break
 
     @case('Need vs Feat')

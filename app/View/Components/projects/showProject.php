@@ -104,7 +104,7 @@ class showProject extends Component
         $proj = Projects::findOrFail($id);
         $proj->update($updateProject);
 
-        return redirect()->back()->with('alertMessage', ['Edit Project Success', "Project apps successfully edited ! ", "success"]);
+        return redirect()->back()->with('alertMessage', ['Edit Project Success', "Project apps successfully edited ! ", "success", true]);
     }
     public function deleteProject($id)
     {
@@ -203,20 +203,34 @@ class showProject extends Component
         $projects = Projects::findOrFail($id);
         $solutionDomain = new SolutionDomains($request->all());
         $projects->Projects_SolutionDomain_id()->save($solutionDomain);
+
         //Return if Success
-        return redirect()->back()->with('alertMessage', ["Add Solution Success", "Add solution description successfully !", "success"]);
+        return redirect()->back()->with('alertMessage', ["Add Solution Success", "Add solution description successfully !", "success", true]);
     }
     public function editSolutionDomain(Request $request, $id)
     {
         // dd("updated");
-        if ($request->solution_desc && $request->solution_desc == ""){
+        if ($request->solution_desc && $request->solution_desc == "") {
             return redirect()->back()->with('alertMessage', ["Edit Solution Failed", "Please fill in the field !", "error"]);
         }
         //Get Project
         $solutionDomain = SolutionDomains::findOrFail($id);
 
-        //editProblemDomain
-        $solutionDomain->update($request->all());
+        //Check Revision
+        if ($solutionDomain) {
+            if ($solutionDomain->solution_desc !== $request->solution_desc) {
+                //editProblemDomain
+                $solutionDomain->update([
+                    'solution_revision' => $request->solution_desc,
+                    'type_solution' => $request->type_solution
+                ]);
+            } else{
+                $solutionDomain->update([
+                    'solution_revision' => $request->solution_desc,
+                    'type_solution' => $request->type_solution
+                ]);
+            }
+        }
 
         return redirect()->back()->with('alertMessage', ["Edit Solution Success", "Edit solution successfully !", "success"]);
     }
@@ -228,18 +242,6 @@ class showProject extends Component
         if (!$solutionDomain->delete()) return redirect()->back()->with('alertMessage', ["Delete Request Failed", "There is something wrong with !", "error"]);
 
         return redirect()->back()->with('alertMessage', ["Delete Request Success", "Delete request successfully !", "success"]);
-    }
-
-    /**
-     * Potential problem
-     */
-    public function editPotentialProblem()
-    {
-        dd("edit");
-    }
-    public function deletePotentialProblem()
-    {
-        dd("delete");
     }
 
 

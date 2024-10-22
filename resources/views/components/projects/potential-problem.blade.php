@@ -55,18 +55,17 @@
                                         @if ($functionalSolution->count() > 0)
                                             @foreach ($functionalSolution as $sD)
                                                 <tr class="align-middle">
-                                                    <td class="text-start">{{ sprintf('REQ%03d', $functional++) }}
+                                                    <td class="text-start col-1">{{ sprintf('REQ%03d', $functional++) }}
                                                     </td>
-                                                    <td>{{ $sD->solution_desc }}</td>
-                                                    <td>
+                                                    <td class="col-auto">{{ $sD->solution_desc }}</td>
+                                                    <td class="col-2">
                                                         <div class="container">
                                                             <div class="row text-center">
                                                                 <div class="col">
                                                                     @foreach ($potentialProblem as $pp)
                                                                         <span
                                                                             class="badge
-                                                                @php
-switch ($pp->potential_name) {
+                                                                @php switch ($pp->potential_name) {
                                                                         case 'Ambiguity':
                                                                             echo "text-bg-danger";
                                                                             break;
@@ -83,7 +82,7 @@ switch ($pp->potential_name) {
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="text-end">
+                                                    <td class="text-end col-2">
                                                         <button class="btn btn-warning"
                                                             data-bs-target="#editPotential-{{ $sD->id_solution }}"
                                                             data-bs-toggle="modal"><i
@@ -143,7 +142,7 @@ switch ($pp->potential_name) {
                                             @endforeach
                                         @else
                                             <tr class="text-center">
-                                                <td colspan="3" text-center> - No solution data- </td>
+                                                <td colspan="4" text-center> - No solution data- </td>
                                             </tr>
                                         @endif
                                     </tbody>
@@ -183,7 +182,7 @@ switch ($pp->potential_name) {
                                     {{-- //MARK:Usability --}}
                                     <tbody>
                                         <tr>
-                                            <td scope="col" colspan="3" class="border-0"><span
+                                            <td scope="col" colspan="4" class="border-0"><span
                                                     class="text-danger"><i
                                                         class="bi bi-person-fill-check me-2"></i>Usability
                                                     (lingkungan operasional dan tipeuser)</span></td>
@@ -200,18 +199,17 @@ switch ($pp->potential_name) {
                                         @if ($usabilitySolution->count() > 0)
                                             @foreach ($usabilitySolution as $sD)
                                                 <tr class="align-middle">
-                                                    <td class="text-start">{{ sprintf('REQ%03d', $usability++) }}
+                                                    <td class="text-start col-1">{{ sprintf('REQ%03d', $usability++) }}
                                                     </td>
-                                                    <td>{{ $sD->solution_desc }}</td>
-                                                    <td>
+                                                    <td class="col-auto">{{ $sD->solution_desc }}</td>
+                                                    <td class="col-2">
                                                         <div class="container">
                                                             <div class="row text-center">
                                                                 <div class="col">
                                                                     @foreach ($potentialProblem as $pp)
                                                                         <span
                                                                             class="badge
-                                                                @php
-switch ($pp->potential_name) {
+                                                                @php switch ($pp->potential_name) {
                                                                         case 'Ambiguity':
                                                                             echo "text-bg-danger";
                                                                             break;
@@ -228,7 +226,7 @@ switch ($pp->potential_name) {
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="text-end">
+                                                    <td class="text-end col-2">
                                                         <button class="btn btn-warning"
                                                             data-bs-target="#editPotential-{{ $sD->id_solution }}"
                                                             data-bs-toggle="modal"><i
@@ -288,7 +286,7 @@ switch ($pp->potential_name) {
                                             @endforeach
                                         @else
                                             <tr class="text-center">
-                                                <td colspan="3" text-center> - No solution data- </td>
+                                                <td colspan="4" text-center> - No solution data- </td>
                                             </tr>
                                         @endif
                                     </tbody>
@@ -296,7 +294,7 @@ switch ($pp->potential_name) {
                                     {{-- //MARK:Reliability --}}
                                     <tbody>
                                         <tr>
-                                            <td scope="col" colspan="3" class="border-0"><span
+                                            <td scope="col" colspan="4" class="border-0"><span
                                                     class="text-danger"><i
                                                         class="bi bi-gear-wide-connected me-2"></i>Reliability
                                                     (Availability, MTBF, MTTR, akurasi)</span></td>
@@ -401,7 +399,7 @@ switch ($pp->potential_name) {
                                             @endforeach
                                         @else
                                             <tr class="text-center">
-                                                <td colspan="3" text-center> - No solution data- </td>
+                                                <td colspan="4" text-center> - No solution data- </td>
                                             </tr>
                                         @endif
                                     </tbody>
@@ -409,7 +407,7 @@ switch ($pp->potential_name) {
                                     {{-- //MARK:Performance --}}
                                     <tbody>
                                         <tr>
-                                            <td scope="col" colspan="3" class="border-0"><span
+                                            <td scope="col" colspan="4" class="border-0"><span
                                                     class="text-danger"><i
                                                         class="bi bi-speedometer me-2"></i>Performance (Response time,
                                                     throughput, capacity, degradation modes)</span></td>
@@ -514,7 +512,7 @@ switch ($pp->potential_name) {
                                             @endforeach
                                         @else
                                             <tr class="text-center">
-                                                <td colspan="3" text-center> - No solution data- </td>
+                                                <td colspan="4" text-center> - No solution data- </td>
                                             </tr>
                                         @endif
                                     </tbody>
@@ -522,7 +520,7 @@ switch ($pp->potential_name) {
                                     {{-- //MARK:Supportability --}}
                                     <tbody>
                                         <tr>
-                                            <td scope="col" colspan="3" class="border-0"><span
+                                            <td scope="col" colspan="4" class="border-0"><span
                                                     class="text-danger"><i class="bi bi-tools me-2"></i>Supportability
                                                     (kemudahan dimodifikasi untuk mengakomodasi pengembangan atau
                                                     perbaikan)</span></td>
@@ -628,7 +626,7 @@ switch ($pp->potential_name) {
                                             @endforeach
                                         @else
                                             <tr class="text-center">
-                                                <td colspan="3" text-center> - No solution data- </td>
+                                                <td colspan="4" text-center> - No solution data- </td>
                                             </tr>
                                         @endif
                                     </tbody>
@@ -636,7 +634,7 @@ switch ($pp->potential_name) {
                                     {{-- //MARK:Design & Implementation --}}
                                     <tbody>
                                         <tr>
-                                            <td scope="col" colspan="3" class="border-0"><span
+                                            <td scope="col" colspan="4" class="border-0"><span
                                                     class="text-danger"><i class="bi bi-view-list me-2"></i>Design &
                                                     Implementation Constraint (Batasan/ Prasyarat pada Rancangan &
                                                     Pemrograman]</span></td>
@@ -741,7 +739,7 @@ switch ($pp->potential_name) {
                                             @endforeach
                                         @else
                                             <tr class="text-center">
-                                                <td colspan="3" text-center> - No solution data- </td>
+                                                <td colspan="4" text-center> - No solution data- </td>
                                             </tr>
                                         @endif
                                     </tbody>
