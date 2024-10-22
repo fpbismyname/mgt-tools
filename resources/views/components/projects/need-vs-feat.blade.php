@@ -10,13 +10,13 @@
                             <p class="fs-6 w-md-50">Comparison Need (problem domain) vs Feat (feature)</p>
                         </div>
                         <div class="col-12 col-sm text-center text-sm-end">
-                            <div class="container">
+                            {{-- <div class="container">
                                 <div class="row justify-content-center justify-content-sm-end gap-2">
                                     <button class="col-auto btn btn-primary fs-6" data-bs-target="#addRequest"
                                         data-bs-toggle="modal"><i class="bi bi-plus-circle-fill me-2"></i>Add
                                         Feature</button>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -60,9 +60,9 @@
                                                 <tr class="align-middle">
                                                     <td class="text-start col-1">{{ sprintf('REQ%03d', $functional++) }}
                                                     </td>
-                                                    <td class="col-auto">{{ $sD->solution_desc }}</td>
+                                                    <td class="col-auto">{{ $sD->solution_revision ?: $sD->solution_desc }}</td>
                                                     <td class="col-2 text-center">
-                                                       {{ $sD->solution_need ? $sD->solution_need : "Need-?" }} 
+                                                       {{ $sD->solution_need ? $sD->solution_need : "-" }} 
                                                     </td>
                                                     <td class="text-end col-2">
                                                         <button class="btn btn-warning"
@@ -183,9 +183,9 @@
                                                 <tr class="align-middle">
                                                     <td class="text-start col-1">{{ sprintf('REQ%03d', $usability++) }}
                                                     </td>
-                                                    <td class="col-auto">{{ $sD->solution_desc }}</td>
+                                                    <td class="col-auto">{{ $sD->solution_revision ?: $sD->solution_desc }}</td>
                                                     <td class="col-2 text-center">
-                                                        {{ $sD->solution_need ? $sD->solution_need : "Need-?" }} 
+                                                        {{ $sD->solution_need ? $sD->solution_need : "-" }} 
                                                      </td>
                                                      <td class="text-end col-2">
                                                          <button class="btn btn-warning"
@@ -274,9 +274,9 @@
                                                 <tr class="align-middle">
                                                     <td class="text-start">{{ sprintf('REQ%03d', $reliability++) }}
                                                     </td>
-                                                    <td>{{ $sD->solution_desc }}</td>
+                                                    <td>{{ $sD->solution_revision ?: $sD->solution_desc }}</td>
                                                     <td class="col-2 text-center">
-                                                        {{ $sD->solution_need ? $sD->solution_need : "Need-?" }} 
+                                                        {{ $sD->solution_need ? $sD->solution_need : "-" }} 
                                                      </td>
                                                      <td class="text-end col-2">
                                                          <button class="btn btn-warning"
@@ -365,9 +365,9 @@
                                                 <tr class="align-middle">
                                                     <td class="text-start">{{ sprintf('REQ%03d', $performance++) }}
                                                     </td>
-                                                    <td>{{ $sD->solution_desc }}</td>
+                                                    <td>{{ $sD->solution_revision ?: $sD->solution_desc }}</td>
                                                     <td class="col-2 text-center">
-                                                        {{ $sD->solution_need ? $sD->solution_need : "Need-?" }} 
+                                                        {{ $sD->solution_need ? $sD->solution_need : "-" }} 
                                                      </td>
                                                      <td class="text-end col-2">
                                                          <button class="btn btn-warning"
@@ -457,9 +457,9 @@
                                                     <td class="text-start">
                                                         {{ sprintf('REQ%03d', $supportability++) }}
                                                     </td>
-                                                    <td>{{ $sD->solution_desc }}</td>
+                                                    <td>{{ $sD->solution_revision ?: $sD->solution_desc }}</td>
                                                     <td class="col-2 text-center">
-                                                        {{ $sD->solution_need ? $sD->solution_need : "Need-?" }} 
+                                                        {{ $sD->solution_need ? $sD->solution_need : "-" }} 
                                                      </td>
                                                      <td class="text-end col-2">
                                                          <button class="btn btn-warning"
@@ -548,9 +548,9 @@
                                                 <tr class="align-middle">
                                                     <td class="text-start">{{ sprintf('REQ%03d', $design++) }}
                                                     </td>
-                                                    <td>{{ $sD->solution_desc }}</td>
+                                                    <td>{{ $sD->solution_revision ?: $sD->solution_desc }}</td>
                                                     <td class="col-2 text-center">
-                                                        {{ $sD->solution_need ? $sD->solution_need : "Need-?" }} 
+                                                        {{ $sD->solution_need ? $sD->solution_need : "-" }} 
                                                      </td>
                                                      <td class="text-end col-2">
                                                          <button class="btn btn-warning"

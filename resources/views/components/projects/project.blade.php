@@ -24,7 +24,7 @@
     @break
 
     @case('Priority Clasification')
-        <x-projects.priority-clasification />
+        <x-projects.priority-clasification :solutionDomain="$solutionDomain" :projectId="$project->id_project" :solutionType="$solutionType" :solutionClasification="$solutionClasification"/>
     @break
 
     @case('Feasibility')

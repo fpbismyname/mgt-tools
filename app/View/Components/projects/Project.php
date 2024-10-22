@@ -18,6 +18,7 @@ class Project extends Component
         public $solutionDomain,
         public $solutionType,
         public $potentialProblem,
+        public $solutionClasification,
         )
     {
 

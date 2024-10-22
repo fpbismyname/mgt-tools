@@ -9,6 +9,7 @@ use Illuminate\View\Component;
 use App\Models\ProblemDomain;
 use App\Models\ProjectMenu;
 use App\Models\Projects;
+use App\Models\SolutionClassification;
 use App\Models\SolutionDomains;
 use App\Models\TypeSolution;
 use Illuminate\Http\Request;
@@ -41,12 +42,14 @@ class showProject extends Component
         $solutionType = TypeSolution::all();
         //Potential Problem
         $potentialProblem = PotentialProblem::all();
+        //Potential Problem
+        $solutionClasification = SolutionClassification::all();
 
         if (!$project) {
             return abort(404);
         }
 
-        return view('components.projects.show-project', compact('project', 'projectMenu', 'selectedMenu', 'problemDomain', 'solutionDomain', 'solutionType', 'potentialProblem'));
+        return view('components.projects.show-project', compact('project', 'projectMenu', 'selectedMenu', 'problemDomain', 'solutionDomain', 'solutionType', 'potentialProblem', 'solutionClasification'));
     }
     public function editProject(Request $request, $id)
     {

@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('solution_domains', function (Blueprint $table) {
             $table->id("id_solution");
             $table->unsignedBigInteger("project_id");
-            $table->string("solution_desc");
+            $table->text("solution_desc");
             $table->string("type_solution");
             $table->string("potential_of_solution")->nullable()->default("Incomplete");
-            $table->string("solution_revision")->nullable();
+            $table->text("solution_revision")->nullable();
             $table->string("solution_need")->nullable();
             $table->string("solution_clasification")->nullable();
             $table->string("solution_feasibility")->nullable();

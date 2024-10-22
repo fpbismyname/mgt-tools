@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('problem_domains', function (Blueprint $table) {
             $table->id("id_problem");
-            $table->string("problem_name");
+            $table->text("problem_name");
             $table->unsignedBigInteger("project_id");
             $table->timestamps();
             $table->foreign('project_id')->references('id_project')->on('projects')->onDelete('cascade');

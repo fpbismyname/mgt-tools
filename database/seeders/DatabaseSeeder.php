@@ -7,6 +7,7 @@ use App\Models\PotentialProblem;
 use App\Models\ProblemDomain;
 use App\Models\ProjectMenu;
 use App\Models\Projects;
+use App\Models\SolutionClassification;
 use App\Models\SolutionDomains;
 use App\Models\TypeSolution;
 use Illuminate\Database\Seeder;
@@ -132,6 +133,18 @@ class DatabaseSeeder extends Seeder
         ];
         foreach ($solutionDomain as $sd){
             SolutionDomains::create($sd);
+        }
+
+        /**
+         * MARK: Solution Clasification
+         */
+        $solutionClasification = [
+            ['class_name' => 'Critical. Essential features. Failure to implement means the system will not meet customer needs. All critical features must be implemented in the release or the schedule will slip'],
+            ['class_name' => 'Important. Features important to the effectiveness and efficiency of the system for most applications. The functionality cannot be easily provided in some other way. Lack of inclusion of an important feature may affect customer or user satisfaction, or even revenue, but release will not be delayed due to lack of any important feature'],
+            ['class_name' => 'Useful. Features that are useful in less typical applications or for which reasonably efficient workarounds can be achieved will be used less frequently.  No significant revenue or customer satisfaction impact can be expected if such an item is not included in a release'],
+        ];
+        foreach ($solutionClasification as $sc){
+            SolutionClassification::create($sc);
         }
     }
 }
