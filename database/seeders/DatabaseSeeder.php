@@ -4,7 +4,9 @@ namespace Database\Seeders;
 
 use App\Models\Account;
 use App\Models\PotentialProblem;
+use App\Models\ProblemDomain;
 use App\Models\ProjectMenu;
+use App\Models\Projects;
 use App\Models\SolutionDomains;
 use App\Models\TypeSolution;
 use Illuminate\Database\Seeder;
@@ -37,6 +39,17 @@ class DatabaseSeeder extends Seeder
         ];
         foreach ($AccountSeeder as $account) {
             Account::create($account);
+        }
+
+        /**
+         * Project Seeder
+         */
+        $projects = [
+            ['project_name'=>'ELIS (Employee Leave Information System)', 'project_desc' => 'ELIS APPS', 'business_process_model'=> '2XNKXEy8aaxjwh2PgtD8mqk9CsMCL38dosPbT8JY.png', 'problem_root_cause'=> ' 5ZW63LaAJ3DXduuphMxo9bgMtd4St5n2xAs2tkGK.png'],
+            ['project_name'=>'Nusantara Project OS', 'project_desc' => 'Nusantara OS', 'business_process_model'=> '2XNKXEy8aaxjwh2PgtD8mqk9CsMCL38dosPbT8JY.png', 'problem_root_cause'=> ' 5ZW63LaAJ3DXduuphMxo9bgMtd4St5n2xAs2tkGK.png'],
+        ];
+        foreach ($projects as $pj) {
+            Projects::create($pj);
         }
 
         /**
@@ -85,6 +98,40 @@ class DatabaseSeeder extends Seeder
         ];
         foreach($potentialProblem as $potention){
             PotentialProblem::create($potention);
+        }
+        /**
+         * MARK:Problem Domain
+         */
+        $problemDomain = [
+            ['problem_name' => 'Employees need to request a leave online','project_id' => 1],
+            ['problem_name' => 'Employees need to track history leave','project_id' => 1],
+            ['problem_name' => 'Supervisor need to accept or reject subordinates leave request','project_id' => 1],
+            ['problem_name' => 'Supervisor need to track their subordinates leave history','project_id' => 1],
+            ['problem_name' => 'HR need to accept or reject all employees leave after accepted by supervisor','project_id' => 1],
+            ['problem_name' => 'Supervisor need to track their all employees leave history','project_id' => 1],
+            ['problem_name' => 'Supervisor need to track their all employees leave history','project_id' => 1],
+            ['problem_name' => 'Supervisor need to be notified by email if any leave request from subordinate','project_id' => 1],
+            ['problem_name' => 'Employees need to be notified by email if any approval from their supervisor','project_id' => 1],
+            ['problem_name' => 'HR need to be notified by email if any approved request from supervisor','project_id' => 1],
+            ['problem_name' => 'Employees need to be notified by email if any approval from their HR','project_id' => 1],
+        ];
+        foreach ($problemDomain as $pd){
+            ProblemDomain::create($pd);
+        }
+
+        /**
+         * MARK: Solution Domain
+         */
+        $solutionDomain = [
+            ['project_id' =>  1, 'solution_desc' => 'The system must be able to allow the employee to create a leave request directly inside the system without call supervisor first', 'type_solution'=>'Functionality', 'solution_revision'=>'The system must be able to allow the employee to create a leave request directly inside the system without call supervisor first'],
+            ['project_id' =>  1, 'solution_desc' => 'The system must be able to fit into mobile devices (responsive web design)', 'type_solution'=>'Usability', 'solution_revision'=>'The system must be able to fit into mobile devices (responsive web design)'],
+            ['project_id' =>  1, 'solution_desc' => 'The system must be able to provide the availability with minimum at 99%', 'type_solution'=>'Reliability', 'solution_revision'=>'The system must be able to provide the availability with minimum at 99%'],
+            ['project_id' =>  1, 'solution_desc' => 'The system response time must be less than 5 seconds', 'type_solution'=>'Performance', 'solution_revision'=>'The system response time must be less than 5 seconds'],
+            ['project_id' =>  1, 'solution_desc' => 'The system codebase is developed by Service Oriented Architecture', 'type_solution'=>'Supportability', 'solution_revision'=>'The system codebase is developed by Service Oriented Architecture'],
+            ['project_id' =>  1, 'solution_desc' => 'The system must be delivered by the deadline', 'type_solution'=>'Design & Implementation Constraint', 'solution_revision'=>'The system must be delivered by the deadline'],
+        ];
+        foreach ($solutionDomain as $sd){
+            SolutionDomains::create($sd);
         }
     }
 }

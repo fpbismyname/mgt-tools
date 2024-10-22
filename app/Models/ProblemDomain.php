@@ -14,8 +14,4 @@ class ProblemDomain extends Model
     public function ProblemDomain_Projects_id(){
         return $this->belongsTo(Projects::class, 'id_project');
     }
-    //ProblemDomain(id_problem) -> SolutionDomain (solution_need)
-    public function ProblemDomain_SolutionDomain_id(){
-        return $this->hasMany(SolutionDomains::class, 'solution_need');
-    }
 }

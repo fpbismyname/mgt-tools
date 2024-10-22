@@ -28,10 +28,4 @@ class SolutionDomains extends Model
     {
         return $this->belongsTo(Projects::class, 'id_project',);
     }
-
-    //SolutionDoman(solution_need) -> ProblemDomain (id_problem)
-    public function SolutionDomain_ProblemDomains_id()
-    {
-        return $this->belongsTo(ProblemDomain::class, 'id_problem');
-    }
 }

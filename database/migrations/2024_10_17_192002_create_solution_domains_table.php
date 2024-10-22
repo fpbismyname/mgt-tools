@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string("type_solution");
             $table->string("potential_of_solution")->nullable()->default("Incomplete");
             $table->string("solution_revision")->nullable();
-            $table->unsignedBigInteger("solution_need")->nullable();
+            $table->string("solution_need")->nullable();
             $table->string("solution_clasification")->nullable();
             $table->string("solution_feasibility")->nullable();
             $table->string("solution_risk")->nullable();
@@ -26,7 +26,6 @@ return new class extends Migration
             $table->string("eliminated_solution_rank")->nullable();
             $table->timestamps();
 
-            $table->foreign('solution_need')->references('id_problem')->on('problem_domains')->onDelete('set null');
             $table->foreign('project_id')->references('id_project')->on('projects')->onDelete('cascade');
         });
     }

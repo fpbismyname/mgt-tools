@@ -217,7 +217,7 @@ class showProject extends Component
         $solutionDomain = SolutionDomains::findOrFail($id);
 
         //Check Revision
-        if ($solutionDomain) {
+        if ($request->solution_desc) {
             if ($solutionDomain->solution_desc !== $request->solution_desc) {
                 //editProblemDomain
                 $solutionDomain->update([
@@ -230,6 +230,8 @@ class showProject extends Component
                     'type_solution' => $request->type_solution
                 ]);
             }
+        } else {
+            $solutionDomain->update($request->all());
         }
 
         return redirect()->back()->with('alertMessage', ["Edit Solution Success", "Edit solution successfully !", "success"]);

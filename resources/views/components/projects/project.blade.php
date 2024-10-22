@@ -20,7 +20,7 @@
     @break
 
     @case('Need vs Feat')
-        <x-projects.need-vs-feat />
+        <x-projects.need-vs-feat :solutionDomain="$solutionDomain" :projectId="$project->id_project" :solutionType="$solutionType" :problemDomain="$problemDomain" :potentialProblem="$potentialProblem" />
     @break
 
     @case('Priority Clasification')

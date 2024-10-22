@@ -11,7 +11,7 @@ class needVsFeat extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct(public $projectId, public $solutionDomain, public $solutionType, public $problemDomain, public $potentialProblem)
     {
         //
     }

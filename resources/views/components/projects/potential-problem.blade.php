@@ -57,7 +57,7 @@
                                                 <tr class="align-middle">
                                                     <td class="text-start col-1">{{ sprintf('REQ%03d', $functional++) }}
                                                     </td>
-                                                    <td class="col-auto">{{ $sD->solution_desc }}</td>
+                                                    <td class="col-auto">{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}</td>
                                                     <td class="col-2">
                                                         <div class="container">
                                                             <div class="row text-center">
@@ -108,7 +108,7 @@
                                                                             <label class="form-label mb-1">Request Description</label>
                                                                             <input type="text"
                                                                                 class="form-control" disabled
-                                                                                value="{{ $sD->solution_desc }}">
+                                                                                value="{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}">
                                                                         </div>
                                                                         <div class="col-12 mb-3">
                                                                             <label for="potential_of_solution"
@@ -201,7 +201,7 @@
                                                 <tr class="align-middle">
                                                     <td class="text-start col-1">{{ sprintf('REQ%03d', $usability++) }}
                                                     </td>
-                                                    <td class="col-auto">{{ $sD->solution_desc }}</td>
+                                                    <td class="col-auto">{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}</td>
                                                     <td class="col-2">
                                                         <div class="container">
                                                             <div class="row text-center">
@@ -252,7 +252,7 @@
                                                                                 <label class="form-label mb-1">Request Description</label>
                                                                                 <input type="text"
                                                                                     class="form-control" disabled
-                                                                                    value="{{ $sD->solution_desc }}">
+                                                                                    value="{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}">
                                                                             </div>
                                                                             <div class="col-12 mb-3">
                                                                                 <label for="potential_of_solution"
@@ -313,7 +313,7 @@
                                                 <tr class="align-middle">
                                                     <td class="text-start">{{ sprintf('REQ%03d', $reliability++) }}
                                                     </td>
-                                                    <td>{{ $sD->solution_desc }}</td>
+                                                    <td>{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}</td>
                                                     <td>
                                                         <div class="container">
                                                             <div class="row text-center">
@@ -322,7 +322,7 @@
                                                                         <span
                                                                             class="badge
                                                                 @php
-switch ($pp->potential_name) {
+                                                                switch ($pp->potential_name) {
                                                                         case 'Ambiguity':
                                                                             echo "text-bg-danger";
                                                                             break;
@@ -365,7 +365,7 @@ switch ($pp->potential_name) {
                                                                                 <label class="form-label mb-1">Request Description</label>
                                                                                 <input type="text"
                                                                                     class="form-control" disabled
-                                                                                    value="{{ $sD->solution_desc }}">
+                                                                                    value="{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}">
                                                                             </div>
                                                                             <div class="col-12 mb-3">
                                                                                 <label for="potential_of_solution"
@@ -426,7 +426,7 @@ switch ($pp->potential_name) {
                                                 <tr class="align-middle">
                                                     <td class="text-start">{{ sprintf('REQ%03d', $performance++) }}
                                                     </td>
-                                                    <td>{{ $sD->solution_desc }}</td>
+                                                    <td>{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}</td>
                                                     <td>
                                                         <div class="container">
                                                             <div class="row text-center">
@@ -435,7 +435,7 @@ switch ($pp->potential_name) {
                                                                         <span
                                                                             class="badge
                                                                 @php
-switch ($pp->potential_name) {
+                                                                switch ($pp->potential_name) {
                                                                         case 'Ambiguity':
                                                                             echo "text-bg-danger";
                                                                             break;
@@ -478,7 +478,7 @@ switch ($pp->potential_name) {
                                                                                 <label class="form-label mb-1">Request Description</label>
                                                                                 <input type="text"
                                                                                     class="form-control" disabled
-                                                                                    value="{{ $sD->solution_desc }}">
+                                                                                    value="{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}">
                                                                             </div>
                                                                             <div class="col-12 mb-3">
                                                                                 <label for="potential_of_solution"
@@ -540,7 +540,7 @@ switch ($pp->potential_name) {
                                                     <td class="text-start">
                                                         {{ sprintf('REQ%03d', $supportability++) }}
                                                     </td>
-                                                    <td>{{ $sD->solution_desc }}</td>
+                                                    <td>{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}</td>
                                                     <td>
                                                         <div class="container">
                                                             <div class="row text-center">
@@ -549,7 +549,7 @@ switch ($pp->potential_name) {
                                                                         <span
                                                                             class="badge
                                                                 @php
-switch ($pp->potential_name) {
+                                                                switch ($pp->potential_name) {
                                                                         case 'Ambiguity':
                                                                             echo "text-bg-danger";
                                                                             break;
@@ -592,7 +592,7 @@ switch ($pp->potential_name) {
                                                                                 <label class="form-label mb-1">Request Description</label>
                                                                                 <input type="text"
                                                                                     class="form-control" disabled
-                                                                                    value="{{ $sD->solution_desc }}">
+                                                                                    value="{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}">
                                                                             </div>
                                                                             <div class="col-12 mb-3">
                                                                                 <label for="potential_of_solution"
@@ -653,7 +653,7 @@ switch ($pp->potential_name) {
                                                 <tr class="align-middle">
                                                     <td class="text-start">{{ sprintf('REQ%03d', $design++) }}
                                                     </td>
-                                                    <td>{{ $sD->solution_desc }}</td>
+                                                    <td>{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}</td>
                                                     <td>
                                                         <div class="container">
                                                             <div class="row text-center">
@@ -662,7 +662,7 @@ switch ($pp->potential_name) {
                                                                         <span
                                                                             class="badge
                                                                 @php
-switch ($pp->potential_name) {
+                                                                switch ($pp->potential_name) {
                                                                         case 'Ambiguity':
                                                                             echo "text-bg-danger";
                                                                             break;
@@ -705,7 +705,7 @@ switch ($pp->potential_name) {
                                                                                 <label class="form-label mb-1">Request Description</label>
                                                                                 <input type="text"
                                                                                     class="form-control" disabled
-                                                                                    value="{{ $sD->solution_desc }}">
+                                                                                    value="{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}">
                                                                             </div>
                                                                             <div class="col-12 mb-3">
                                                                                 <label for="potential_of_solution"
