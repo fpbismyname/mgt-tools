@@ -2,5 +2,6 @@
     <x-navbar />
     <x-projects.project-header :projectApp="$project" :projectMenu="$projectMenu" :selectedMenu="$selectedMenu" />
         <x-projects.project :project="$project" :menu="$selectedMenu" :problemDomain="$problemDomain" :solutionDomain="$solutionDomain" :solutionType="$solutionType"
-            :potentialProblem="$potentialProblem" :solutionClasification="$solutionClasification" />
+            :potentialProblem="$potentialProblem" :solutionClasification="$solutionClasification" :solutionFeasibility="$solutionFeasibility" :solutionRisk="$solutionRisk"
+            :solutionPriority="$solutionPriority" :solutionRank="$solutionRank"/>
 </x-layout>

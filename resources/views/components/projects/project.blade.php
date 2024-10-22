@@ -28,11 +28,11 @@
     @break
 
     @case('Feasibility')
-        <x-projects.feasibility />
+        <x-projects.feasibility :solutionDomain="$solutionDomain" :projectId="$project->id_project" :solutionType="$solutionType" :solutionFeasibility="$solutionFeasibility" :solutionRisk="$solutionRisk" :solutionPriority="$solutionPriority"/>
     @break
 
     @case('Finalization')
-        <x-projects.finalization />
+        <x-projects.finalization :solutionDomain="$solutionDomain" :projectId="$project->id_project" :solutionType="$solutionType" :solutionRank="$solutionRank"/>
     @break
 
     @case('Use Case')

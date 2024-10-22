@@ -2,6 +2,7 @@
 
 namespace App\View\Components\projects;
 
+use App\Models\EliminatedSolutionRank;
 use App\Models\PotentialProblem;
 use Closure;
 use Illuminate\Contracts\View\View;
@@ -11,6 +12,9 @@ use App\Models\ProjectMenu;
 use App\Models\Projects;
 use App\Models\SolutionClassification;
 use App\Models\SolutionDomains;
+use App\Models\SolutionFeasibility;
+use App\Models\SolutionPriority;
+use App\Models\SolutionRisk;
 use App\Models\TypeSolution;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -44,12 +48,18 @@ class showProject extends Component
         $potentialProblem = PotentialProblem::all();
         //Potential Problem
         $solutionClasification = SolutionClassification::all();
+        //Feasibility
+        $solutionFeasibility = SolutionFeasibility::all();
+        $solutionRisk = SolutionRisk::all();
+        $solutionPriority = SolutionPriority::all();
+        //Eliminated Solution Rank
+        $solutionRank = EliminatedSolutionRank::all();
 
         if (!$project) {
             return abort(404);
         }
 
-        return view('components.projects.show-project', compact('project', 'projectMenu', 'selectedMenu', 'problemDomain', 'solutionDomain', 'solutionType', 'potentialProblem', 'solutionClasification'));
+        return view('components.projects.show-project', compact('project', 'projectMenu', 'selectedMenu', 'problemDomain', 'solutionDomain', 'solutionType', 'potentialProblem', 'solutionClasification', 'solutionFeasibility','solutionRisk','solutionPriority','solutionRank'));
     }
     public function editProject(Request $request, $id)
     {

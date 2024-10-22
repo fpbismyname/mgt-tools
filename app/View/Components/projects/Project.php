@@ -19,6 +19,10 @@ class Project extends Component
         public $solutionType,
         public $potentialProblem,
         public $solutionClasification,
+        public $solutionFeasibility, 
+        public $solutionRisk, 
+        public $solutionPriority,
+        public $solutionRank
         )
     {
 

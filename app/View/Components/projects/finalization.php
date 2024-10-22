@@ -11,7 +11,7 @@ class finalization extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct(public $solutionDomain, public $projectId, public $solutionType, public $solutionRank)
     {
         //
     }

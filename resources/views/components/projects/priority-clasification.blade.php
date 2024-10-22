@@ -5,7 +5,7 @@
                 <div class="container border rounded-4 p-3 p-sm-4 shadow">
                     <div class="row align-items-center gap-1">
                         <div class="col-12 col-sm text-center text-sm-start">
-                            <h1 class="fw-bolder text-primary fs-2" id="projectMenuTitle">Priority Classification</h1>
+                            <h1 class="fw-bolder text-primary fs-2" id="projectMenuTitle">Priority Clasification</h1>
                             <p class="fs-6 w-md-50">Refined Requirements : Feat (feature)</p>
                         </div>
                         <div class="col-12 col-sm text-center text-sm-end">
@@ -156,7 +156,7 @@
                                         <tr class="align-middle">
                                             <th scope="col" class="text-start">Req.ID</th>
                                             <th scope="col">Request Description</th>
-                                            <th scope="col" class="text-center">Potential Problem</th>
+                                            <th scope="col" class="text-center">Request Clasification</th>
                                             <th scope="col" class="text-end">Action</th>
                                         </tr>
                                     </tbody>
@@ -640,7 +640,7 @@
     <x-modal-popup title="Legenda Priority Clasification" modalName="legendaPC">
         <x-slot name="modalIcon"><i class="bi bi-map-fill me-2"></i></x-slot>
         <div class="container">
-            <div class="row-8 row-sm-2 p-5 text-center">
+            <div class="row p-5 text-start gap-3">
                 @php
                     $badgeNumber = 0;
                 @endphp

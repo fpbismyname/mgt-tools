@@ -3,12 +3,16 @@
 namespace Database\Seeders;
 
 use App\Models\Account;
+use App\Models\EliminatedSolutionRank;
 use App\Models\PotentialProblem;
 use App\Models\ProblemDomain;
 use App\Models\ProjectMenu;
 use App\Models\Projects;
 use App\Models\SolutionClassification;
 use App\Models\SolutionDomains;
+use App\Models\SolutionFeasibility;
+use App\Models\SolutionPriority;
+use App\Models\SolutionRisk;
 use App\Models\TypeSolution;
 use Illuminate\Database\Seeder;
 
@@ -124,12 +128,12 @@ class DatabaseSeeder extends Seeder
          * MARK: Solution Domain
          */
         $solutionDomain = [
-            ['project_id' =>  1, 'solution_desc' => 'The system must be able to allow the employee to create a leave request directly inside the system without call supervisor first', 'type_solution'=>'Functionality', 'solution_revision'=>'The system must be able to allow the employee to create a leave request directly inside the system without call supervisor first'],
-            ['project_id' =>  1, 'solution_desc' => 'The system must be able to fit into mobile devices (responsive web design)', 'type_solution'=>'Usability', 'solution_revision'=>'The system must be able to fit into mobile devices (responsive web design)'],
-            ['project_id' =>  1, 'solution_desc' => 'The system must be able to provide the availability with minimum at 99%', 'type_solution'=>'Reliability', 'solution_revision'=>'The system must be able to provide the availability with minimum at 99%'],
-            ['project_id' =>  1, 'solution_desc' => 'The system response time must be less than 5 seconds', 'type_solution'=>'Performance', 'solution_revision'=>'The system response time must be less than 5 seconds'],
-            ['project_id' =>  1, 'solution_desc' => 'The system codebase is developed by Service Oriented Architecture', 'type_solution'=>'Supportability', 'solution_revision'=>'The system codebase is developed by Service Oriented Architecture'],
-            ['project_id' =>  1, 'solution_desc' => 'The system must be delivered by the deadline', 'type_solution'=>'Design & Implementation Constraint', 'solution_revision'=>'The system must be delivered by the deadline'],
+            ['project_id' =>  1, 'solution_desc' => 'The system must be able to allow the employee to create a leave request', 'type_solution'=>'Functionality', 'solution_revision'=>'The system must be able to allow the employee to create a leave request directly inside the system without call supervisor first'],
+            ['project_id' =>  1, 'solution_desc' => 'The system must be able to fit', 'type_solution'=>'Usability', 'solution_revision'=>'The system must be able to fit into mobile devices (responsive web design)'],
+            ['project_id' =>  1, 'solution_desc' => 'The system must be able to provide the availability', 'type_solution'=>'Reliability', 'solution_revision'=>'The system must be able to provide the availability with minimum at 99%'],
+            ['project_id' =>  1, 'solution_desc' => 'The system response time must be fast', 'type_solution'=>'Performance', 'solution_revision'=>'The system response time must be less than 5 seconds'],
+            ['project_id' =>  1, 'solution_desc' => 'The system codebase is developed by Microservices', 'type_solution'=>'Supportability', 'solution_revision'=>'The system codebase is developed by Service Oriented Architecture'],
+            ['project_id' =>  1, 'solution_desc' => 'The system must be delivered', 'type_solution'=>'Design & Implementation Constraint', 'solution_revision'=>'The system must be delivered by the deadline'],
         ];
         foreach ($solutionDomain as $sd){
             SolutionDomains::create($sd);
@@ -145,6 +149,59 @@ class DatabaseSeeder extends Seeder
         ];
         foreach ($solutionClasification as $sc){
             SolutionClassification::create($sc);
+        }
+
+        /**
+         * MARK:Feasibility
+         */
+        $solutionFeasibility = [
+            ['feasibility_name'=> 'Technical'],
+            ['feasibility_name'=> 'Operator'],
+            ['feasibility_name'=> 'Economic'],
+        ];
+        foreach($solutionFeasibility as $sf){
+            SolutionFeasibility::create($sf);
+        }
+        
+        /**
+         * MARK:Risk
+         */
+        $solutionRisk = [
+            ['risk_name'=> 'Low'],
+            ['risk_name'=> 'Medium'],
+            ['risk_name'=> 'High'],
+        ];
+        foreach($solutionRisk as $sr){
+            SolutionRisk::create($sr);
+        }
+
+        /**
+         * MARK:Priority
+         */
+        $solutionPriority = [
+            ['priority_name'=> 'Mandatory'],
+            ['priority_name'=> 'Desirable'],
+            ['priority_name'=> 'Eliminasi'],
+        ];
+        foreach($solutionPriority as $sp){
+            SolutionPriority::create($sp);
+        }
+        /**
+         * MARK:Eliminated Rank
+         */
+        $eliminatedRank = [
+            ['rank_name'=> 'C-L. All Feasible, Critical, Low Risk'],
+            ['rank_name'=> 'C-M/H. All Feasible, Critical, Medium/High Risk'],
+            ['rank_name'=> 'I-L. All Feasible, Important, Low Risk'],
+            ['rank_name'=> 'I-M/H. All Feasible, Important, Medium/High Risk'],
+            ['rank_name'=> 'U-L. All Feasible, Usefull, Low Risk'],
+            ['rank_name'=> 'U-M/H. All Feasible, Usefull, Medium/High Risk'],
+            ['rank_name'=> 'C-X. Critical but there is a not feasible requirements'],
+            ['rank_name'=> 'I-X. Important but there is a not feasible requirements'],
+            ['rank_name'=> 'U-X. Usefull but there is a not feasible requirements'],
+        ];
+        foreach($eliminatedRank as $er){
+            EliminatedSolutionRank::create($er);
         }
     }
 }
