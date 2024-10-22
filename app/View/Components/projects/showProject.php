@@ -247,7 +247,7 @@ class showProject extends Component
             $solutionDomain->update($request->all());
         }
 
-        return redirect()->back()->with('alertMessage', ["Edit Solution Success", "Edit solution successfully !", "success"]);
+        return redirect()->back()->with('alertMessage', ["Edit Request Success", "Edit Request data successfully !", "success"]);
     }
     public function deleteSolutionDomain($id)
     {
