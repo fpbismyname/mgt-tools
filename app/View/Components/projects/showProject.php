@@ -45,7 +45,7 @@ class showProject extends Component
         //Problem Domain
         $problemDomain = ProblemDomain::all();
         //Solution Domain
-        $solutionDomain = SolutionDomains::all();
+        $solutionDomain = SolutionDomains::all()->where('project_id', $id);
         $solutionType = TypeSolution::all();
         //Potential Problem
         $potentialProblem = PotentialProblem::all();
