@@ -106,7 +106,7 @@
                                                                                                 class="form-check-input"
                                                                                                 type="checkbox"
                                                                                                 name="case_actor[]"
-                                                                                                value="{{ $uca->actor_name }}"><span
+                                                                                                value="{{ $uca->actor_name }}" {{ Str::of($uc->case_actor)->contains($uca->actor_name) ? "checked" : "" }}><span
                                                                                                 class="badge text-bg-primary border border-4 border-primary-subtle">{{ $uca->actor_name }}</span></input>
                                                                                         </div>
                                                                                     @endforeach
@@ -124,44 +124,6 @@
                                                             </div>
                                                         </form>
                                                     </x-modal-popup>
-                                                    {{-- //MARK: Delete Solution Description --}}
-                                                    {{-- <x-modal-popup title="Delete Use Case"
-                                                        modalName="deletePopup-{{ $uc->id_usecase }}">
-                                                        <x-slot name="modalIcon"><i
-                                                                class="bi bi-trash-fill me-2"></i></x-slot>
-                                                        <div class="container py-5">
-                                                            <div class="container">
-                                                                <form class="row text-center justify-content-center"
-                                                                    action="{{ route('use-case.delete', $uc->id_usecase) }}"
-                                                                    method="POST" id="inputForm">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <div class="row text-center">
-                                                                        <div class="col-12">
-                                                                            <p>Are you sure you want to delete this
-                                                                                use case
-                                                                                ?
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div
-                                                                        class="row justify-content-center text-center gap-3">
-                                                                        <div class="col-auto">
-                                                                            <button type="submit"
-                                                                                class="btn btn-danger"
-                                                                                id="btnSubmitForm">Yes. I'm
-                                                                                sure.</button>
-                                                                        </div>
-                                                                        <div class="col-auto">
-                                                                            <button type="button"
-                                                                                class="btn btn-primary"
-                                                                                data-bs-dismiss="modal">No. I'm not
-                                                                                sure.</button>
-                                                                        </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </x-modal-popup> --}}
                                                 </tr>
                                             @endforeach
                                         @else
@@ -205,7 +167,7 @@
                                     </tbody>
                                     {{-- content table --}}
                                     <tbody>
-                                        @php
+                                        @php    
                                             $i = 1;
                                         @endphp
                                         @foreach ($useCaseActor as $uca)

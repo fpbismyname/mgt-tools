@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('use_case_actors', function (Blueprint $table) {
             $table->id('id');
             $table->unsignedBigInteger('project_id');
-            $table->string('actor_name');
+            $table->string('actor_name')->nullable();
 
             $table->foreign('project_id')->references('id_project')->on('projects')->onDelete("cascade");
         });
