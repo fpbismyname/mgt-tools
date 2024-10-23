@@ -36,15 +36,11 @@
     @break
 
     @case('Use Case')
-        <x-projects.use-case />
-    @break
-
-    @case('Use Case')
-        <x-projects.use-case />
+        <x-projects.use-case :projectId="$project->id_project" :useCase="$useCase"/>
     @break
 
     @case('Use Case vs Actor')
-        <x-projects.use-case-vs-actor />
+        <x-projects.use-case-vs-actor :projectId="$project->id_project" :useCase="$useCase" :useCaseActor="$useCaseActor"/>
     @break
 
     @case('Use Case vs Feat')

@@ -19,4 +19,12 @@ class Projects extends Model
     public function Projects_SolutionDomain_id(){
         return $this->hasMany(SolutionDomains::class, 'project_id');
     }
+    //Project (id_project) -> UseCase(project_id)
+    public function Projects_UseCase_id(){
+        return $this->hasMany(UseCase::class, 'project_id');
+    }
+    //Project (id_project) -> UseCaseActor(project_id)
+    public function Projects_UseCaseActor_id(){
+        return $this->hasMany(UseCaseActor::class, 'project_id');
+    }
 }

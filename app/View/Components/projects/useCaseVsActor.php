@@ -11,7 +11,7 @@ class useCaseVsActor extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct(public $useCase, public $projectId, public $useCaseActor)
     {
         //
     }

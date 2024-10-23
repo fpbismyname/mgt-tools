@@ -22,7 +22,9 @@ class Project extends Component
         public $solutionFeasibility, 
         public $solutionRisk, 
         public $solutionPriority,
-        public $solutionRank
+        public $solutionRank,
+        public $useCase,
+        public $useCaseActor,
         )
     {
 

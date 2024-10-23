@@ -16,7 +16,10 @@ use App\Models\SolutionFeasibility;
 use App\Models\SolutionPriority;
 use App\Models\SolutionRisk;
 use App\Models\TypeSolution;
+use App\Models\UseCase;
+use App\Models\UseCaseActor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -54,12 +57,15 @@ class showProject extends Component
         $solutionPriority = SolutionPriority::all();
         //Eliminated Solution Rank
         $solutionRank = EliminatedSolutionRank::all();
+        //UseCase
+        $useCase = UseCase::all();
+        $useCaseActor = UseCaseActor::all()->where('project_id', $id);
 
         if (!$project) {
             return abort(404);
         }
 
-        return view('components.projects.show-project', compact('project', 'projectMenu', 'selectedMenu', 'problemDomain', 'solutionDomain', 'solutionType', 'potentialProblem', 'solutionClasification', 'solutionFeasibility','solutionRisk','solutionPriority','solutionRank'));
+        return view('components.projects.show-project', compact('project', 'projectMenu', 'selectedMenu', 'problemDomain', 'solutionDomain', 'solutionType', 'potentialProblem', 'solutionClasification', 'solutionFeasibility', 'solutionRisk', 'solutionPriority', 'solutionRank', 'useCase', 'useCaseActor'));
     }
     public function editProject(Request $request, $id)
     {
@@ -237,7 +243,7 @@ class showProject extends Component
                     'solution_revision' => $request->solution_desc,
                     'type_solution' => $request->type_solution
                 ]);
-            } else{
+            } else {
                 $solutionDomain->update([
                     'solution_revision' => $request->solution_desc,
                     'type_solution' => $request->type_solution
@@ -259,6 +265,96 @@ class showProject extends Component
         return redirect()->back()->with('alertMessage', ["Delete Request Success", "Delete request successfully !", "success"]);
     }
 
+    /**
+     * UseCase
+     */
+    public function addUseCase(Request $request, $id)
+    {
+        //Rules of input
+        $rules = [
+            'case_name' => 'required',
+            'case_desc' => 'required',
+        ];
+        //Validation Input Value
+        $checkInput = Validator::make($request->all(), $rules);
+        if ($checkInput->fails()) return redirect()->back()->with('alertMessage', ["Add Use Case Failed", "Please fill in all the fields !", "error"]);
+        //Set Foregin Key & add data
+        $projects = Projects::findOrFail($id);
+        $useCase = new UseCase($request->all());
+        $projects->Projects_UseCase_id()->save($useCase);
+        //Return if Success
+        return redirect()->back()->with('alertMessage', ["Add Use Case Success", "Add use case successfully !", "success", true]);
+    }
+    public function editUseCase(Request $request, $id)
+    {
+        if ($request->case_name && $request->case_desc && $request->case_desc == "" && $request->case_desc == "") {
+            return redirect()->back()->with('alertMessage', ["Edit Use Case Failed", "Please fill in the fields !", "error"]);
+        }
+
+        $data = $request->input('case_actor', []);
+        $data = Arr::join($data, ',');
+        $datas = [
+            $request->case_name?['case_name' => $request->case_name]:null,
+            $request->case_desc?['case_desc' => $request->case_desc]:null,
+            'case_actor' => $data,
+            'case_for_solution' => $request->case_for_solution
+        ];
+        //Get Project
+        $useCase = UseCase::findOrFail($id);
+        $useCase->update($datas);
+        return redirect()->back()->with('alertMessage', ["Edit Use Case Success", "Edit use case successfully !", "success"]);
+    }
+    public function deleteUseCase($id)
+    {
+        //Get Project
+        $useCase = UseCase::findOrFail($id);
+
+        if (!$useCase->delete()) return redirect()->back()->with('alertMessage', ["Delete Use Case Failed", "There is something wrong with !", "error"]);
+
+        return redirect()->back()->with('alertMessage', ["Delete Use Case Success", "Delete use case successfully !", "success"]);
+    }
+
+
+    /**
+     * MARK:UseCaseActor
+     */
+    public function addUseCaseActor(Request $request, $id)
+    {
+        //Rules of input
+        $rules = [
+            'case_name' => 'required',
+            'case_desc' => 'required',
+        ];
+        //Validation Input Value
+        $checkInput = Validator::make($request->all(), $rules);
+        if ($checkInput->fails()) return redirect()->back()->with('alertMessage', ["Add Use Case Failed", "Please fill in all the fields !", "error"]);
+        //Set Foregin Key & add data
+        $projects = Projects::findOrFail($id);
+        $useCase = new UseCase($request->all());
+        $projects->Projects_UseCase_id()->save($useCase);
+        //Return if Success
+        return redirect()->back()->with('alertMessage', ["Add Use Case Success", "Add use case successfully !", "success", true]);
+    }
+    public function editUseCaseActor(Request $request, $id) 
+    {
+        if ($request->case_name && $request->case_desc) {
+            return redirect()->back()->with('alertMessage', ["Edit Use Case Failed", "Please fill in the fields !", "error"]);
+        } else {
+            //Get Project
+            $useCase = UseCase::findOrFail($id);
+            $useCase->update($request->all());
+        }
+        return redirect()->back()->with('alertMessage', ["Edit Use Case Success", "Edit use case successfully !", "success"]);
+    }
+    public function deleteUseCaseActor($id)
+    {
+        //Get Project
+        $useCase = UseCase::findOrFail($id);
+
+        if (!$useCase->delete()) return redirect()->back()->with('alertMessage', ["Delete Use Case Failed", "There is something wrong with !", "error"]);
+
+        return redirect()->back()->with('alertMessage', ["Delete Use Case Success", "Delete use case successfully !", "success"]);
+    }
 
     /**
      * Get the view / contents that represent the component.

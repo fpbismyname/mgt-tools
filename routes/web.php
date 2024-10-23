@@ -57,4 +57,15 @@ Route::middleware('mgt_middleware')->group(function () {
     Route::post('/dashboard/project/solution-domain/{id}/add', [ProjectsShowProject::class, 'addSolutionDomain'])->name('solution-domain.add');
     Route::put('/dashboard/project/solution-domain/{id}/edit', [ProjectsShowProject::class, 'editSolutionDomain'])->name('solution-domain.edit');
     Route::delete('/dashboard/project/solution-domain/{id}/delete', [ProjectsShowProject::class, 'deleteSolutionDomain'])->name('solution-domain.delete');
+    
+    //MARK:UseCase
+    Route::post('/dashboard/project/use-case/{id}/add', [ProjectsShowProject::class, 'addUseCase'])->name('use-case.add');
+    Route::put('/dashboard/project/use-case/{id}/edit', [ProjectsShowProject::class, 'editUseCase'])->name('use-case.edit');
+    Route::delete('/dashboard/project/use-case/{id}/delete', [ProjectsShowProject::class, 'deleteUseCase'])->name('use-case.delete');
+    
+    //MARK:UseCase Actor
+    Route::post('/dashboard/project/use-case-actor/{id}/add', [ProjectsShowProject::class, 'addUseCaseActor'])->name('use-case-actor.add');
+    Route::put('/dashboard/project/use-case-actor/{id}/edit', [ProjectsShowProject::class, 'editUseCaseActor'])->name('use-case-actor.edit');
+    Route::delete('/dashboard/project/use-case-actor/{id}/delete', [ProjectsShowProject::class, 'deleteUseCaseActor'])->name('use-case-actor.delete');
+
 });
