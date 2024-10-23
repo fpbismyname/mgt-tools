@@ -192,7 +192,7 @@
                                             <th colspan="1" class="text-end">
                                                 <button class="btn btn-sm btn-primary" data-bs-target="#addActor"
                                                     data-bs-toggle="modal"><i
-                                                        class="bi bi-plus-circle-fill me-2"></i>Add Actor</button>
+                                                        class="bi bi-plus-circle-fill"></i><span class="d-none d-md-inline-block ms-2">Add Actor</span></button>
                                             </th>
                                         </tr>
                                     </thead>
@@ -212,13 +212,13 @@
                                             <tr class="align-middle">
                                                 <td class="col-1 text-center">{{ $i++ }}</td>
                                                 <td>{{ $uca->actor_name }}</td>
-                                                <td class="text-end col-2">
+                                                <td class="text-end col-4">
                                                     <button class="btn btn-small btn-warning"
                                                         data-bs-target="#editActor-{{ $uca->id }}" data-bs-toggle="modal"><i
-                                                            class="bi bi-pencil-fill me-2"></i>Edit</button>
+                                                            class="bi bi-pencil-fill"></i><span class="d-none d-md-inline-block ms-2">Edit</span></button>
                                                     <button class="btn btn-small btn-danger"
                                                         data-bs-target="#deleteActor-{{ $uca->id }}" data-bs-toggle="modal"><i
-                                                            class="bi bi-trash-fill me-2"></i>Delete</button>
+                                                            class="bi bi-trash-fill"></i><span class="d-none d-md-inline-block ms-2">Delete</span></button>
                                                 </td>
                                             </tr>
                                             {{-- //MARK: Edit Actor --}}
