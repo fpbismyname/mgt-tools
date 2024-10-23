@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('use_case_actors', function (Blueprint $table) {
-            $table->id('id_actor');
+            $table->id('id');
             $table->unsignedBigInteger('project_id');
             $table->string('actor_name');
 

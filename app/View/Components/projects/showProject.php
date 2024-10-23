@@ -266,7 +266,7 @@ class showProject extends Component
     }
 
     /**
-     * UseCase
+     * MARK:UseCase
      */
     public function addUseCase(Request $request, $id)
     {
@@ -307,7 +307,7 @@ class showProject extends Component
     public function deleteUseCase($id)
     {
         //Get Project
-        $useCase = UseCase::findOrFail($id);
+        $useCase = UseCaseActor::findOrFail($id);
 
         if (!$useCase->delete()) return redirect()->back()->with('alertMessage', ["Delete Use Case Failed", "There is something wrong with !", "error"]);
 
@@ -320,40 +320,32 @@ class showProject extends Component
      */
     public function addUseCaseActor(Request $request, $id)
     {
-        //Rules of input
-        $rules = [
-            'case_name' => 'required',
-            'case_desc' => 'required',
-        ];
-        //Validation Input Value
-        $checkInput = Validator::make($request->all(), $rules);
-        if ($checkInput->fails()) return redirect()->back()->with('alertMessage', ["Add Use Case Failed", "Please fill in all the fields !", "error"]);
         //Set Foregin Key & add data
         $projects = Projects::findOrFail($id);
-        $useCase = new UseCase($request->all());
-        $projects->Projects_UseCase_id()->save($useCase);
+        $useCaseActor = new UseCaseActor($request->all());
+        $projects->Projects_UseCase_id()->save($useCaseActor);
         //Return if Success
-        return redirect()->back()->with('alertMessage', ["Add Use Case Success", "Add use case successfully !", "success", true]);
+        return redirect()->back()->with('alertMessage', ["Add Actor Success", "Add use case actor successfully !", "success", true]);
     }
     public function editUseCaseActor(Request $request, $id) 
     {
-        if ($request->case_name && $request->case_desc) {
-            return redirect()->back()->with('alertMessage', ["Edit Use Case Failed", "Please fill in the fields !", "error"]);
+        if (!$request->actor_name) {
+            return redirect()->back()->with('alertMessage', ["Edit Actor Failed", "Please fill in the fields !", "error"]);
         } else {
             //Get Project
-            $useCase = UseCase::findOrFail($id);
-            $useCase->update($request->all());
+            $useCaseActor = UseCaseActor::findOrFail($id);
+            $useCaseActor->update($request->all());
         }
-        return redirect()->back()->with('alertMessage', ["Edit Use Case Success", "Edit use case successfully !", "success"]);
+        return redirect()->back()->with('alertMessage', ["Edit Actor Success", "Edit use case successfully !", "success"]);
     }
     public function deleteUseCaseActor($id)
     {
         //Get Project
-        $useCase = UseCase::findOrFail($id);
+        $useCaseActor = UseCaseActor::findOrFail($id);
 
-        if (!$useCase->delete()) return redirect()->back()->with('alertMessage', ["Delete Use Case Failed", "There is something wrong with !", "error"]);
+        if (!$useCaseActor->delete()) return redirect()->back()->with('alertMessage', ["Delete Actor Failed", "There is something wrong with !", "error"]);
 
-        return redirect()->back()->with('alertMessage', ["Delete Use Case Success", "Delete use case successfully !", "success"]);
+        return redirect()->back()->with('alertMessage', ["Delete Actor Success", "Delete Actor successfully !", "success"]);
     }
 
     /**
