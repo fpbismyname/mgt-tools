@@ -307,7 +307,7 @@ class showProject extends Component
     public function deleteUseCase($id)
     {
         //Get Project
-        $useCase = UseCaseActor::findOrFail($id);
+        $useCase = UseCase::findOrFail($id);
 
         if (!$useCase->delete()) return redirect()->back()->with('alertMessage', ["Delete Use Case Failed", "There is something wrong with !", "error"]);
 
