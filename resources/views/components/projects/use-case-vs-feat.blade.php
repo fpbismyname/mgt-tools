@@ -11,8 +11,7 @@
                         <div class="col-12 col-sm text-center text-sm-end">
                             <div class="container">
                                 <div class="row justify-content-center justify-content-sm-end gap-2">
-                                    <button class="col-auto btn btn-primary fs-6"
-                                        onclick="toggleView(event,'tbl-uc-act','tbl-act')">Manage Actor</button>
+                                    <button class="col-auto btn btn-primary fs-6"><i class="bi bi-map-fill me-2"></i>Legenda</button>
                                 </div>
                             </div>
                         </div>
