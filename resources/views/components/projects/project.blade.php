@@ -44,7 +44,7 @@
     @break
 
     @case('Use Case vs Feat')
-        <x-projects.use-case-vs-feat :useCase="$useCase" :projectId="$project->id_project" :solutionDomain="$solutionDomain"/>
+        <x-projects.use-case-vs-feat :useCase="$useCase" :projectId="$project->id_project" :solutionDomain="$solutionDomain" :typeSolution="$solutionType"/>
     @break
 
     @default

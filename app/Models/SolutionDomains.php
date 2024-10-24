@@ -11,6 +11,7 @@ class SolutionDomains extends Model
     protected $primaryKey = "id_solution";
     protected $fillable = [
         'project_id',
+        'uid_solution',
         'solution_desc',
         'type_solution',
         'potential_of_solution',

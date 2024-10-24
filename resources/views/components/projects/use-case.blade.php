@@ -44,7 +44,7 @@
                                         @if ($useCase->count() > 0)
                                             @foreach ($useCase as $uc)
                                                 <tr class="align-middle">
-                                                    <td class="text-start col-1">{{ sprintf('UC%03d', $useCaseId++) }}
+                                                    <td class="text-start col-1">{{ $uc->uid_case }}
                                                     </td>
                                                     <td class="col-auto">
                                                         <span class="fs-6">{{ $uc->case_name }}</span>

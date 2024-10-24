@@ -55,7 +55,7 @@
                                         @if ($functionalSolution->count() > 0)
                                             @foreach ($functionalSolution as $sD)
                                                 <tr class="align-middle">
-                                                    <td class="text-start col-1">{{ sprintf('REQ%03d', $functional++) }}
+                                                    <td class="text-start col-1">{{ $sD->uid_solution }}
                                                     </td>
                                                     <td class="col-auto">
                                                         {{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}
@@ -182,7 +182,7 @@
                                         @if ($usabilitySolution->count() > 0)
                                             @foreach ($usabilitySolution as $sD)
                                                 <tr class="align-middle">
-                                                    <td class="text-start col-1">{{ sprintf('REQ%03d', $usability++) }}
+                                                    <td class="text-start col-1">{{ $sD->uid_solution }}
                                                     </td>
                                                     <td class="col-auto">
                                                         {{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}
@@ -276,7 +276,7 @@
                                         @if ($reliabilitySolution->count() > 0)
                                             @foreach ($reliabilitySolution as $sD)
                                                 <tr class="align-middle">
-                                                    <td class="text-start">{{ sprintf('REQ%03d', $reliability++) }}
+                                                    <td class="text-start">{{ $sD->uid_solution }}
                                                     </td>
                                                     <td>{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}
                                                     </td>
@@ -369,7 +369,7 @@
                                         @if ($performanceSolution->count() > 0)
                                             @foreach ($performanceSolution as $sD)
                                                 <tr class="align-middle">
-                                                    <td class="text-start">{{ sprintf('REQ%03d', $performance++) }}
+                                                    <td class="text-start">{{ $sD->uid_solution }}
                                                     </td>
                                                     <td>{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}
                                                     </td>
@@ -463,7 +463,7 @@
                                             @foreach ($supportabilitySolution as $sD)
                                                 <tr class="align-middle">
                                                     <td class="text-start">
-                                                        {{ sprintf('REQ%03d', $supportability++) }}
+                                                        {{ $sD->uid_solution }}
                                                     </td>
                                                     <td>{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}
                                                     </td>
@@ -556,7 +556,7 @@
                                         @if ($designSolution->count() > 0)
                                             @foreach ($designSolution as $sD)
                                                 <tr class="align-middle">
-                                                    <td class="text-start">{{ sprintf('REQ%03d', $design++) }}
+                                                    <td class="text-start">{{ $sD->uid_solution }}
                                                     </td>
                                                     <td>{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}
                                                     </td>

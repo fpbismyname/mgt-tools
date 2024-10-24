@@ -11,7 +11,7 @@ class useCaseVsFeat extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public $useCase, public $projectId, public $solutionDomain)
+    public function __construct(public $useCase, public $projectId, public $solutionDomain, public $typeSolution)
     {
         //
     }

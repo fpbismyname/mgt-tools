@@ -55,7 +55,7 @@
                                         @if ($functionalSolution->count() > 0)
                                             @foreach ($functionalSolution as $sD)
                                                 <tr class="align-middle">
-                                                    <td class="text-start col-1">{{ sprintf('REQ%03d', $functional++) }}
+                                                    <td class="text-start col-1">{{ $sD->uid_solution }}
                                                     </td>
                                                     <td class="col-auto">{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}</td>
                                                     <td class="text-end col-4">
@@ -127,7 +127,7 @@
                                                     <div class="container py-5">
                                                         <div class="container">
                                                             <form class="row text-center justify-content-center"
-                                                                action="{{ route('solution-domain.delete', $sD->id_solution) }}"
+                                                                action="{{ route('solution-domain.delete', ['id_project' => $projectId, 'id' => $sD->id_solution] ) }}"
                                                                 method="POST" id="inputForm">
                                                                 @csrf
                                                                 @method('DELETE')
@@ -212,7 +212,7 @@
                                         @if ($usabilitySolution->count() > 0)
                                             @foreach ($usabilitySolution as $sD)
                                                 <tr class="align-middle">
-                                                    <td class="text-start col-1">{{ sprintf('REQ%03d', $usability++) }}
+                                                    <td class="text-start col-1">{{ $sD->uid_solution }}
                                                     </td>
                                                     <td class="col-auto">{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}</td>
                                                     <td class="text-end col-4">
@@ -286,7 +286,7 @@
                                                     <div class="container py-5">
                                                         <div class="container">
                                                             <form class="row text-center justify-content-center"
-                                                                action="{{ route('solution-domain.delete', $sD->id_solution) }}"
+                                                                action="{{ route('solution-domain.delete', ['id_project' => $projectId, 'id' => $sD->id_solution]) }}"
                                                                 method="POST" id="inputForm">
                                                                 @csrf
                                                                 @method('DELETE')
@@ -340,7 +340,7 @@
                                         @if ($reliabilitySolution->count() > 0)
                                             @foreach ($reliabilitySolution as $sD)
                                             <tr class="align-middle">
-                                                <td class="text-start">{{ sprintf('REQ%03d', $reliability++) }}
+                                                <td class="text-start">{{ $sD->uid_solution }}
                                                 </td>
                                                 <td>{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}</td>
                                                 <td class="text-end">
@@ -412,7 +412,7 @@
                                                 <div class="container py-5">
                                                     <div class="container">
                                                         <form class="row text-center justify-content-center"
-                                                            action="{{ route('solution-domain.delete', $sD->id_solution) }}"
+                                                            action="{{ route('solution-domain.delete', ['id_project' => $projectId, 'id' => $sD->id_solution]) }}"
                                                             method="POST" id="inputForm">
                                                             @csrf
                                                             @method('DELETE')
@@ -466,7 +466,7 @@
                                         @if ($performanceSolution->count() > 0)
                                             @foreach ($performanceSolution as $sD)
                                             <tr class="align-middle">
-                                                <td class="text-start">{{ sprintf('REQ%03d', $performance++) }}
+                                                <td class="text-start">{{ $sD->uid_solution }}
                                                 </td>
                                                 <td>{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}</td>
                                                 <td class="text-end">
@@ -538,7 +538,7 @@
                                                 <div class="container py-5">
                                                     <div class="container">
                                                         <form class="row text-center justify-content-center"
-                                                            action="{{ route('solution-domain.delete', $sD->id_solution) }}"
+                                                            action="{{ route('solution-domain.delete', ['id_project' => $projectId, 'id' => $sD->id_solution]) }}"
                                                             method="POST" id="inputForm">
                                                             @csrf
                                                             @method('DELETE')
@@ -592,7 +592,7 @@
                                         @if ($supportabilitySolution->count() > 0)
                                             @foreach ($supportabilitySolution as $sD)
                                             <tr class="align-middle">
-                                                <td class="text-start">{{ sprintf('REQ%03d', $supportability++) }}
+                                                <td class="text-start">{{ $sD->uid_solution }}
                                                 </td>
                                                 <td>{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}</td>
                                                 <td class="text-end">
@@ -664,7 +664,7 @@
                                                 <div class="container py-5">
                                                     <div class="container">
                                                         <form class="row text-center justify-content-center"
-                                                            action="{{ route('solution-domain.delete', $sD->id_solution) }}"
+                                                            action="{{ route('solution-domain.delete', ['id_project' => $projectId, 'id' => $sD->id_solution]) }}"
                                                             method="POST" id="inputForm">
                                                             @csrf
                                                             @method('DELETE')
@@ -718,7 +718,7 @@
                                         @if ($designSolution->count() > 0)
                                             @foreach ($designSolution as $sD)
                                             <tr class="align-middle">
-                                                <td class="text-start">{{ sprintf('REQ%03d', $design++) }}
+                                                <td class="text-start">{{ $sD->uid_solution }}
                                                 </td>
                                                 <td>{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}</td>
                                                 <td class="text-end">
@@ -790,7 +790,7 @@
                                                 <div class="container py-5">
                                                     <div class="container">
                                                         <form class="row text-center justify-content-center"
-                                                            action="{{ route('solution-domain.delete', $sD->id_solution) }}"
+                                                            action="{{ route('solution-domain.delete', ['id_project' => $projectId, 'id' => $sD->id_solution]) }}"
                                                             method="POST" id="inputForm">
                                                             @csrf
                                                             @method('DELETE')

@@ -110,17 +110,17 @@ class DatabaseSeeder extends Seeder
          * MARK:Problem Domain
          */
         $problemDomain = [
-            ['problem_name' => 'Employees need to request a leave online', 'project_id' => 1],
-            ['problem_name' => 'Employees need to track history leave', 'project_id' => 1],
-            ['problem_name' => 'Supervisor need to accept or reject subordinates leave request', 'project_id' => 1],
-            ['problem_name' => 'Supervisor need to track their subordinates leave history', 'project_id' => 1],
-            ['problem_name' => 'HR need to accept or reject all employees leave after accepted by supervisor', 'project_id' => 1],
-            ['problem_name' => 'Supervisor need to track their all employees leave history', 'project_id' => 1],
-            ['problem_name' => 'Supervisor need to track their all employees leave history', 'project_id' => 1],
-            ['problem_name' => 'Supervisor need to be notified by email if any leave request from subordinate', 'project_id' => 1],
-            ['problem_name' => 'Employees need to be notified by email if any approval from their supervisor', 'project_id' => 1],
-            ['problem_name' => 'HR need to be notified by email if any approved request from supervisor', 'project_id' => 1],
-            ['problem_name' => 'Employees need to be notified by email if any approval from their HR', 'project_id' => 1],
+            ['uid_problem'=> 'NEED-1','problem_name' => 'Employees need to request a leave online', 'project_id' => 1],
+            ['uid_problem'=> 'NEED-1','problem_name' => 'Employees need to track history leave', 'project_id' => 1],
+            ['uid_problem'=> 'NEED-1','problem_name' => 'Supervisor need to accept or reject subordinates leave request', 'project_id' => 1],
+            ['uid_problem'=> 'NEED-1','problem_name' => 'Supervisor need to track their subordinates leave history', 'project_id' => 1],
+            ['uid_problem'=> 'NEED-1','problem_name' => 'HR need to accept or reject all employees leave after accepted by supervisor', 'project_id' => 1],
+            ['uid_problem'=> 'NEED-1','problem_name' => 'Supervisor need to track their all employees leave history', 'project_id' => 1],
+            ['uid_problem'=> 'NEED-1','problem_name' => 'Supervisor need to track their all employees leave history', 'project_id' => 1],
+            ['uid_problem'=> 'NEED-1','problem_name' => 'Supervisor need to be notified by email if any leave request from subordinate', 'project_id' => 1],
+            ['uid_problem'=> 'NEED-1','problem_name' => 'Employees need to be notified by email if any approval from their supervisor', 'project_id' => 1],
+            ['uid_problem'=> 'NEED-1','problem_name' => 'HR need to be notified by email if any approved request from supervisor', 'project_id' => 1],
+            ['uid_problem'=> 'NEED-1','problem_name' => 'Employees need to be notified by email if any approval from their HR', 'project_id' => 1],
         ];
         foreach ($problemDomain as $pd) {
             ProblemDomain::create($pd);
@@ -130,12 +130,12 @@ class DatabaseSeeder extends Seeder
          * MARK: Solution Domain
          */
         $solutionDomain = [
-            ['project_id' =>  1, 'solution_desc' => 'The system must be able to allow the employee to create a leave request', 'type_solution' => 'Functionality', 'solution_revision' => 'The system must be able to allow the employee to create a leave request directly inside the system without call supervisor first'],
-            ['project_id' =>  1, 'solution_desc' => 'The system must be able to fit', 'type_solution' => 'Usability', 'solution_revision' => 'The system must be able to fit into mobile devices (responsive web design)'],
-            ['project_id' =>  1, 'solution_desc' => 'The system must be able to provide the availability', 'type_solution' => 'Reliability', 'solution_revision' => 'The system must be able to provide the availability with minimum at 99%'],
-            ['project_id' =>  1, 'solution_desc' => 'The system response time must be fast', 'type_solution' => 'Performance', 'solution_revision' => 'The system response time must be less than 5 seconds'],
-            ['project_id' =>  1, 'solution_desc' => 'The system codebase is developed by Microservices', 'type_solution' => 'Supportability', 'solution_revision' => 'The system codebase is developed by Service Oriented Architecture'],
-            ['project_id' =>  1, 'solution_desc' => 'The system must be delivered', 'type_solution' => 'Design & Implementation Constraint', 'solution_revision' => 'The system must be delivered by the deadline'],
+            ['uid_solution'=>'REQ001-Functionality','project_id' =>  1, 'solution_desc' => 'The system must be able to allow the employee to create a leave request', 'type_solution' => 'Functionality', 'solution_revision' => 'The system must be able to allow the employee to create a leave request directly inside the system without call supervisor first'],
+            ['uid_solution'=>'REQ001-Usability','project_id' =>  1, 'solution_desc' => 'The system must be able to fit', 'type_solution' => 'Usability', 'solution_revision' => 'The system must be able to fit into mobile devices (responsive web design)'],
+            ['uid_solution'=>'REQ001-Reliability','project_id' =>  1, 'solution_desc' => 'The system must be able to provide the availability', 'type_solution' => 'Reliability', 'solution_revision' => 'The system must be able to provide the availability with minimum at 99%'],
+            ['uid_solution'=>'REQ001-Performance','project_id' =>  1, 'solution_desc' => 'The system response time must be fast', 'type_solution' => 'Performance', 'solution_revision' => 'The system response time must be less than 5 seconds'],
+            ['uid_solution'=>'REQ001-Supportability','project_id' =>  1, 'solution_desc' => 'The system codebase is developed by Microservices', 'type_solution' => 'Supportability', 'solution_revision' => 'The system codebase is developed by Service Oriented Architecture'],
+            ['uid_solution'=>'REQ001-Design & Implementation Constraint','project_id' =>  1, 'solution_desc' => 'The system must be delivered', 'type_solution' => 'Design & Implementation Constraint', 'solution_revision' => 'The system must be delivered by the deadline'],
         ];
         foreach ($solutionDomain as $sd) {
             SolutionDomains::create($sd);
@@ -206,25 +206,25 @@ class DatabaseSeeder extends Seeder
             EliminatedSolutionRank::create($er);
         }
         /**
-         * UseCase Seeder
+         * MARK:UseCase Seeder
          */
         $useCases = [
-            ['project_id' => 1, 'case_name' => 'Creating leave request', 'case_desc' => 'This usecase consists of creating a leave request, select the leave type that will be used such as annual leave, sick leave, etc. Then upload the required document to support it. Employee can to submit leave request after create leave request.'],
-            ['project_id' => 1, 'case_name' => 'Updating a leave request', 'case_desc' => 'This usecase allow the employee to edit, delete and cancel a saved leave request then modify it before submit it.'],
-            ['project_id' => 1, 'case_name' => 'Tracking a leave request', 'case_desc' => 'This usecase allows employee to view and track history a leave request.'],
-            ['project_id' => 1, 'case_name' => 'Checking leave request', 'case_desc' => 'This usecase allow the supervisor and HR to view their subordinate leave request.'],
-            ['project_id' => 1, 'case_name' => 'Approval leave request', 'case_desc' => 'This usecase allow to the supervisor and HR to approve or decline their subordinate leave request.'],
-            ['project_id' => 1, 'case_name' => 'User login to the system', 'case_desc' => 'This usecase allow all employees to login using their email as the main login system, and they also can login with Single Sign On (SSO).'],
-            ['project_id' => 1, 'case_name' => 'Managing a profile employee', 'case_desc' => 'This usecase allow all employees to update their profile and request for changing their password account. HR is able to change an employee password, add and modify employee data after there are a request from their employees.'],
-            ['project_id' => 1, 'case_name' => 'Showing notification of the leave request', 'case_desc' => 'This usecase allow all employees, supervisor and HR to get a notification from email and push notifitcations for some events that has happened. it includes notifications to supervisor when the subordinate requests a leave, and subordinate notifications after supervisor or HR approve their request.'],
-            ['project_id' => 1, 'case_name' => 'Managing leave request reports', 'case_desc' => 'This usecase allow the HR to download the leave reports. The reports could be downloaded as PDF form.'],
+            ['uid_case'=> 'UC001','project_id' => 1, 'case_name' => 'Creating leave request', 'case_desc' => 'This usecase consists of creating a leave request, select the leave type that will be used such as annual leave, sick leave, etc. Then upload the required document to support it. Employee can to submit leave request after create leave request.'],
+            ['uid_case'=> 'UC002','project_id' => 1, 'case_name' => 'Updating a leave request', 'case_desc' => 'This usecase allow the employee to edit, delete and cancel a saved leave request then modify it before submit it.'],
+            ['uid_case'=> 'UC003','project_id' => 1, 'case_name' => 'Tracking a leave request', 'case_desc' => 'This usecase allows employee to view and track history a leave request.'],
+            ['uid_case'=> 'UC004','project_id' => 1, 'case_name' => 'Checking leave request', 'case_desc' => 'This usecase allow the supervisor and HR to view their subordinate leave request.'],
+            ['uid_case'=> 'UC005','project_id' => 1, 'case_name' => 'Approval leave request', 'case_desc' => 'This usecase allow to the supervisor and HR to approve or decline their subordinate leave request.'],
+            ['uid_case'=> 'UC006','project_id' => 1, 'case_name' => 'User login to the system', 'case_desc' => 'This usecase allow all employees to login using their email as the main login system, and they also can login with Single Sign On (SSO).'],
+            ['uid_case'=> 'UC007','project_id' => 1, 'case_name' => 'Managing a profile employee', 'case_desc' => 'This usecase allow all employees to update their profile and request for changing their password account. HR is able to change an employee password, add and modify employee data after there are a request from their employees.'],
+            ['uid_case'=> 'UC008','project_id' => 1, 'case_name' => 'Showing notification of the leave request', 'case_desc' => 'This usecase allow all employees, supervisor and HR to get a notification from email and push notifitcations for some events that has happened. it includes notifications to supervisor when the subordinate requests a leave, and subordinate notifications after supervisor or HR approve their request.'],
+            ['uid_case'=> 'UC009','project_id' => 1, 'case_name' => 'Managing leave request reports', 'case_desc' => 'This usecase allow the HR to download the leave reports. The reports could be downloaded as PDF form.'],
         ];
         foreach($useCases as $uc){
             UseCase::create($uc);
         }
 
         /**
-         * Use Case Actor
+         * MARK:Use Case Actor
          */
         $useCaseActor = [
             ['project_id' => 1, 'actor_name' => 'Employee'],

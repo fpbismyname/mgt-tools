@@ -22,6 +22,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class showProject extends Component
 {
@@ -145,6 +146,10 @@ class showProject extends Component
     */
     public function addProblemDomain(Request $request, $id)
     {
+        //Membuat UID
+        $problemDomain = ProblemDomain::where('project_id', $id);
+        // dd($problemDomain->get());
+        $uidProblem = sprintf("NEED-%00d", $problemDomain->get()->count() + 1);
 
         //Rules Input
         $rules = [
@@ -164,6 +169,7 @@ class showProject extends Component
 
         //AddProblemDomain
         $problemDomain = new ProblemDomain([
+            'uid_problem'=> $uidProblem,
             'problem_name' => $request->request_desc,
         ]);
 
@@ -174,6 +180,7 @@ class showProject extends Component
     }
     public function editProblemDomain(Request $request, $id)
     {
+
         //Rules Input
         $rules = [
             'problem_name' => 'required',
@@ -194,13 +201,24 @@ class showProject extends Component
         // dd($problemUpdate);
         return redirect()->back()->with('alertMessage', ["Add Request Success", "Add request description successfully !", "success"]);
     }
-    public function deleteProblemDomain($id)
+    public function deleteProblemDomain($id_project, $id)
     {
         //Get Project
         $problemDomain = ProblemDomain::findOrFail($id);
 
         if (!$problemDomain->delete()) return redirect()->back()->with('alertMessage', ["Delete Request Failed", "There is something wrong with !", "error"]);
 
+        //Urutkan Ulang Uid
+        $newBaseNumber = 1;
+        $problemDomains = ProblemDomain::where('project_id', $id_project);
+        $uidProblem = $problemDomains->orderBy('id_problem')->get();
+        // dd($uidProblem);
+        //Mengubah semua id menjadi berurutan
+        foreach($uidProblem as $up){
+            $up->uid_problem = sprintf("NEED-%0d", $newBaseNumber);
+            $up->save();
+            $newBaseNumber++;
+        }
         return redirect()->back()->with('alertMessage', ["Delete Request Success", "Delete request successfully !", "success"]);
     }
 
@@ -210,17 +228,29 @@ class showProject extends Component
      */
     public function addSolutionDomain(Request $request, $id)
     {
+        //Update urutan uid
+        $solutionDomains = SolutionDomains::where('project_id', $id);
+        $uidSolution = sprintf("REQ%03d", $solutionDomains->where('type_solution', '=', $request->type_solution)->get()->count() + 1);
+
         //Rules of input
         $rules = [
             'solution_desc' => 'required',
             'type_solution' => 'required',
         ];
+
         //Validation Input Value
         $checkInput = Validator::make($request->all(), $rules);
         if ($checkInput->fails()) return redirect()->back()->with('alertMessage', ["Add Solution Failed", "Please fill in all the fields !", "error"]);
+
         //Set Foregin Key & add data
         $projects = Projects::findOrFail($id);
-        $solutionDomain = new SolutionDomains($request->all());
+
+        //Add data
+        $solutionDomain = new SolutionDomains([
+            'uid_solution' => $uidSolution."-".$request->type_solution,
+            'solution_desc' => $request->solution_desc,
+            'type_solution' => $request->type_solution,
+        ]);
         $projects->Projects_SolutionDomain_id()->save($solutionDomain);
 
         //Return if Success
@@ -228,7 +258,6 @@ class showProject extends Component
     }
     public function editSolutionDomain(Request $request, $id)
     {
-        // dd("updated");
         if ($request->solution_desc && $request->solution_desc == "") {
             return redirect()->back()->with('alertMessage', ["Edit Solution Failed", "Please fill in the field !", "error"]);
         }
@@ -239,14 +268,18 @@ class showProject extends Component
         if ($request->solution_desc) {
             if ($solutionDomain->solution_desc !== $request->solution_desc) {
                 //editProblemDomain
+                $solutionNeeds = $request->input('solution_need', []);
                 $solutionDomain->update([
                     'solution_revision' => $request->solution_desc,
-                    'type_solution' => $request->type_solution
+                    'type_solution' => $request->type_solution,
+                    'solution_need' => $solutionNeeds,
                 ]);
             } else {
+                $solutionNeeds = $request->input('solution_need', []);
                 $solutionDomain->update([
                     'solution_revision' => $request->solution_desc,
-                    'type_solution' => $request->type_solution
+                    'type_solution' => $request->type_solution,
+                    'solution_need' => $solutionNeeds,
                 ]);
             }
         } else {
@@ -255,12 +288,23 @@ class showProject extends Component
 
         return redirect()->back()->with('alertMessage', ["Edit Request Success", "Edit Request data successfully !", "success"]);
     }
-    public function deleteSolutionDomain($id)
+    public function deleteSolutionDomain($id_project, $id)
     {
         //Get Project
         $solutionDomain = SolutionDomains::findOrFail($id);
-
+        
         if (!$solutionDomain->delete()) return redirect()->back()->with('alertMessage', ["Delete Request Failed", "There is something wrong with !", "error"]);
+
+        //Urutkan Ulang Uid
+        $newBaseNumber = 1;
+        $solutionDomains = SolutionDomains::where('project_id', $id_project)->where('type_solution', $solutionDomain->type_solution);
+        $UidSolution = $solutionDomains->orderBy('id_solution')->get();
+        //Mengubah semua id menjadi berurutan
+        foreach($UidSolution as $us){
+            $us->uid_solution = sprintf("REQ%03d", $newBaseNumber)."-".$us->type_solution;
+            $us->save();
+            $newBaseNumber++;
+        }
 
         return redirect()->back()->with('alertMessage', ["Delete Request Success", "Delete request successfully !", "success"]);
     }
@@ -270,18 +314,31 @@ class showProject extends Component
      */
     public function addUseCase(Request $request, $id)
     {
+        //Update urutan uid
+        $useCases = UseCase::where('project_id', $id);
+        $uidUsecase = sprintf("UC%03d", $useCases->get()->count() + 1);
+
         //Rules of input
         $rules = [
             'case_name' => 'required',
             'case_desc' => 'required',
         ];
+
         //Validation Input Value
         $checkInput = Validator::make($request->all(), $rules);
         if ($checkInput->fails()) return redirect()->back()->with('alertMessage', ["Add Use Case Failed", "Please fill in all the fields !", "error"]);
+
         //Set Foregin Key & add data
         $projects = Projects::findOrFail($id);
-        $useCase = new UseCase($request->all());
+
+        $useCase = new UseCase([
+            'uid_case' => $uidUsecase,
+            'case_name' => $request->case_name,
+            'case_desc' => $request->case_desc,
+        ]);
+
         $projects->Projects_UseCase_id()->save($useCase);
+
         //Return if Success
         return redirect()->back()->with('alertMessage', ["Add Use Case Success", "Add use case successfully !", "success", true]);
     }
@@ -290,14 +347,22 @@ class showProject extends Component
         if ($request->case_name && $request->case_desc && $request->case_desc == "" && $request->case_desc == "") {
             return redirect()->back()->with('alertMessage', ["Edit Use Case Failed", "Please fill in the fields !", "error"]);
         }
+        //Memasukan Data Actor
+        $dataActor = $request->input('case_actor', []);
+        $dataActor = Arr::join($dataActor, ',');
 
-        $data = $request->input('case_actor', []);
-        $data = Arr::join($data, ',');
+        //Memasukan Data Actor vs Feat
+        $dataFeat = $request->input('case_for_solution', []);
+        $dataFeat = Arr::join($dataFeat, ',');
+
+        //Datayang di masukan
         $datas = [
             $request->case_name?['case_name' => $request->case_name]:null,
             $request->case_desc?['case_desc' => $request->case_desc]:null,
-            'case_actor' => $data,
-            'case_for_solution' => $request->case_for_solution
+            'case_actor' => $dataActor,
+            'case_for_solution' => $dataFeat,
+            // 'case_for_type_solution' => $dataTypeSolution,
+
         ];
         //Get Project
         $useCase = UseCase::findOrFail($id);

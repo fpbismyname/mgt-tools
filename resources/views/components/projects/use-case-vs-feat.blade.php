@@ -11,7 +11,9 @@
                         <div class="col-12 col-sm text-center text-sm-end">
                             <div class="container">
                                 <div class="row justify-content-center justify-content-sm-end gap-2">
-                                    <button class="col-auto btn btn-primary fs-6"><i class="bi bi-map-fill me-2"></i>Legenda</button>
+                                    <button class="col-auto btn btn-primary fs-6" data-bs-toggle="modal"
+                                        data-bs-target="#legendaUCvsF"><i
+                                            class="bi bi-map-fill me-2"></i>Legenda</button>
                                 </div>
                             </div>
                         </div>
@@ -27,11 +29,11 @@
                                 <table class="table table-hover">
                                     {{-- column title --}}
                                     <tbody class="">
-                                        <tr class="align-middle">
+                                        <tr class="align-middle" rowspan="2">
                                             <th scope="col" class="text-start">UC.ID</th>
                                             <th scope="col">Use Case Name</th>
                                             <th scope="col" class="text-start">Use Case Description</th>
-                                            <th scope="col" class="text-center">Feature</th>
+                                            <th scope="col" colspan="1" class="text-center">Feature</th>
                                             <th scope="col" class="text-end">Action</th>
                                         </tr>
                                     </tbody>
@@ -44,7 +46,7 @@
                                         @if ($useCase->count() > 0)
                                             @foreach ($useCase as $uc)
                                                 <tr class="align-middle">
-                                                    <td class="text-start col-1">{{ sprintf('UC%03d', $useCaseId++) }}
+                                                    <td class="text-start col-1">{{ $uc->uid_case }}
                                                     </td>
                                                     <td class="col-auto">
                                                         <span class="fs-6">{{ $uc->case_name }}</span>
@@ -54,42 +56,27 @@
                                                             class="fs-6 d-block d-md-none">{{ Str::words($uc->case_desc, 5, '...') }}</span>
                                                         <span class="fs-6 d-none d-md-block">{{ $uc->case_desc }}</span>
                                                     </td>
-                                                    <td class="col-2 text-center">
-                                                        {{-- {{ $uc->case_actor ? '' : '-' }} --}}
-                                                        @if ($solutionDomain->count() > 0)
-                                                            <div class="d-flex flex-wrap justify-content-center gap-1">
-                                                                @php
-                                                                    $Func = 1;
-                                                                    $Usb = 1;
-                                                                    $Rlby = 1;
-                                                                    $Perform = 1;
-                                                                    $Support = 1;
-                                                                    $Design = 1;
-                                                                @endphp
+                                                    {{-- MARK:Feature --}}
+                                                    <td class="align-middle">
+                                                        <div class="d-flex flex-row flex-wrap justify-content-center">
+                                                            @if ($uc->case_for_solution)
                                                                 @foreach ($solutionDomain as $sd)
-                                                                    @switch($sd->type_solution)
-                                                                        @case('Functionality')
-                                                                            <span class="badge text-bg-primary">REQ{{ $Func++ }}</span>
-                                                                        @break
-                                                                        @case('Usability')
-                                                                        <span class="badge text-bg-info">REQ{{ $Usb++ }}</span>
-                                                                        @break
-                                                                        @case('Reliability')
-                                                                        <span class="badge text-bg-success">REQ{{ $Rlby++ }}</span>
-                                                                        @break
-                                                                        @case('Performance')
-                                                                        <span class="badge text-bg-warning">REQ{{ $Perform++ }}</span>
-                                                                        @break
-                                                                        @case('Supportability')
-                                                                        <span class="badge text-bg-danger">REQ{{ $Support++ }}</span>
-                                                                        @break
-                                                                        @case('Design & Implementation Constraint')
-                                                                        <span class="badge text-bg-secondary">REQ{{ $Design++ }}</span>
-                                                                        @break
-                                                                    @endswitch
+                                                                    <div class="d-flex-flex-column flex-wrap">
+                                                                        <span
+                                                                            class="m-1 {{ Str::of($uc->case_for_solution)->contains($sd->uid_solution) ? 'd-block' : 'd-none' }} 
+                                                                                {{ $sd->type_solution == 'Functionality' ? 'badge rounded-pill text-bg-primary' : '' }}
+                                                                                {{ $sd->type_solution == 'Usability' ? 'badge rounded-pill text-bg-info' : '' }}
+                                                                                {{ $sd->type_solution == 'Reliability' ? 'badge rounded-pill text-bg-success' : '' }}
+                                                                                {{ $sd->type_solution == 'Performance' ? 'badge rounded-pill text-bg-warning' : '' }}
+                                                                                {{ $sd->type_solution == 'Supportability' ? 'badge rounded-pill text-bg-danger' : '' }}
+                                                                                {{ $sd->type_solution == 'Design & Implementation Constraint' ? 'badge rounded-pill text-bg-secondary' : '' }}
+                                                                                    ">{{ Str::before($sd->uid_solution, '-') }}</span>
+                                                                    </div>
                                                                 @endforeach
-                                                            </div>
-                                                        @endif
+                                                            @else
+                                                                <span>-</span>
+                                                            @endif
+                                                        </div>
                                                     </td>
                                                     <td class="text-end col-2">
                                                         <button class="btn btn-warning m-1"
@@ -97,14 +84,9 @@
                                                             data-bs-toggle="modal"><i
                                                                 class="bi bi-pencil-fill"></i><span
                                                                 class="d-none d-lg-inline-block ms-2">Edit</span></button>
-                                                        {{-- <button class="btn btn-danger m-1"
-                                                            data-bs-target="#deletePopup-{{ $uc->id_usecase }}"
-                                                            data-bs-toggle="modal">
-                                                            <i class="bi bi-trash-fill me-lg-2"></i><span
-                                                                class="d-none d-lg-inline-block">Delete</span></button> --}}
                                                     </td>
                                                     {{-- //MARK: Edit UC --}}
-                                                    <x-modal-popup title="Edit Use Case Actor"
+                                                    <x-modal-popup title="{{ $uc->uid_case }} - Edit Feat"
                                                         modalName="editPopup-{{ $uc->id_usecase }}">
                                                         <x-slot name="modalIcon"><i
                                                                 class="bi bi-pencil-fill me-2"></i></x-slot>
@@ -114,38 +96,43 @@
                                                             enctype="multipart/form-data" id="inputForm">
                                                             @csrf
                                                             @method('PUT')
-                                                            <div class="container p-3">
-                                                                <div class="row">
-                                                                    <div class="container">
-                                                                        <div class="row justify-content-center">
-                                                                            <div
-                                                                                class="col-12 mb-3 justify-content-center ">
+                                                            <div class="container">
+                                                                <div class="row text-center">
+                                                                    <label for="case_actor"
+                                                                        class="form-label mb-1 fs-5">Select
+                                                                        the
+                                                                        feature for the use case
+                                                                        :</label>
+                                                                    @foreach ($typeSolution as $ts)
+                                                                        <div
+                                                                            class="col-12 d-flex my-3 flex-column align-items-center justify-content-center">
+                                                                            <h5 class="fs-6">{{ $ts->type_name }}
+                                                                            </h5>
+                                                                            @foreach ($solutionDomain->where('type_solution', $ts->type_name) as $sd)
                                                                                 <div
-                                                                                    class="d-flex flex-column justify-content-center align-items-center gap-2">
-                                                                                    <label for="case_actor"
-                                                                                        class="form-label mb-1">Select
-                                                                                        the
-                                                                                        actor for use case :</label>
-                                                                                    {{-- @foreach ($useCaseActor as $uca)
-                                                                                        <div class="form-check">
-                                                                                            <input
-                                                                                                class="form-check-input"
-                                                                                                type="checkbox"
-                                                                                                name="case_actor[]"
-                                                                                                value="{{ $uca->actor_name }}"
-                                                                                                {{ Str::of($uc->case_actor)->contains($uca->actor_name) ? 'checked' : '' }}><span
-                                                                                                class="badge text-bg-primary border border-4 border-primary-subtle">{{ $uca->actor_name }}</span></input>
-                                                                                        </div>
-                                                                                    @endforeach --}}
+                                                                                    class="d-flex flex-row gap-2 align-items-center justify-content-center flex-wrap">
+                                                                                    <input type="checkbox"
+                                                                                        name="case_for_solution[]"
+                                                                                        class="form-check-input mb-2"
+                                                                                        value="{{ $sd->uid_solution }}"
+                                                                                        {{ Str::contains($uc->case_for_solution, $sd->uid_solution) ? 'checked' : '' }} />
+                                                                                    <label for="case_for_solution"
+                                                                                        class="
+                                                                                                {{ $ts->type_name == 'Functionality' ? 'badge rounded-pill text-bg-primary' : '' }}
+                                                                                                {{ $ts->type_name == 'Usability' ? 'badge rounded-pill text-bg-info' : '' }}
+                                                                                                {{ $ts->type_name == 'Reliability' ? 'badge rounded-pill text-bg-success' : '' }}
+                                                                                                {{ $ts->type_name == 'Performance' ? 'badge rounded-pill text-bg-warning' : '' }}
+                                                                                                {{ $ts->type_name == 'Supportability' ? 'badge rounded-pill text-bg-danger' : '' }}
+                                                                                                {{ $ts->type_name == 'Design & Implementation Constraint' ? 'badge rounded-pill text-bg-secondary' : '' }}
+                                                                                                ">{{ Str::before($sd->uid_solution, '-') }}</label>
                                                                                 </div>
-                                                                            </div>
-                                                                            <div class="col-12 my-4 text-center">
-                                                                                <button
-                                                                                    class="col-auto btn btn-warning fs-6"
-                                                                                    type="submit" id="btnSubmitForm"><i
-                                                                                        class="bi bi-plus-circle-fill me-2"></i>Edit</button>
-                                                                            </div>
+                                                                            @endforeach
                                                                         </div>
+                                                                    @endforeach
+                                                                    <div class="col-12 my-4 text-center">
+                                                                        <button class="col-auto btn btn-warning fs-6"
+                                                                            type="submit" id="btnSubmitForm"><i
+                                                                                class="bi bi-plus-circle-fill me-2"></i>Edit</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -167,23 +154,30 @@
             </div>
         </div>
     </div>
-    {{-- //MARK: Add Actor --}}
-    <x-modal-popup title="Manage Actor" modalName="addActor">
-        <x-slot name="modalIcon"><i class="bi bi-list-task me-2"></i></x-slot>
-        <form action="{{ route('use-case-actor.add', $projectId) }}" method="post">
-            @csrf
-            <div class="container p-5">
-                <div class="row">
-                    <div class="col-12 mb-3">
-                        <label for="actor_name">Actor name</label>
-                        <input class="form-control" type="text" name="actor_name" value="">
-                    </div>
-                    <div class="col-12 text-center py-2">
-                        <button class="btn btn-primary"><i class="bi bi-plus-circle-fill me-2"></i>Add
-                            Actor</button>
-                    </div>
+    {{-- //MARK: Legenda Potential --}}
+    <x-modal-popup title="Legenda Use Case vs Feat (feature)" modalName="legendaUCvsF">
+        <x-slot name="modalIcon"><i class="bi bi-map-fill me-2"></i></x-slot>
+        <div class="container">
+            <div class="row p-5 gap-4 text-center">
+                <div class="col-12">
+                    <h4 class="fs-4">Type of solution domain</h4>
                 </div>
+                @foreach ($typeSolution as $ts)
+                    <div class="col-12">
+                            <h5
+                                class="fs-5
+                            {{ $ts->type_name == 'Functionality' ? 'badge rounded-pill text-bg-primary' : '' }}
+                            {{ $ts->type_name == 'Usability' ? 'badge rounded-pill text-bg-info' : '' }}
+                            {{ $ts->type_name == 'Reliability' ? 'badge rounded-pill text-bg-success' : '' }}
+                            {{ $ts->type_name == 'Performance' ? 'badge rounded-pill text-bg-warning' : '' }}
+                            {{ $ts->type_name == 'Supportability' ? 'badge rounded-pill text-bg-danger' : '' }}
+                            {{ $ts->type_name == 'Design & Implementation Constraint' ? 'badge rounded-pill text-bg-secondary' : '' }}
+                            ">
+                                REQ000</h5>
+                            <h5 class="fs-6">{{ $ts->type_name }}</h5>
+                    </div>
+                @endforeach
             </div>
-        </form>
+        </div>
     </x-modal-popup>
 </div>

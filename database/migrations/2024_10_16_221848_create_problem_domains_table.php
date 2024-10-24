@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('problem_domains', function (Blueprint $table) {
             $table->id("id_problem");
+            $table->text("uid_problem")->nullable();
             $table->text("problem_name");
             $table->unsignedBigInteger("project_id");
             $table->timestamps();

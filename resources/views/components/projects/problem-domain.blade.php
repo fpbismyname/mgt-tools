@@ -41,7 +41,7 @@
                                     @if ($problemDomain->count() > 0)
                                         @foreach ($problemDomain as $pd)
                                             <tr class="align-middle text-wrap" id="{{ $pd->id_problem }}">
-                                                <td class="text-start col-1">Need-{{ $i++}}</td>
+                                                <td class="text-start col-1">{{ $pd->uid_problem }}</td>
                                                 <td class="text-break col-auto">
                                                     {{ $pd->problem_name }}</td>
                                                 <td class="text-end col-4">
@@ -96,7 +96,7 @@
                                                 <div class="container py-5">
                                                     <div class="container">
                                                         <form class="row text-center justify-content-center"
-                                                            action="{{ route('problem-domain.delete', $pd->id_problem) }}"
+                                                            action="{{ route('problem-domain.delete', ['id_project'=> $projectId, 'id'=> $pd->id_problem]) }}"
                                                             method="POST" id="inputForm">
                                                             @csrf
                                                             @method('DELETE')

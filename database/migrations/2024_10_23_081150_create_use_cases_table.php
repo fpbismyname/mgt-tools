@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('use_cases', function (Blueprint $table) {
             $table->id('id_usecase');
+            $table->string('uid_case')->nullable();
             $table->unsignedBigInteger('project_id');
             $table->string('case_name')->nullable();
             $table->text('case_desc')->nullable();
             $table->string('case_actor')->nullable();
-            $table->string('case_for_solution')->nullable();
+            $table->text('case_for_solution')->nullable();
             $table->timestamps();
 
             $table->foreign('project_id')->references('id_project')->on('projects')->onDelete("cascade");

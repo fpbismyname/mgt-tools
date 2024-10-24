@@ -58,11 +58,23 @@
                                         @if ($functionalSolution->count() > 0)
                                             @foreach ($functionalSolution as $sD)
                                                 <tr class="align-middle">
-                                                    <td class="text-start col-1">{{ sprintf('REQ%03d', $functional++) }}
+                                                    <td class="text-start col-1">{{ $sD->uid_solution }}
                                                     </td>
                                                     <td class="col-auto">{{ $sD->solution_revision ?: $sD->solution_desc }}</td>
-                                                    <td class="col-2 text-center">
-                                                       {{ $sD->solution_need ? $sD->solution_need : "-" }} 
+                                                    <td class="align-middle">
+                                                        <div class="d-flex flex-row flex-wrap justify-content-center">
+                                                            @if ($sD->solution_need)
+                                                                @foreach ($problemDomains as $pd)
+                                                                    <div class="d-flex flex-column flex-wrap">
+                                                                        <span class="badge text-bg-primary border border-4 border-primary-subtle rounded-pill m-1
+                                                                            {{ Str::of($sD->solution_need)->contains($pd->uid_problem) ? "d-block" : "d-none"}}
+                                                                        ">{{ $pd->uid_problem }}</span>
+                                                                    </div>
+                                                                @endforeach
+                                                            @else
+                                                                <span>-</span>
+                                                            @endif
+                                                        </div>
                                                     </td>
                                                     <td class="text-end col-2">
                                                         <button class="btn btn-warning"
@@ -82,39 +94,33 @@
                                                         enctype="multipart/form-data" id="inputForm">
                                                         @csrf
                                                         @method('PUT')
-                                                        <div class="container p-3">
-                                                            <div class="row justify-content-center">
-                                                                <div class="container">
-                                                                    <div class="row">
-                                                                        <div class="col-12 mb-3">
-                                                                            <label class="form-label mb-1">Request Description</label>
-                                                                            <input type="text"
-                                                                                class="form-control" disabled
-                                                                                value="{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}">
-                                                                        </div>
-                                                                        <div class="col-12 mb-3">
-                                                                            <label for="solution_need"
-                                                                                class="form-label mb-1">Needs To</label>
-                                                                            <select name="solution_need"
-                                                                                class="form-select">
-                                                                                @php
-                                                                                    $problemDomain = 0;
-                                                                                @endphp
-                                                                                    @foreach ($problemDomains as $pd)
-                                                                                    {{$problemDomain++}}
-                                                                                        <option value="Need-{{$problemDomain}}">Need-{{$problemDomain}}</option>
-                                                                                    @endforeach
-                                                                            </select>
-                                                                        </div>  
-                                                                        <div class="col-12 my-4 text-center">
-                                                                            <button
-                                                                                class="col-auto btn btn-warning fs-6"
-                                                                                type="submit"
-                                                                                id="btnSubmitForm"><i
-                                                                                    class="bi bi-plus-circle-fill me-2"></i>Edit
-                                                                                Potential</button>
-                                                                        </div>
+                                                        <div class="container">
+                                                            <div class="row text-center">
+                                                                <label for="case_actor"
+                                                                    class="form-label mb-1 fs-5">Select
+                                                                    the
+                                                                    Need for the feature
+                                                                    :</label>
+                                                                @foreach ($problemDomains as $pd)
+                                                                    <div
+                                                                        class="col-12 d-flex my-1 flex-column align-items-center justify-content-center">
+                                                                        </h5>
+                                                                            <div
+                                                                                class="d-flex flex-row gap-2 align-items-center justify-content-center flex-wrap">
+                                                                                <input type="checkbox"
+                                                                                    name="solution_need[]"
+                                                                                    class="form-check-input"
+                                                                                    value="{{ $pd->uid_problem }}"
+                                                                                    {{ Str::contains($sD->solution_need, $pd->uid_problem) ? 'checked' : '' }} />
+                                                                                <label for="case_for_solution"
+                                                                                    class="badge text-bg-primary border border-4 border-primary-subtle rounded-pill">{{ $pd->uid_problem }}</label>
+                                                                            </div>
                                                                     </div>
+                                                                @endforeach
+                                                                <div class="col-12 my-4 text-center">
+                                                                    <button class="col-auto btn btn-warning fs-6"
+                                                                        type="submit" id="btnSubmitForm"><i
+                                                                            class="bi bi-plus-circle-fill me-2"></i>Edit</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -181,68 +187,74 @@
                                         @if ($usabilitySolution->count() > 0)
                                             @foreach ($usabilitySolution as $sD)
                                                 <tr class="align-middle">
-                                                    <td class="text-start col-1">{{ sprintf('REQ%03d', $usability++) }}
+                                                    <td class="text-start col-1">{{$sD->uid_solution }}
                                                     </td>
                                                     <td class="col-auto">{{ $sD->solution_revision ?: $sD->solution_desc }}</td>
-                                                    <td class="col-2 text-center">
-                                                        {{ $sD->solution_need ? $sD->solution_need : "-" }} 
-                                                     </td>
-                                                     <td class="text-end col-2">
-                                                         <button class="btn btn-warning"
-                                                             data-bs-target="#editPotential-{{ $sD->id_solution }}"
-                                                             data-bs-toggle="modal"><i
-                                                                 class="bi bi-pencil-fill"></i><span
-                                                                 class="d-none d-lg-inline-block ms-2">Edit</span></button>
-                                                     </td>
-                                                     {{-- //MARK: Edit Solution domain --}}
-                                                 <x-modal-popup title="Edit Potential Problem" modalName="editPotential-{{ $sD->id_solution }}">
-                                                     <x-slot name="modalIcon"><i
-                                                             class="bi bi-pencil-fill me-2"></i></x-slot>
-                                                     <form
-                                                         action="{{ route('solution-domain.edit', $sD->id_solution) }}"
-                                                         method="POST"
-                                                         class="form-control border border-0 rounded-4"
-                                                         enctype="multipart/form-data" id="inputForm">
-                                                         @csrf
-                                                         @method('PUT')
-                                                         <div class="container p-3">
-                                                             <div class="row justify-content-center">
-                                                                 <div class="container">
-                                                                     <div class="row">
-                                                                         <div class="col-12 mb-3">
-                                                                             <label class="form-label mb-1">Request Description</label>
-                                                                             <input type="text"
-                                                                                 class="form-control" disabled
-                                                                                 value="{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}">
-                                                                         </div>
-                                                                         <div class="col-12 mb-3">
-                                                                             <label for="solution_need"
-                                                                                 class="form-label mb-1">Needs To</label>
-                                                                             <select name="solution_need"
-                                                                                 class="form-select">
-                                                                                 @php
-                                                                                     $problemDomain = 0;
-                                                                                 @endphp
-                                                                                     @foreach ($problemDomains as $pd)
-                                                                                     {{$problemDomain++}}
-                                                                                         <option value="Need-{{$problemDomain}}">Need-{{$problemDomain}}</option>
-                                                                                     @endforeach
-                                                                             </select>
-                                                                         </div>  
-                                                                         <div class="col-12 my-4 text-center">
-                                                                             <button
-                                                                                 class="col-auto btn btn-warning fs-6"
-                                                                                 type="submit"
-                                                                                 id="btnSubmitForm"><i
-                                                                                     class="bi bi-plus-circle-fill me-2"></i>Edit
-                                                                                 Potential</button>
-                                                                         </div>
-                                                                     </div>
-                                                                 </div>
-                                                             </div>
-                                                         </div>
-                                                     </form>
-                                                 </x-modal-popup>
+                                                   <td class="align-middle">
+                                                        <div class="d-flex flex-row flex-wrap justify-content-center">
+                                                            @if ($sD->solution_need)
+                                                                @foreach ($problemDomains as $pd)
+                                                                    <div class="d-flex flex-column flex-wrap">
+                                                                        <span class="badge text-bg-primary border border-4 border-primary-subtle rounded-pill m-1
+                                                                            {{ Str::of($sD->solution_need)->contains($pd->uid_problem) ? "d-block" : "d-none"}}
+                                                                        ">{{ $pd->uid_problem }}</span>
+                                                                    </div>
+                                                                @endforeach
+                                                            @else
+                                                                <span>-</span>
+                                                            @endif
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-end col-2">
+                                                        <button class="btn btn-warning"
+                                                            data-bs-target="#editPotential-{{ $sD->id_solution }}"
+                                                            data-bs-toggle="modal"><i
+                                                                class="bi bi-pencil-fill"></i><span
+                                                                class="d-none d-lg-inline-block ms-2">Edit</span></button>
+                                                    </td>
+                                                    {{-- //MARK: Edit Solution domain --}}
+                                                <x-modal-popup title="Edit Potential Problem" modalName="editPotential-{{ $sD->id_solution }}">
+                                                    <x-slot name="modalIcon"><i
+                                                            class="bi bi-pencil-fill me-2"></i></x-slot>
+                                                    <form
+                                                        action="{{ route('solution-domain.edit', $sD->id_solution) }}"
+                                                        method="POST"
+                                                        class="form-control border border-0 rounded-4"
+                                                        enctype="multipart/form-data" id="inputForm">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="container">
+                                                            <div class="row text-center">
+                                                                <label for="case_actor"
+                                                                    class="form-label mb-1 fs-5">Select
+                                                                    the
+                                                                    Need for the feature
+                                                                    :</label>
+                                                                @foreach ($problemDomains as $pd)
+                                                                    <div
+                                                                        class="col-12 d-flex my-1 flex-column align-items-center justify-content-center">
+                                                                        </h5>
+                                                                            <div
+                                                                                class="d-flex flex-row gap-2 align-items-center justify-content-center flex-wrap">
+                                                                                <input type="checkbox"
+                                                                                    name="solution_need[]"
+                                                                                    class="form-check-input"
+                                                                                    value="{{ $pd->uid_problem }}"
+                                                                                    {{ Str::contains($sD->solution_need, $pd->uid_problem) ? 'checked' : '' }} />
+                                                                                <label for="case_for_solution"
+                                                                                    class="badge text-bg-primary border border-4 border-primary-subtle rounded-pill">{{ $pd->uid_problem }}</label>
+                                                                            </div>
+                                                                    </div>
+                                                                @endforeach
+                                                                <div class="col-12 my-4 text-center">
+                                                                    <button class="col-auto btn btn-warning fs-6"
+                                                                        type="submit" id="btnSubmitForm"><i
+                                                                            class="bi bi-plus-circle-fill me-2"></i>Edit</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </x-modal-popup>
                                                 </tr>
                                             @endforeach
                                         @else
@@ -272,68 +284,74 @@
                                         @if ($reliabilitySolution->count() > 0)
                                             @foreach ($reliabilitySolution as $sD)
                                                 <tr class="align-middle">
-                                                    <td class="text-start">{{ sprintf('REQ%03d', $reliability++) }}
+                                                    <td class="text-start">{{$sD->uid_solution}}
                                                     </td>
                                                     <td>{{ $sD->solution_revision ?: $sD->solution_desc }}</td>
-                                                    <td class="col-2 text-center">
-                                                        {{ $sD->solution_need ? $sD->solution_need : "-" }} 
-                                                     </td>
-                                                     <td class="text-end col-2">
-                                                         <button class="btn btn-warning"
-                                                             data-bs-target="#editPotential-{{ $sD->id_solution }}"
-                                                             data-bs-toggle="modal"><i
-                                                                 class="bi bi-pencil-fill"></i><span
-                                                                 class="d-none d-lg-inline-block ms-2">Edit</span></button>
-                                                     </td>
-                                                     {{-- //MARK: Edit Solution domain --}}
-                                                 <x-modal-popup title="Edit Potential Problem" modalName="editPotential-{{ $sD->id_solution }}">
-                                                     <x-slot name="modalIcon"><i
-                                                             class="bi bi-pencil-fill me-2"></i></x-slot>
-                                                     <form
-                                                         action="{{ route('solution-domain.edit', $sD->id_solution) }}"
-                                                         method="POST"
-                                                         class="form-control border border-0 rounded-4"
-                                                         enctype="multipart/form-data" id="inputForm">
-                                                         @csrf
-                                                         @method('PUT')
-                                                         <div class="container p-3">
-                                                             <div class="row justify-content-center">
-                                                                 <div class="container">
-                                                                     <div class="row">
-                                                                         <div class="col-12 mb-3">
-                                                                             <label class="form-label mb-1">Request Description</label>
-                                                                             <input type="text"
-                                                                                 class="form-control" disabled
-                                                                                 value="{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}">
-                                                                         </div>
-                                                                         <div class="col-12 mb-3">
-                                                                             <label for="solution_need"
-                                                                                 class="form-label mb-1">Needs To</label>
-                                                                             <select name="solution_need"
-                                                                                 class="form-select">
-                                                                                 @php
-                                                                                     $problemDomain = 0;
-                                                                                 @endphp
-                                                                                     @foreach ($problemDomains as $pd)
-                                                                                     {{$problemDomain++}}
-                                                                                         <option value="Need-{{$problemDomain}}">Need-{{$problemDomain}}</option>
-                                                                                     @endforeach
-                                                                             </select>
-                                                                         </div>  
-                                                                         <div class="col-12 my-4 text-center">
-                                                                             <button
-                                                                                 class="col-auto btn btn-warning fs-6"
-                                                                                 type="submit"
-                                                                                 id="btnSubmitForm"><i
-                                                                                     class="bi bi-plus-circle-fill me-2"></i>Edit
-                                                                                 Potential</button>
-                                                                         </div>
-                                                                     </div>
-                                                                 </div>
-                                                             </div>
-                                                         </div>
-                                                     </form>
-                                                 </x-modal-popup>
+                                                    <td class="align-middle">
+                                                        <div class="d-flex flex-row flex-wrap justify-content-center">
+                                                            @if ($sD->solution_need)
+                                                                @foreach ($problemDomains as $pd)
+                                                                    <div class="d-flex flex-column flex-wrap">
+                                                                        <span class="badge text-bg-primary border border-4 border-primary-subtle rounded-pill m-1
+                                                                            {{ Str::of($sD->solution_need)->contains($pd->uid_problem) ? "d-block" : "d-none"}}
+                                                                        ">{{ $pd->uid_problem }}</span>
+                                                                    </div>
+                                                                @endforeach
+                                                            @else
+                                                                <span>-</span>
+                                                            @endif
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-end col-2">
+                                                        <button class="btn btn-warning"
+                                                            data-bs-target="#editPotential-{{ $sD->id_solution }}"
+                                                            data-bs-toggle="modal"><i
+                                                                class="bi bi-pencil-fill"></i><span
+                                                                class="d-none d-lg-inline-block ms-2">Edit</span></button>
+                                                    </td>
+                                                    {{-- //MARK: Edit Solution domain --}}
+                                                <x-modal-popup title="Edit Potential Problem" modalName="editPotential-{{ $sD->id_solution }}">
+                                                    <x-slot name="modalIcon"><i
+                                                            class="bi bi-pencil-fill me-2"></i></x-slot>
+                                                    <form
+                                                        action="{{ route('solution-domain.edit', $sD->id_solution) }}"
+                                                        method="POST"
+                                                        class="form-control border border-0 rounded-4"
+                                                        enctype="multipart/form-data" id="inputForm">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="container">
+                                                            <div class="row text-center">
+                                                                <label for="case_actor"
+                                                                    class="form-label mb-1 fs-5">Select
+                                                                    the
+                                                                    Need for the feature
+                                                                    :</label>
+                                                                @foreach ($problemDomains as $pd)
+                                                                    <div
+                                                                        class="col-12 d-flex my-1 flex-column align-items-center justify-content-center">
+                                                                        </h5>
+                                                                            <div
+                                                                                class="d-flex flex-row gap-2 align-items-center justify-content-center flex-wrap">
+                                                                                <input type="checkbox"
+                                                                                    name="solution_need[]"
+                                                                                    class="form-check-input"
+                                                                                    value="{{ $pd->uid_problem }}"
+                                                                                    {{ Str::contains($sD->solution_need, $pd->uid_problem) ? 'checked' : '' }} />
+                                                                                <label for="case_for_solution"
+                                                                                    class="badge text-bg-primary border border-4 border-primary-subtle rounded-pill">{{ $pd->uid_problem }}</label>
+                                                                            </div>
+                                                                    </div>
+                                                                @endforeach
+                                                                <div class="col-12 my-4 text-center">
+                                                                    <button class="col-auto btn btn-warning fs-6"
+                                                                        type="submit" id="btnSubmitForm"><i
+                                                                            class="bi bi-plus-circle-fill me-2"></i>Edit</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </x-modal-popup>
                                                 </tr>
                                             @endforeach
                                         @else
@@ -363,68 +381,74 @@
                                         @if ($performanceSolution->count() > 0)
                                             @foreach ($performanceSolution as $sD)
                                                 <tr class="align-middle">
-                                                    <td class="text-start">{{ sprintf('REQ%03d', $performance++) }}
+                                                    <td class="text-start">{{ $sD->uid_solution }}
                                                     </td>
                                                     <td>{{ $sD->solution_revision ?: $sD->solution_desc }}</td>
-                                                    <td class="col-2 text-center">
-                                                        {{ $sD->solution_need ? $sD->solution_need : "-" }} 
-                                                     </td>
-                                                     <td class="text-end col-2">
-                                                         <button class="btn btn-warning"
-                                                             data-bs-target="#editPotential-{{ $sD->id_solution }}"
-                                                             data-bs-toggle="modal"><i
-                                                                 class="bi bi-pencil-fill"></i><span
-                                                                 class="d-none d-lg-inline-block ms-2">Edit</span></button>
-                                                     </td>
-                                                     {{-- //MARK: Edit Solution domain --}}
-                                                 <x-modal-popup title="Edit Potential Problem" modalName="editPotential-{{ $sD->id_solution }}">
-                                                     <x-slot name="modalIcon"><i
-                                                             class="bi bi-pencil-fill me-2"></i></x-slot>
-                                                     <form
-                                                         action="{{ route('solution-domain.edit', $sD->id_solution) }}"
-                                                         method="POST"
-                                                         class="form-control border border-0 rounded-4"
-                                                         enctype="multipart/form-data" id="inputForm">
-                                                         @csrf
-                                                         @method('PUT')
-                                                         <div class="container p-3">
-                                                             <div class="row justify-content-center">
-                                                                 <div class="container">
-                                                                     <div class="row">
-                                                                         <div class="col-12 mb-3">
-                                                                             <label class="form-label mb-1">Request Description</label>
-                                                                             <input type="text"
-                                                                                 class="form-control" disabled
-                                                                                 value="{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}">
-                                                                         </div>
-                                                                         <div class="col-12 mb-3">
-                                                                             <label for="solution_need"
-                                                                                 class="form-label mb-1">Needs To</label>
-                                                                             <select name="solution_need"
-                                                                                 class="form-select">
-                                                                                 @php
-                                                                                     $problemDomain = 0;
-                                                                                 @endphp
-                                                                                     @foreach ($problemDomains as $pd)
-                                                                                     {{$problemDomain++}}
-                                                                                         <option value="Need-{{$problemDomain}}">Need-{{$problemDomain}}</option>
-                                                                                     @endforeach
-                                                                             </select>
-                                                                         </div>  
-                                                                         <div class="col-12 my-4 text-center">
-                                                                             <button
-                                                                                 class="col-auto btn btn-warning fs-6"
-                                                                                 type="submit"
-                                                                                 id="btnSubmitForm"><i
-                                                                                     class="bi bi-plus-circle-fill me-2"></i>Edit
-                                                                                 Potential</button>
-                                                                         </div>
-                                                                     </div>
-                                                                 </div>
-                                                             </div>
-                                                         </div>
-                                                     </form>
-                                                 </x-modal-popup>
+                                                    <td class="align-middle">
+                                                        <div class="d-flex flex-row flex-wrap justify-content-center">
+                                                            @if ($sD->solution_need)
+                                                                @foreach ($problemDomains as $pd)
+                                                                    <div class="d-flex flex-column flex-wrap">
+                                                                        <span class="badge text-bg-primary border border-4 border-primary-subtle rounded-pill m-1
+                                                                            {{ Str::of($sD->solution_need)->contains($pd->uid_problem) ? "d-block" : "d-none"}}
+                                                                        ">{{ $pd->uid_problem }}</span>
+                                                                    </div>
+                                                                @endforeach
+                                                            @else
+                                                                <span>-</span>
+                                                            @endif
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-end col-2">
+                                                        <button class="btn btn-warning"
+                                                            data-bs-target="#editPotential-{{ $sD->id_solution }}"
+                                                            data-bs-toggle="modal"><i
+                                                                class="bi bi-pencil-fill"></i><span
+                                                                class="d-none d-lg-inline-block ms-2">Edit</span></button>
+                                                    </td>
+                                                    {{-- //MARK: Edit Solution domain --}}
+                                                <x-modal-popup title="Edit Potential Problem" modalName="editPotential-{{ $sD->id_solution }}">
+                                                    <x-slot name="modalIcon"><i
+                                                            class="bi bi-pencil-fill me-2"></i></x-slot>
+                                                    <form
+                                                        action="{{ route('solution-domain.edit', $sD->id_solution) }}"
+                                                        method="POST"
+                                                        class="form-control border border-0 rounded-4"
+                                                        enctype="multipart/form-data" id="inputForm">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="container">
+                                                            <div class="row text-center">
+                                                                <label for="case_actor"
+                                                                    class="form-label mb-1 fs-5">Select
+                                                                    the
+                                                                    Need for the feature
+                                                                    :</label>
+                                                                @foreach ($problemDomains as $pd)
+                                                                    <div
+                                                                        class="col-12 d-flex my-1 flex-column align-items-center justify-content-center">
+                                                                        </h5>
+                                                                            <div
+                                                                                class="d-flex flex-row gap-2 align-items-center justify-content-center flex-wrap">
+                                                                                <input type="checkbox"
+                                                                                    name="solution_need[]"
+                                                                                    class="form-check-input"
+                                                                                    value="{{ $pd->uid_problem }}"
+                                                                                    {{ Str::contains($sD->solution_need, $pd->uid_problem) ? 'checked' : '' }} />
+                                                                                <label for="case_for_solution"
+                                                                                    class="badge text-bg-primary border border-4 border-primary-subtle rounded-pill">{{ $pd->uid_problem }}</label>
+                                                                            </div>
+                                                                    </div>
+                                                                @endforeach
+                                                                <div class="col-12 my-4 text-center">
+                                                                    <button class="col-auto btn btn-warning fs-6"
+                                                                        type="submit" id="btnSubmitForm"><i
+                                                                            class="bi bi-plus-circle-fill me-2"></i>Edit</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </x-modal-popup>
                                                 </tr>
                                             @endforeach
                                         @else
@@ -455,68 +479,74 @@
                                             @foreach ($supportabilitySolution as $sD)
                                                 <tr class="align-middle">
                                                     <td class="text-start">
-                                                        {{ sprintf('REQ%03d', $supportability++) }}
+                                                        {{ $sD->uid_solution }}
                                                     </td>
                                                     <td>{{ $sD->solution_revision ?: $sD->solution_desc }}</td>
-                                                    <td class="col-2 text-center">
-                                                        {{ $sD->solution_need ? $sD->solution_need : "-" }} 
-                                                     </td>
-                                                     <td class="text-end col-2">
-                                                         <button class="btn btn-warning"
-                                                             data-bs-target="#editPotential-{{ $sD->id_solution }}"
-                                                             data-bs-toggle="modal"><i
-                                                                 class="bi bi-pencil-fill"></i><span
-                                                                 class="d-none d-lg-inline-block ms-2">Edit</span></button>
-                                                     </td>
-                                                     {{-- //MARK: Edit Solution domain --}}
-                                                 <x-modal-popup title="Edit Potential Problem" modalName="editPotential-{{ $sD->id_solution }}">
-                                                     <x-slot name="modalIcon"><i
-                                                             class="bi bi-pencil-fill me-2"></i></x-slot>
-                                                     <form
-                                                         action="{{ route('solution-domain.edit', $sD->id_solution) }}"
-                                                         method="POST"
-                                                         class="form-control border border-0 rounded-4"
-                                                         enctype="multipart/form-data" id="inputForm">
-                                                         @csrf
-                                                         @method('PUT')
-                                                         <div class="container p-3">
-                                                             <div class="row justify-content-center">
-                                                                 <div class="container">
-                                                                     <div class="row">
-                                                                         <div class="col-12 mb-3">
-                                                                             <label class="form-label mb-1">Request Description</label>
-                                                                             <input type="text"
-                                                                                 class="form-control" disabled
-                                                                                 value="{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}">
-                                                                         </div>
-                                                                         <div class="col-12 mb-3">
-                                                                             <label for="solution_need"
-                                                                                 class="form-label mb-1">Needs To</label>
-                                                                             <select name="solution_need"
-                                                                                 class="form-select">
-                                                                                 @php
-                                                                                     $problemDomain = 0;
-                                                                                 @endphp
-                                                                                     @foreach ($problemDomains as $pd)
-                                                                                     {{$problemDomain++}}
-                                                                                         <option value="Need-{{$problemDomain}}">Need-{{$problemDomain}}</option>
-                                                                                     @endforeach
-                                                                             </select>
-                                                                         </div>  
-                                                                         <div class="col-12 my-4 text-center">
-                                                                             <button
-                                                                                 class="col-auto btn btn-warning fs-6"
-                                                                                 type="submit"
-                                                                                 id="btnSubmitForm"><i
-                                                                                     class="bi bi-plus-circle-fill me-2"></i>Edit
-                                                                                 Potential</button>
-                                                                         </div>
-                                                                     </div>
-                                                                 </div>
-                                                             </div>
-                                                         </div>
-                                                     </form>
-                                                 </x-modal-popup>
+                                                    <td class="align-middle">
+                                                        <div class="d-flex flex-row flex-wrap justify-content-center">
+                                                            @if ($sD->solution_need)
+                                                                @foreach ($problemDomains as $pd)
+                                                                    <div class="d-flex flex-column flex-wrap">
+                                                                        <span class="badge text-bg-primary border border-4 border-primary-subtle rounded-pill m-1
+                                                                            {{ Str::of($sD->solution_need)->contains($pd->uid_problem) ? "d-block" : "d-none"}}
+                                                                        ">{{ $pd->uid_problem }}</span>
+                                                                    </div>
+                                                                @endforeach
+                                                            @else
+                                                                <span>-</span>
+                                                            @endif
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-end col-2">
+                                                        <button class="btn btn-warning"
+                                                            data-bs-target="#editPotential-{{ $sD->id_solution }}"
+                                                            data-bs-toggle="modal"><i
+                                                                class="bi bi-pencil-fill"></i><span
+                                                                class="d-none d-lg-inline-block ms-2">Edit</span></button>
+                                                    </td>
+                                                    {{-- //MARK: Edit Solution domain --}}
+                                                <x-modal-popup title="Edit Potential Problem" modalName="editPotential-{{ $sD->id_solution }}">
+                                                    <x-slot name="modalIcon"><i
+                                                            class="bi bi-pencil-fill me-2"></i></x-slot>
+                                                    <form
+                                                        action="{{ route('solution-domain.edit', $sD->id_solution) }}"
+                                                        method="POST"
+                                                        class="form-control border border-0 rounded-4"
+                                                        enctype="multipart/form-data" id="inputForm">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="container">
+                                                            <div class="row text-center">
+                                                                <label for="case_actor"
+                                                                    class="form-label mb-1 fs-5">Select
+                                                                    the
+                                                                    Need for the feature
+                                                                    :</label>
+                                                                @foreach ($problemDomains as $pd)
+                                                                    <div
+                                                                        class="col-12 d-flex my-1 flex-column align-items-center justify-content-center">
+                                                                        </h5>
+                                                                            <div
+                                                                                class="d-flex flex-row gap-2 align-items-center justify-content-center flex-wrap">
+                                                                                <input type="checkbox"
+                                                                                    name="solution_need[]"
+                                                                                    class="form-check-input"
+                                                                                    value="{{ $pd->uid_problem }}"
+                                                                                    {{ Str::contains($sD->solution_need, $pd->uid_problem) ? 'checked' : '' }} />
+                                                                                <label for="case_for_solution"
+                                                                                    class="badge text-bg-primary border border-4 border-primary-subtle rounded-pill">{{ $pd->uid_problem }}</label>
+                                                                            </div>
+                                                                    </div>
+                                                                @endforeach
+                                                                <div class="col-12 my-4 text-center">
+                                                                    <button class="col-auto btn btn-warning fs-6"
+                                                                        type="submit" id="btnSubmitForm"><i
+                                                                            class="bi bi-plus-circle-fill me-2"></i>Edit</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </x-modal-popup>
                                                 </tr>
                                             @endforeach
                                         @else
@@ -546,68 +576,74 @@
                                         @if ($designSolution->count() > 0)
                                             @foreach ($designSolution as $sD)
                                                 <tr class="align-middle">
-                                                    <td class="text-start">{{ sprintf('REQ%03d', $design++) }}
+                                                    <td class="text-start">{{ $sD->uid_solution }}
                                                     </td>
                                                     <td>{{ $sD->solution_revision ?: $sD->solution_desc }}</td>
-                                                    <td class="col-2 text-center">
-                                                        {{ $sD->solution_need ? $sD->solution_need : "-" }} 
-                                                     </td>
-                                                     <td class="text-end col-2">
-                                                         <button class="btn btn-warning"
-                                                             data-bs-target="#editPotential-{{ $sD->id_solution }}"
-                                                             data-bs-toggle="modal"><i
-                                                                 class="bi bi-pencil-fill"></i><span
-                                                                 class="d-none d-lg-inline-block ms-2">Edit</span></button>
-                                                     </td>
-                                                     {{-- //MARK: Edit Solution domain --}}
-                                                 <x-modal-popup title="Edit Potential Problem" modalName="editPotential-{{ $sD->id_solution }}">
-                                                     <x-slot name="modalIcon"><i
-                                                             class="bi bi-pencil-fill me-2"></i></x-slot>
-                                                     <form
-                                                         action="{{ route('solution-domain.edit', $sD->id_solution) }}"
-                                                         method="POST"
-                                                         class="form-control border border-0 rounded-4"
-                                                         enctype="multipart/form-data" id="inputForm">
-                                                         @csrf
-                                                         @method('PUT')
-                                                         <div class="container p-3">
-                                                             <div class="row justify-content-center">
-                                                                 <div class="container">
-                                                                     <div class="row">
-                                                                         <div class="col-12 mb-3">
-                                                                             <label class="form-label mb-1">Request Description</label>
-                                                                             <input type="text"
-                                                                                 class="form-control" disabled
-                                                                                 value="{{ $sD->solution_revision ? $sD->solution_revision : $sD->solution_desc }}">
-                                                                         </div>
-                                                                         <div class="col-12 mb-3">
-                                                                             <label for="solution_need"
-                                                                                 class="form-label mb-1">Needs To</label>
-                                                                             <select name="solution_need"
-                                                                                 class="form-select">
-                                                                                 @php
-                                                                                     $problemDomain = 0;
-                                                                                 @endphp
-                                                                                     @foreach ($problemDomains as $pd)
-                                                                                     {{$problemDomain++}}
-                                                                                         <option value="Need-{{$problemDomain}}">Need-{{$problemDomain}}</option>
-                                                                                     @endforeach
-                                                                             </select>
-                                                                         </div>  
-                                                                         <div class="col-12 my-4 text-center">
-                                                                             <button
-                                                                                 class="col-auto btn btn-warning fs-6"
-                                                                                 type="submit"
-                                                                                 id="btnSubmitForm"><i
-                                                                                     class="bi bi-plus-circle-fill me-2"></i>Edit
-                                                                                 Potential</button>
-                                                                         </div>
-                                                                     </div>
-                                                                 </div>
-                                                             </div>
-                                                         </div>
-                                                     </form>
-                                                 </x-modal-popup>
+                                                    <td class="align-middle">
+                                                        <div class="d-flex flex-row flex-wrap justify-content-center">
+                                                            @if ($sD->solution_need)
+                                                                @foreach ($problemDomains as $pd)
+                                                                    <div class="d-flex flex-column flex-wrap">
+                                                                        <span class="badge text-bg-primary border border-4 border-primary-subtle rounded-pill m-1
+                                                                            {{ Str::of($sD->solution_need)->contains($pd->uid_problem) ? "d-block" : "d-none"}}
+                                                                        ">{{ $pd->uid_problem }}</span>
+                                                                    </div>
+                                                                @endforeach
+                                                            @else
+                                                                <span>-</span>
+                                                            @endif
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-end col-2">
+                                                        <button class="btn btn-warning"
+                                                            data-bs-target="#editPotential-{{ $sD->id_solution }}"
+                                                            data-bs-toggle="modal"><i
+                                                                class="bi bi-pencil-fill"></i><span
+                                                                class="d-none d-lg-inline-block ms-2">Edit</span></button>
+                                                    </td>
+                                                    {{-- //MARK: Edit Solution domain --}}
+                                                <x-modal-popup title="Edit Potential Problem" modalName="editPotential-{{ $sD->id_solution }}">
+                                                    <x-slot name="modalIcon"><i
+                                                            class="bi bi-pencil-fill me-2"></i></x-slot>
+                                                    <form
+                                                        action="{{ route('solution-domain.edit', $sD->id_solution) }}"
+                                                        method="POST"
+                                                        class="form-control border border-0 rounded-4"
+                                                        enctype="multipart/form-data" id="inputForm">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="container">
+                                                            <div class="row text-center">
+                                                                <label for="case_actor"
+                                                                    class="form-label mb-1 fs-5">Select
+                                                                    the
+                                                                    Need for the feature
+                                                                    :</label>
+                                                                @foreach ($problemDomains as $pd)
+                                                                    <div
+                                                                        class="col-12 d-flex my-1 flex-column align-items-center justify-content-center">
+                                                                        </h5>
+                                                                            <div
+                                                                                class="d-flex flex-row gap-2 align-items-center justify-content-center flex-wrap">
+                                                                                <input type="checkbox"
+                                                                                    name="solution_need[]"
+                                                                                    class="form-check-input"
+                                                                                    value="{{ $pd->uid_problem }}"
+                                                                                    {{ Str::contains($sD->solution_need, $pd->uid_problem) ? 'checked' : '' }} />
+                                                                                <label for="case_for_solution"
+                                                                                    class="badge text-bg-primary border border-4 border-primary-subtle rounded-pill">{{ $pd->uid_problem }}</label>
+                                                                            </div>
+                                                                    </div>
+                                                                @endforeach
+                                                                <div class="col-12 my-4 text-center">
+                                                                    <button class="col-auto btn btn-warning fs-6"
+                                                                        type="submit" id="btnSubmitForm"><i
+                                                                            class="bi bi-plus-circle-fill me-2"></i>Edit</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </x-modal-popup>
                                                 </tr>
                                             @endforeach
                                         @else
